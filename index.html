@@ -16,11 +16,19 @@
                 <li><a href="#homework2">Homework 2</a></li>
                 <li><a href="#homework3">Homework 3</a></li>
             </ul>
-            <div class="hamburger">
+            <div class="hamburger" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+                <li><a href="#homework1" onclick="toggleMenu()">Homework 1</a></li>
+                <li><a href="#homework2" onclick="toggleMenu()">Homework 2</a></li>
+                <li><a href="#homework3" onclick="toggleMenu()">Homework 3</a></li>
+            </ul>
         </div>
     </nav>
 
@@ -95,5 +103,14 @@
             </div>
         </section>
     </main>
+
+    <script>
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
