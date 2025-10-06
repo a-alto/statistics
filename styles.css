@@ -305,6 +305,40 @@ h4 {
     line-height: 1.8;
 }
 
+/* Content Lists */
+.content-section ul:not(.nav-menu),
+.content-wrapper ul,
+.hero-content ul,
+.info-card ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 1.5rem 0;
+}
+
+.content-section ul:not(.nav-menu) li,
+.content-wrapper ul li,
+.hero-content ul li,
+.info-card ul li {
+    color: #b8b8b8;
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+    position: relative;
+    line-height: 1.8;
+}
+
+.content-section ul:not(.nav-menu) li::before,
+.content-wrapper ul li::before,
+.hero-content ul li::before,
+.info-card ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 6px;
+    height: 2px;
+    background: #ffffff;
+}
+
 /* Info Section */
 .info-section {
     padding: 10rem 0;
