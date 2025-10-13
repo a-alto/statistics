@@ -468,6 +468,119 @@ footer {
     overflow-x: auto;
 }
 
+/* Data Table Styling */
+.data-table {
+    margin: 2rem 0;
+    border-collapse: collapse;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.data-table thead tr {
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.data-table th,
+.data-table td {
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.13);
+    text-align: left;
+    color: #b8b8b8;
+}
+
+.data-table th {
+    color: #e8e8e8;
+    font-weight: 600;
+}
+
+/* Code Block Styling */
+.code-block {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    overflow-x: auto;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    position: relative;
+}
+
+.code-block::before {
+    content: 'SQL';
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: #9ca3af;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.code-block code {
+    display: block;
+    color: #e8e8e8;
+    background: none;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+/* SQL Syntax Highlighting */
+.code-block .language-sql {
+    color: #e8e8e8;
+}
+
+/* SQL Keywords */
+.code-block .language-sql .keyword {
+    color: #60a5fa;
+    font-weight: 600;
+}
+
+/* SQL Functions */
+.code-block .language-sql .function {
+    color: #34d399;
+    font-weight: 500;
+}
+
+/* SQL Strings */
+.code-block .language-sql .string {
+    color: #fbbf24;
+}
+
+/* SQL Numbers */
+.code-block .language-sql .number {
+    color: #f472b6;
+}
+
+/* SQL Comments */
+.code-block .language-sql .comment {
+    color: #6b7280;
+    font-style: italic;
+}
+
+/* SQL Operators */
+.code-block .language-sql .operator {
+    color: #a78bfa;
+    font-weight: 600;
+}
+
+/* Auto-highlight common SQL keywords */
+.code-block code:not([class]) {
+    color: #e8e8e8;
+}
+
+/* Fallback: basic keyword highlighting for unprocessed SQL */
+.code-block code {
+    white-space: pre;
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
     .nav-container,

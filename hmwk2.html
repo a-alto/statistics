@@ -78,6 +78,237 @@
         <section class="content-section">
             <div class="container">
                 <div class="section-number">02</div>
+                <!-- <div class="section-label">Computing the univariate distributions</div> -->
+
+                <div class="content-wrapper">
+                    <h2>Computing the univariate distributions</h2>
+                    <p>
+                        For this work I created a table of students containing some data.
+
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Full Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Height (cm)</th>
+                                    <th>Weight (kg)</th>
+                                    <th>Major</th>
+                                    <th>Part-time Job</th>
+                                    <th>Commute (min)</th>
+                                </tr>
+                            </thead>
+                             <tbody>
+                                 <tr>
+                                     <td>1</td>
+                                     <td>Sofia Bianchi</td>
+                                     <td>19</td>
+                                     <td>F</td>
+                                     <td>164.0</td>
+                                     <td>56.0</td>
+                                     <td>Psychology</td>
+                                     <td>No</td>
+                                     <td>15.0</td>
+                                 </tr>
+                                 <tr>
+                                     <td>2</td>
+                                     <td>Luca Rossi</td>
+                                     <td>21</td>
+                                     <td>M</td>
+                                     <td>178.0</td>
+                                     <td>74.0</td>
+                                     <td>Engineering</td>
+                                     <td>Yes</td>
+                                     <td>40.0</td>
+                                 </tr>
+                                 <tr>
+                                     <td>3</td>
+                                     <td>Giulia Conti</td>
+                                     <td>21</td>
+                                     <td>F</td>
+                                     <td>178.0</td>
+                                     <td>60.0</td>
+                                     <td>Biology</td>
+                                     <td>No</td>
+                                     <td>10.0</td>
+                                 </tr>
+                                 <tr>
+                                     <td>4</td>
+                                     <td>Matteo Greco</td>
+                                     <td>19</td>
+                                     <td>M</td>
+                                     <td>180.0</td>
+                                     <td>82.0</td>
+                                     <td>Business</td>
+                                     <td>Yes</td>
+                                     <td>45.0</td>
+                                 </tr>
+                                 <tr>
+                                     <td>5</td>
+                                     <td>Chiara Esposito</td>
+                                     <td>20</td>
+                                     <td>F</td>
+                                     <td>160.0</td>
+                                     <td>52.0</td>
+                                     <td>Literature</td>
+                                     <td>No</td>
+                                     <td>25.0</td>
+                                 </tr>
+                                 <tr>
+                                     <td>6</td>
+                                     <td>Marco De Luca</td>
+                                     <td>21</td>
+                                     <td>M</td>
+                                     <td>178.0</td>
+                                     <td>70.0</td>
+                                     <td>Computer Science</td>
+                                     <td>No</td>
+                                     <td>30.0</td>
+                                 </tr>
+                                 <tr>
+                                     <td>7</td>
+                                     <td>Alice Romano</td>
+                                     <td>19</td>
+                                     <td>F</td>
+                                     <td>178.0</td>
+                                     <td>65.0</td>
+                                     <td>Sociology</td>
+                                     <td>Yes</td>
+                                     <td>35.0</td>
+                                 </tr>
+                                 <tr>
+                                     <td>8</td>
+                                     <td>Andrea Moretti</td>
+                                     <td>19</td>
+                                     <td>M</td>
+                                     <td>180.0</td>
+                                     <td>77.0</td>
+                                     <td>Physics</td>
+                                     <td>No</td>
+                                     <td>20.0</td>
+                                 </tr>
+                                 <tr>
+                                     <td>9</td>
+                                     <td>Francesca Galli</td>
+                                     <td>23</td>
+                                     <td>F</td>
+                                     <td>164.0</td>
+                                     <td>59.0</td>
+                                     <td>Economics</td>
+                                     <td>Yes</td>
+                                     <td>50.0</td>
+                                 </tr>
+                                 <tr>
+                                     <td>10</td>
+                                     <td>Davide Ferri</td>
+                                     <td>21</td>
+                                     <td>M</td>
+                                     <td>180.0</td>
+                                     <td>68.0</td>
+                                     <td>Mathematics</td>
+                                     <td>No</td>
+                                     <td>15.0</td>
+                                 </tr>
+                             </tbody>
+                        </table>
+
+                        After that, I computed the univariate distribution on the height variable.
+
+                         <pre class="code-block">
+                             <code class="language-sql">
+                                 <span class="keyword">SELECT</span>              
+                                     height_cm,
+                                     <span class="function">COUNT</span>(*) <span class="keyword">AS</span> frequency
+                                 <span class="keyword">FROM</span> students
+                                 <span class="keyword">GROUP BY</span> height_cm
+                                 <span class="keyword">ORDER BY</span> height_cm;
+                             </code>
+                         </pre>
+
+                         Obtaining these results:
+
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Height (cm)</th>
+                                    <th>Frequency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>160.0</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>164.0</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>178.0</td>
+                                    <td>4</td>
+                                </tr>
+                                <tr>
+                                    <td>180.0</td>
+                                    <td>3</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="max-width: 440px; margin: 1.7rem auto;">
+                            <canvas id="heightHistogram" width="400" height="260"></canvas>
+                        </div>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <script>
+                            const ctx = document.getElementById('heightHistogram').getContext('2d');
+                            new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: ['160.0', '164.0', '178.0', '180.0'],
+                                    datasets: [{
+                                        label: 'Frequency',
+                                        data: [1, 2, 4, 3],
+                                        backgroundColor: 'rgba(36, 163, 225, 0.64)',
+                                        borderColor: 'rgba(36, 163, 225, 1)',
+                                        borderWidth: 1.5,
+                                        borderRadius: 5,
+                                        maxBarThickness: 48,
+                                    }]
+                                },
+                                options: {
+                                    layout: { padding: 8 },
+                                    plugins: {
+                                        legend: { display: false },
+                                        title: {
+                                            display: true,
+                                            text: 'Histogram of Heights (cm)',
+                                            color: '#e8e8e8',
+                                            font: { size: 17, weight: 'bold' }
+                                        }
+                                    },
+                                    scales: {
+                                        x: {
+                                            title: { display: true, text: 'Height (cm)', color: '#b8b8b8', font: { size: 15 } },
+                                            ticks: { color: '#b8b8b8', font: { size: 13 } },
+                                            grid: { color: 'rgba(255,255,255,0.10)' }
+                                        },
+                                        y: {
+                                            title: { display: true, text: 'Frequency', color: '#b8b8b8', font: { size: 15 } },
+                                            beginAtZero: true,
+                                            ticks: { stepSize: 1, color: '#b8b8b8', font: { size: 13 } },
+                                            grid: { color: 'rgba(255,255,255,0.12)' }
+                                        }
+                                    }
+                                }
+                            });
+                        </script>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">02</div>
                 <div class="section-label">OVERVIEW</div>
 
                 <div class="content-wrapper">
