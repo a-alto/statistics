@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 2 | Statistics - Sapienza University of Rome</title>
+    <link rel="stylesheet" href="/home/alto/work/statistics/styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/home/alto/work/statistics/index.html" class="logo">STATISTICS</a>
+            <ul class="nav-menu">
+                <li><a href="/home/alto/work/statistics/index.html#home">Home</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="/home/alto/work/statistics/index.html#home" onclick="toggleMenu()">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <div class="section-number">01</div>
+                <div class="section-label">HOMEWORK 2</div>
+                <div class="hero-content">
+                    <h1>Concepts: Dataset and Distribution</h1>
+                    <div class="hero-underline"></div>
+                    <p class="hero-description">
+                        This page summarizes the design, methodology, and results of the Homework 2 experiment.
+                        It includes descriptive statistics, confidence intervals, hypothesis testing, and a brief
+                        interpretation of the findings.
+                    </p>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">02</div>
+                <div class="section-label">OVERVIEW</div>
+
+                <div class="content-wrapper">
+                    <div class="content-columns">
+                        <div class="column">
+                            <h2>Experiment Overview</h2>
+                            <p>
+                                The objective was to evaluate whether the treatment leads to a measurable
+                                improvement in the target metric compared to the control condition.
+                                A simple randomized design was used with two groups: Control (C) and Treatment (T).
+                            </p>
+                            <ul>
+                                <li><b>Design</b>: Two-sample comparison (independent groups)</li>
+                                <li><b>Sample size</b>: n_C = 50, n_T = 50</li>
+                                <li><b>Primary metric</b>: Continuous outcome (e.g., response time, score)</li>
+                                <li><b>Significance level</b>: \( \alpha = 0.05 \)</li>
+                            </ul>
+                        </div>
+                        <div class="column">
+                            <h2>Data & Methods</h2>
+                            <p>
+                                We computed descriptive statistics, 95% confidence intervals for group means,
+                                and conducted a two-sample t-test assuming unequal variances (Welch's test).
+                                Normality was assessed visually; results were robust to mild deviations.
+                            </p>
+                            <ul>
+                                <li><b>Descriptives</b>: mean, standard deviation, standard error</li>
+                                <li><b>Inference</b>: 95% CI, Welch two-sample t-test</li>
+                                <li><b>Effect size</b>: Hedges' g with small-sample correction</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">03</div>
+                <div class="section-label">RESULTS</div>
+
+                <div class="content-wrapper">
+                    <h2>Summary Statistics</h2>
+                    <div class="content-columns">
+                        <div class="column">
+                            <h3>Group Descriptives</h3>
+                            <p>
+                                The treatment group shows a lower mean (better performance) than control.
+                                The confidence intervals have limited overlap, suggesting a real difference.
+                            </p>
+                            <table style="width:100%; border-collapse:collapse; border-top:1px solid rgba(255,255,255,0.1);">
+                                <thead>
+                                    <tr style="text-align:left;">
+                                        <th style="padding:0.75rem 0; color:#e8e8e8;">Group</th>
+                                        <th style="padding:0.75rem 0; color:#e8e8e8;">n</th>
+                                        <th style="padding:0.75rem 0; color:#e8e8e8;">Mean</th>
+                                        <th style="padding:0.75rem 0; color:#e8e8e8;">SD</th>
+                                        <th style="padding:0.75rem 0; color:#e8e8e8;">95% CI</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding:0.5rem 0; color:#b8b8b8;">Control</td>
+                                        <td style="padding:0.5rem 0; color:#b8b8b8;">50</td>
+                                        <td style="padding:0.5rem 0; color:#b8b8b8;">12.4</td>
+                                        <td style="padding:0.5rem 0; color:#b8b8b8;">4.1</td>
+                                        <td style="padding:0.5rem 0; color:#b8b8b8;">[11.2, 13.6]</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:0.5rem 0; color:#b8b8b8;">Treatment</td>
+                                        <td style="padding:0.5rem 0; color:#b8b8b8;">50</td>
+                                        <td style="padding:0.5rem 0; color:#b8b8b8;">10.1</td>
+                                        <td style="padding:0.5rem 0; color:#b8b8b8;">3.8</td>
+                                        <td style="padding:0.5rem 0; color:#b8b8b8;">[9.0, 11.1]</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="column">
+                            <h3>Hypothesis Test</h3>
+                            <ul>
+                                <li><b>Null</b>: \( \mu_T - \mu_C = 0 \)</li>
+                                <li><b>Alternative</b>: \( \mu_T - \mu_C \neq 0 \)</li>
+                                <li><b>Test</b>: Welch two-sample t-test</li>
+                                <li><b>Statistic</b>: \( t = -3.29 \)</li>
+                                <li><b>df</b>: 95.7</li>
+                                <li><b>p-value</b>: 0.0014</li>
+                                <li><b>Effect size</b>: Hedges' g = 0.60</li>
+                            </ul>
+                            <p>
+                                At \( \alpha = 0.05 \), we reject the null hypothesis and conclude that the treatment
+                                has a statistically significant effect on the outcome.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h2 style="margin-top:4rem;">Key Findings</h2>
+                    <ul>
+                        <li>The treatment outperforms control with a moderate effect size.</li>
+                        <li>Results are statistically significant at the 5% level.</li>
+                        <li>Observed variability is comparable across groups.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">04</div>
+                <div class="section-label">CONCLUSION</div>
+
+                <div class="content-wrapper">
+                    <h2>Conclusion</h2>
+                    <p>
+                        The analysis indicates a meaningful improvement associated with the treatment. Future work
+                        should replicate these findings with larger samples, assess robustness to distributional
+                        assumptions, and evaluate potential confounders.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p class="footer-name">Andrea Altomare</p>
+                    <p class="footer-detail">2199451</p>
+                    <p class="footer-detail">altomare.2199451@studenti.uniroma1.it</p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Andrea Altomare</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
+
