@@ -15,6 +15,7 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
 </head>
 <body>
     <nav>
@@ -81,7 +82,7 @@
                 <!-- <div class="section-label">Computing the univariate distributions</div> -->
 
                 <div class="content-wrapper">
-                    <h2>Computing the univariate distributions</h2>
+                    <h2>Computing the univariate distribution</h2>
                     <p>
                         For this work I created a table of students containing some data.
 
@@ -301,6 +302,127 @@
                                 }
                             });
                         </script>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">03</div>
+                <!-- <div class="section-label">Computing the univariate distributions</div> -->
+
+                <div class="content-wrapper">
+                    <h2>Computing the bivariate distribution</h2>
+                    <p>
+                        Using the same table as above, I computed the bivariate distribution on the height and the age variables.
+
+                         <pre class="code-block">
+                             <code class="language-sql">
+                                <span class="keyword">SELECT</span>
+                                    age,
+                                    height_cm,
+                                    <span class="function">COUNT</span>(*) <span class="keyword">AS</span> frequency
+                                <span class="keyword">FROM</span> students
+                                <span class="keyword">GROUP BY</span> age, height_cm
+                                <span class="keyword">ORDER BY</span> age, height_cm;
+                             </code>
+                         </pre>
+
+                         Obtaining these results:
+
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Age</th>
+                                    <th>Height (cm)</th>
+                                    <th>Frequency</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>19</td>
+                                    <td>164.0</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>19</td>
+                                    <td>180.0</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>20</td>
+                                    <td>178.0</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>21</td>
+                                    <td>160.0</td>
+                                    <td>1</td>
+                                </tr>
+                                <tr>
+                                    <td>21</td>
+                                    <td>178.0</td>
+                                    <td>2</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                            
+                        <div style="margin-top:2em;margin-bottom:2em;">
+                            <h4>Visualization graph</h4>
+                             <div id="plotly-3d-table" style="width:100%;max-width:600px;height:400px;"></div>
+                             <script>
+                             function createPlot() {
+                                 // Check if Plotly is available
+                                 if (typeof Plotly === 'undefined') {
+                                     console.error('Plotly is not loaded');
+                                     return;
+                                 }
+
+                                 // Data from the table
+                                 var ages     = [19, 19, 20, 21, 21];
+                                 var heights  = [164.0, 180.0, 178.0, 160.0, 178.0];
+                                 var freq     = [1, 2, 1, 1, 2];
+
+                                 var trace = {
+                                     x: ages,
+                                     y: heights,
+                                     z: freq,
+                                     mode: 'markers+text',
+                                     marker: {
+                                         size: 8,
+                                         color: freq,
+                                         colorscale: 'Viridis',
+                                         showscale: true,
+                                         colorbar: { title: 'Frequency' }
+                                     },
+                                     text: freq.map(String),
+                                     textposition: 'top center',
+                                     type: 'scatter3d',
+                                     hovertemplate: 
+                                     'Age: %{x}<br>Height: %{y} cm<br>Freq: %{z}<extra></extra>'
+                                 };
+
+                                 var layout = {
+                                     margin: {l: 0, r: 0, b: 0, t: 30},
+                                     scene: {
+                                         xaxis: {title: 'Age', dtick: 1, tickmode: 'linear'},
+                                         yaxis: {title: 'Height (cm)', dtick: 4},
+                                         zaxis: {title: 'Frequency', dtick: 1, rangemode: 'tozero'},
+                                     },
+                                     title: {
+                                         text: '3D Joint Distribution: Age, Height, Frequency',
+                                         font: { size: 16 }
+                                     }
+                                 };
+
+                                 Plotly.newPlot('plotly-3d-table', [trace], layout, {responsive: true});
+                             }
+
+                             // Wait for page to load and Plotly to be available
+                             window.addEventListener('load', createPlot);
+                             </script>
+                        </div>
                     </p>
                 </div>
             </div>
