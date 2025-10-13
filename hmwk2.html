@@ -16,6 +16,7 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
     <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <nav>
@@ -430,6 +431,72 @@
 
         <section class="content-section">
             <div class="container">
+                <div class="section-number">04</div>
+                <!-- <div class="section-label">Breaking the Caesar chipher: frequency analysis</div> -->
+
+                <div class="content-wrapper">
+                    <h2>Frequency analysis of a text</h2>
+                    <p>
+                        Let's analyze the frequency of the letters in an academic paper.
+
+                        <div style="margin: 2rem 0;">
+                            <object 
+                                data="./assets/hmwk2/quantum.pdf" 
+                                type="application/pdf"
+                                width="100%" 
+                                height="600px"
+                                style="border: 1px solid #444; border-radius: 8px; background: #222;">
+                                <p>Your browser doesn't support PDFs. <a href="./assets/hmwk2/quantum.pdf" target="_blank" style="color: #61dafb;">Click here to download the PDF</a>.</p>
+                            </object>
+                            <div style="font-size: 0.95em; color: #b8b8b8; margin-top: 0.5rem;">
+                                If the PDF does not load, <a href="./assets/hmwk2/quantum.pdf" target="_blank" style="color: #61dafb;">click here to download/view quantum.pdf</a>.
+                            </div>
+                        </div>
+
+                        <button class="btn" onclick="analyzeFrequency()">Analyze Frequency</button>
+                        <br>
+                        <button class="btn" onclick="showEnglishFrequency()">Show frequency of English letters</button>
+                        <br>
+                        Comparing the two distributions, we can see that the frequency of the letters in the academic paper is very similar to the frequency of the letters in English.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">05</div>
+                <!-- <div class="section-label">Breaking the Caesar chipher: frequency analysis</div> -->
+
+                <div class="content-wrapper">
+                    <h2>Breaking the Caesar chipher: frequency analysis</h2>
+                    <p>
+                        Now we will apply the concept of distribution to break the Caesar chipher through an attack method called <b>frequency analysis</b>.
+
+                        For this work I will use the following text:
+
+                        <div style="margin: 2rem 0;">
+                            <object 
+                                data="./assets/hmwk2/quantum.pdf" 
+                                type="application/pdf"
+                                width="100%" 
+                                height="600px"
+                                style="border: 1px solid #444; border-radius: 8px; background: #222;">
+                                <p>Your browser doesn't support PDFs. <a href="./assets/hmwk2/quantum.pdf" target="_blank" style="color: #61dafb;">Click here to download the PDF</a>.</p>
+                            </object>
+                            <div style="font-size: 0.95em; color: #b8b8b8; margin-top: 0.5rem;">
+                                If the PDF does not load, <a href="./assets/hmwk2/quantum.pdf" target="_blank" style="color: #61dafb;">click here to download/view quantum.pdf</a>.
+                            </div>
+                        </div>
+
+
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- <section class="content-section">
+            <div class="container">
                 <div class="section-number">02</div>
                 <div class="section-label">OVERVIEW</div>
 
@@ -551,7 +618,7 @@
                     </p>
                 </div>
             </div>
-        </section>
+        </section> -->
     </main>
 
     <footer>
@@ -577,6 +644,7 @@
             hamburger.classList.toggle('active');
         }
     </script>
+    <script src="./code/hmwk2/frequency_analysis.js"></script>
 </body>
 </html>
 

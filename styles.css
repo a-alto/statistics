@@ -581,6 +581,37 @@ footer {
     white-space: pre;
 }
 
+/* Button Styling */
+.btn {
+    background: linear-gradient(135deg, #24a3e1 0%, #1e7bb8 100%);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 1rem 0;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #1e7bb8 0%, #166496 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(36, 163, 225, 0.3);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
     .nav-container,
