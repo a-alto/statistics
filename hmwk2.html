@@ -735,110 +735,110 @@
                         <pre style="background: rgba(0, 0, 0, 0.3); color: #e8e8e8; border-radius: 8px; padding: 1.5rem; padding-top: 2.5rem; font-size: 0.9rem; overflow-x: auto; margin: 2rem 0; border: 1px solid rgba(255, 255, 255, 0.1); font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace; line-height: 1.6; position: relative; white-space: pre;">
                             <span style="position: absolute; top: 0.5rem; right: 1rem; background: rgba(255, 223, 0, 0.15); color: #f0db4f; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em;">JavaScript</span>
                             <code><span style="color: #5c6370; font-style: italic;">/**
-* Calculate frequencies of A-Z letters in given text (as percentages)
-*/</span>
-<span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">getLetterFrequencies</span>(text) {
-    <span style="color: #c678dd; font-weight: 600;">let</span> freq = <span style="color: #61afef;">Array</span>(<span style="color: #d19a66;">26</span>).<span style="color: #61afef;">fill</span>(<span style="color: #d19a66;">0</span>);
-    <span style="color: #c678dd; font-weight: 600;">let</span> total = <span style="color: #d19a66;">0</span>;
-    <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">let</span> ch <span style="color: #c678dd; font-weight: 600;">of</span> text.<span style="color: #61afef;">toUpperCase</span>()) {
-        <span style="color: #c678dd; font-weight: 600;">const</span> idx = ch.<span style="color: #61afef;">charCodeAt</span>(<span style="color: #d19a66;">0</span>) - <span style="color: #d19a66;">65</span>;
-        <span style="color: #c678dd; font-weight: 600;">if</span> (idx >= <span style="color: #d19a66;">0</span> && idx < <span style="color: #d19a66;">26</span>) {
-            freq[idx]++;
-            total++;
-        }
-    }
-    <span style="color: #c678dd; font-weight: 600;">if</span> (total === <span style="color: #d19a66;">0</span>) <span style="color: #c678dd; font-weight: 600;">return</span> freq;
-    <span style="color: #c678dd; font-weight: 600;">return</span> freq.<span style="color: #61afef;">map</span>(f => (f * <span style="color: #d19a66;">100</span>) / total);
-}
+                                * Calculate frequencies of A-Z letters in given text (as percentages)
+                                */</span>
+                                <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">getLetterFrequencies</span>(text) {
+                                    <span style="color: #c678dd; font-weight: 600;">let</span> freq = <span style="color: #61afef;">Array</span>(<span style="color: #d19a66;">26</span>).<span style="color: #61afef;">fill</span>(<span style="color: #d19a66;">0</span>);
+                                    <span style="color: #c678dd; font-weight: 600;">let</span> total = <span style="color: #d19a66;">0</span>;
+                                    <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">let</span> ch <span style="color: #c678dd; font-weight: 600;">of</span> text.<span style="color: #61afef;">toUpperCase</span>()) {
+                                        <span style="color: #c678dd; font-weight: 600;">const</span> idx = ch.<span style="color: #61afef;">charCodeAt</span>(<span style="color: #d19a66;">0</span>) - <span style="color: #d19a66;">65</span>;
+                                        <span style="color: #c678dd; font-weight: 600;">if</span> (idx >= <span style="color: #d19a66;">0</span> && idx < <span style="color: #d19a66;">26</span>) {
+                                            freq[idx]++;
+                                            total++;
+                                        }
+                                    }
+                                    <span style="color: #c678dd; font-weight: 600;">if</span> (total === <span style="color: #d19a66;">0</span>) <span style="color: #c678dd; font-weight: 600;">return</span> freq;
+                                    <span style="color: #c678dd; font-weight: 600;">return</span> freq.<span style="color: #61afef;">map</span>(f => (f * <span style="color: #d19a66;">100</span>) / total);
+                                }
 
 
-<span style="color: #5c6370; font-style: italic;">/**
-* Compute chi-squared distance between two distributions
-*/</span>
-<span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">chiSquared</span>(observed, expected) {
-    <span style="color: #c678dd; font-weight: 600;">let</span> dist = <span style="color: #d19a66;">0</span>;
-    <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">let</span> i = <span style="color: #d19a66;">0</span>; i &lt; <span style="color: #d19a66;">26</span>; i++) {
-        <span style="color: #c678dd; font-weight: 600;">if</span> (expected[i] &gt; <span style="color: #d19a66;">0</span>) { <span style="color: #5c6370; font-style: italic;">// Avoid division by zero</span>
-            <span style="color: #c678dd; font-weight: 600;">let</span> diff = observed[i] - expected[i];
-            dist += (diff * diff) / expected[i];
-        }
-    }
-    <span style="color: #c678dd; font-weight: 600;">return</span> dist;
-}
+                                <span style="color: #5c6370; font-style: italic;">/**
+                                * Compute chi-squared distance between two distributions
+                                */</span>
+                                <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">chiSquared</span>(observed, expected) {
+                                    <span style="color: #c678dd; font-weight: 600;">let</span> dist = <span style="color: #d19a66;">0</span>;
+                                    <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">let</span> i = <span style="color: #d19a66;">0</span>; i &lt; <span style="color: #d19a66;">26</span>; i++) {
+                                        <span style="color: #c678dd; font-weight: 600;">if</span> (expected[i] &gt; <span style="color: #d19a66;">0</span>) { <span style="color: #5c6370; font-style: italic;">// Avoid division by zero</span>
+                                            <span style="color: #c678dd; font-weight: 600;">let</span> diff = observed[i] - expected[i];
+                                            dist += (diff * diff) / expected[i];
+                                        }
+                                    }
+                                    <span style="color: #c678dd; font-weight: 600;">return</span> dist;
+                                }
 
 
-<span style="color: #5c6370; font-style: italic;">/**
-* Estimate Caesar shift and best language by minimizing chi-squared distance
-*/</span>
-<span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">estimateShiftAndLanguage</span>(cipherFreq) {
-    <span style="color: #c678dd; font-weight: 600;">let</span> best = {shift: <span style="color: #d19a66;">0</span>, lang: <span style="color: #98c379;">'English'</span>, dist: <span style="color: #d19a66;">Infinity</span>};
-    <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">const</span> [lang, langFreqs] <span style="color: #c678dd; font-weight: 600;">of</span> <span style="color: #61afef;">Object</span>.<span style="color: #61afef;">entries</span>(languageFrequencies)) {
-        <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">let</span> shift = <span style="color: #d19a66;">0</span>; shift &lt; <span style="color: #d19a66;">26</span>; shift++) {
-            <span style="color: #c678dd; font-weight: 600;">let</span> shifted = cipherFreq.<span style="color: #61afef;">slice</span>();
-            <span style="color: #5c6370; font-style: italic;">// Unshifted version (simulate decrypting Caesar)</span>
-            shifted = shifted.<span style="color: #61afef;">map</span>((_, idx) =&gt; cipherFreq[(idx+shift)%<span style="color: #d19a66;">26</span>]);
-            <span style="color: #c678dd; font-weight: 600;">const</span> dist = <span style="color: #61afef;">chiSquared</span>(shifted, langFreqs);
-            <span style="color: #c678dd; font-weight: 600;">if</span> (dist &lt; best.dist) {
-                best = {shift: shift, lang: lang, dist: dist};
-            }
-        }
-    }
-    <span style="color: #c678dd; font-weight: 600;">return</span> best;
-}
+                                <span style="color: #5c6370; font-style: italic;">/**
+                                * Estimate Caesar shift and best language by minimizing chi-squared distance
+                                */</span>
+                                <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">estimateShiftAndLanguage</span>(cipherFreq) {
+                                    <span style="color: #c678dd; font-weight: 600;">let</span> best = {shift: <span style="color: #d19a66;">0</span>, lang: <span style="color: #98c379;">'English'</span>, dist: <span style="color: #d19a66;">Infinity</span>};
+                                    <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">const</span> [lang, langFreqs] <span style="color: #c678dd; font-weight: 600;">of</span> <span style="color: #61afef;">Object</span>.<span style="color: #61afef;">entries</span>(languageFrequencies)) {
+                                        <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">let</span> shift = <span style="color: #d19a66;">0</span>; shift &lt; <span style="color: #d19a66;">26</span>; shift++) {
+                                            <span style="color: #c678dd; font-weight: 600;">let</span> shifted = cipherFreq.<span style="color: #61afef;">slice</span>();
+                                            <span style="color: #5c6370; font-style: italic;">// Unshifted version (simulate decrypting Caesar)</span>
+                                            shifted = shifted.<span style="color: #61afef;">map</span>((_, idx) =&gt; cipherFreq[(idx+shift)%<span style="color: #d19a66;">26</span>]);
+                                            <span style="color: #c678dd; font-weight: 600;">const</span> dist = <span style="color: #61afef;">chiSquared</span>(shifted, langFreqs);
+                                            <span style="color: #c678dd; font-weight: 600;">if</span> (dist &lt; best.dist) {
+                                                best = {shift: shift, lang: lang, dist: dist};
+                                            }
+                                        }
+                                    }
+                                    <span style="color: #c678dd; font-weight: 600;">return</span> best;
+                                }
 
 
-<span style="color: #5c6370; font-style: italic;">/**
-* Caesar decryption (shift backwards)
-*/</span>
-<span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">caesarDecipher</span>(text, shift) {
-    shift = ((shift % <span style="color: #d19a66;">26</span>) + <span style="color: #d19a66;">26</span>) % <span style="color: #d19a66;">26</span>;
-    <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">unshiftChar</span>(c) {
-        <span style="color: #c678dd; font-weight: 600;">const</span> code = c.<span style="color: #61afef;">charCodeAt</span>(<span style="color: #d19a66;">0</span>);
-        <span style="color: #c678dd; font-weight: 600;">if</span> (code &gt;= <span style="color: #d19a66;">65</span> &amp;&amp; code &lt;= <span style="color: #d19a66;">90</span>) { <span style="color: #5c6370; font-style: italic;">// uppercase</span>
-            <span style="color: #c678dd; font-weight: 600;">return</span> <span style="color: #61afef;">String</span>.<span style="color: #61afef;">fromCharCode</span>(((code - <span style="color: #d19a66;">65</span> - shift + <span style="color: #d19a66;">26</span>) % <span style="color: #d19a66;">26</span>) + <span style="color: #d19a66;">65</span>);
-        }
-        <span style="color: #c678dd; font-weight: 600;">if</span> (code &gt;= <span style="color: #d19a66;">97</span> &amp;&amp; code &lt;= <span style="color: #d19a66;">122</span>) { <span style="color: #5c6370; font-style: italic;">// lowercase</span>
-            <span style="color: #c678dd; font-weight: 600;">return</span> <span style="color: #61afef;">String</span>.<span style="color: #61afef;">fromCharCode</span>(((code - <span style="color: #d19a66;">97</span> - shift + <span style="color: #d19a66;">26</span>) % <span style="color: #d19a66;">26</span>) + <span style="color: #d19a66;">97</span>);
-        }
-        <span style="color: #c678dd; font-weight: 600;">return</span> c;
-    }
-    <span style="color: #c678dd; font-weight: 600;">let</span> deciphered = <span style="color: #98c379;">''</span>;
-    <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">let</span> i = <span style="color: #d19a66;">0</span>; i &lt; text.length; i++) {
-        deciphered += <span style="color: #61afef;">unshiftChar</span>(text[i]);
-    }
-    <span style="color: #c678dd; font-weight: 600;">return</span> deciphered;
-}
+                                <span style="color: #5c6370; font-style: italic;">/**
+                                * Caesar decryption (shift backwards)
+                                */</span>
+                                <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">caesarDecipher</span>(text, shift) {
+                                    shift = ((shift % <span style="color: #d19a66;">26</span>) + <span style="color: #d19a66;">26</span>) % <span style="color: #d19a66;">26</span>;
+                                    <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">unshiftChar</span>(c) {
+                                        <span style="color: #c678dd; font-weight: 600;">const</span> code = c.<span style="color: #61afef;">charCodeAt</span>(<span style="color: #d19a66;">0</span>);
+                                        <span style="color: #c678dd; font-weight: 600;">if</span> (code &gt;= <span style="color: #d19a66;">65</span> &amp;&amp; code &lt;= <span style="color: #d19a66;">90</span>) { <span style="color: #5c6370; font-style: italic;">// uppercase</span>
+                                            <span style="color: #c678dd; font-weight: 600;">return</span> <span style="color: #61afef;">String</span>.<span style="color: #61afef;">fromCharCode</span>(((code - <span style="color: #d19a66;">65</span> - shift + <span style="color: #d19a66;">26</span>) % <span style="color: #d19a66;">26</span>) + <span style="color: #d19a66;">65</span>);
+                                        }
+                                        <span style="color: #c678dd; font-weight: 600;">if</span> (code &gt;= <span style="color: #d19a66;">97</span> &amp;&amp; code &lt;= <span style="color: #d19a66;">122</span>) { <span style="color: #5c6370; font-style: italic;">// lowercase</span>
+                                            <span style="color: #c678dd; font-weight: 600;">return</span> <span style="color: #61afef;">String</span>.<span style="color: #61afef;">fromCharCode</span>(((code - <span style="color: #d19a66;">97</span> - shift + <span style="color: #d19a66;">26</span>) % <span style="color: #d19a66;">26</span>) + <span style="color: #d19a66;">97</span>);
+                                        }
+                                        <span style="color: #c678dd; font-weight: 600;">return</span> c;
+                                    }
+                                    <span style="color: #c678dd; font-weight: 600;">let</span> deciphered = <span style="color: #98c379;">''</span>;
+                                    <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">let</span> i = <span style="color: #d19a66;">0</span>; i &lt; text.length; i++) {
+                                        deciphered += <span style="color: #61afef;">unshiftChar</span>(text[i]);
+                                    }
+                                    <span style="color: #c678dd; font-weight: 600;">return</span> deciphered;
+                                }
 
 
-<span style="color: #5c6370; font-style: italic;">/**
-* Break Caesar cipher: detect shift, detect language, show deciphered text, show frequency histograms
-*/</span>
-<span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">breakCaesarCipher</span>() {
-    <span style="color: #c678dd; font-weight: 600;">const</span> cipheredText = <span style="color: #e5c07b;">document</span>.<span style="color: #61afef;">getElementById</span>(<span style="color: #98c379;">'outputText'</span>).value;
-    <span style="color: #c678dd; font-weight: 600;">if</span> (!cipheredText.<span style="color: #61afef;">trim</span>()) {
-        <span style="color: #61afef;">alert</span>(<span style="color: #98c379;">"Please apply the Caesar cipher first!"</span>);
-        <span style="color: #c678dd; font-weight: 600;">return</span>;
-    }
-    <span style="color: #5c6370; font-style: italic;">// 1. Frequency analysis</span>
-    <span style="color: #c678dd; font-weight: 600;">const</span> freq = <span style="color: #61afef;">getLetterFrequencies</span>(cipheredText);
+                                <span style="color: #5c6370; font-style: italic;">/**
+                                * Break Caesar cipher: detect shift, detect language, show deciphered text, show frequency histograms
+                                */</span>
+                                <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">breakCaesarCipher</span>() {
+                                    <span style="color: #c678dd; font-weight: 600;">const</span> cipheredText = <span style="color: #e5c07b;">document</span>.<span style="color: #61afef;">getElementById</span>(<span style="color: #98c379;">'outputText'</span>).value;
+                                    <span style="color: #c678dd; font-weight: 600;">if</span> (!cipheredText.<span style="color: #61afef;">trim</span>()) {
+                                        <span style="color: #61afef;">alert</span>(<span style="color: #98c379;">"Please apply the Caesar cipher first!"</span>);
+                                        <span style="color: #c678dd; font-weight: 600;">return</span>;
+                                    }
+                                    <span style="color: #5c6370; font-style: italic;">// 1. Frequency analysis</span>
+                                    <span style="color: #c678dd; font-weight: 600;">const</span> freq = <span style="color: #61afef;">getLetterFrequencies</span>(cipheredText);
 
-    <span style="color: #5c6370; font-style: italic;">// 2. Estimate shift and language</span>
-    <span style="color: #c678dd; font-weight: 600;">const</span> { shift, lang } = <span style="color: #61afef;">estimateShiftAndLanguage</span>(freq);
+                                    <span style="color: #5c6370; font-style: italic;">// 2. Estimate shift and language</span>
+                                    <span style="color: #c678dd; font-weight: 600;">const</span> { shift, lang } = <span style="color: #61afef;">estimateShiftAndLanguage</span>(freq);
 
-    <span style="color: #5c6370; font-style: italic;">// 3. Decipher using found shift</span>
-    <span style="color: #c678dd; font-weight: 600;">const</span> deciphered = <span style="color: #61afef;">caesarDecipher</span>(cipheredText, shift);
+                                    <span style="color: #5c6370; font-style: italic;">// 3. Decipher using found shift</span>
+                                    <span style="color: #c678dd; font-weight: 600;">const</span> deciphered = <span style="color: #61afef;">caesarDecipher</span>(cipheredText, shift);
 
-    <span style="color: #e5c07b;">document</span>.<span style="color: #61afef;">getElementById</span>(<span style="color: #98c379;">'decipheredText'</span>).value = deciphered;
+                                    <span style="color: #e5c07b;">document</span>.<span style="color: #61afef;">getElementById</span>(<span style="color: #98c379;">'decipheredText'</span>).value = deciphered;
 
-    <span style="color: #5c6370; font-style: italic;">// 4. Plot histograms</span>
-    <span style="color: #c678dd; font-weight: 600;">if</span> (cipheredChart) cipheredChart.<span style="color: #61afef;">destroy</span>();
-    <span style="color: #c678dd; font-weight: 600;">if</span> (languageChart) languageChart.<span style="color: #61afef;">destroy</span>();
-    cipheredChart = <span style="color: #61afef;">plotFrequencyHistogram</span>(<span style="color: #98c379;">'cipheredFreqChart'</span>, freq, cipheredChart, <span style="color: #98c379;">'#3af'</span>, <span style="color: #98c379;">'Ciphered'</span>);
-    languageChart = <span style="color: #61afef;">plotFrequencyHistogram</span>(<span style="color: #98c379;">'languageFreqChart'</span>, languageFrequencies[lang], languageChart, <span style="color: #98c379;">'#faa'</span>, <span style="color: #98c379;">`${lang} (avg)`</span>);
+                                    <span style="color: #5c6370; font-style: italic;">// 4. Plot histograms</span>
+                                    <span style="color: #c678dd; font-weight: 600;">if</span> (cipheredChart) cipheredChart.<span style="color: #61afef;">destroy</span>();
+                                    <span style="color: #c678dd; font-weight: 600;">if</span> (languageChart) languageChart.<span style="color: #61afef;">destroy</span>();
+                                    cipheredChart = <span style="color: #61afef;">plotFrequencyHistogram</span>(<span style="color: #98c379;">'cipheredFreqChart'</span>, freq, cipheredChart, <span style="color: #98c379;">'#3af'</span>, <span style="color: #98c379;">'Ciphered'</span>);
+                                    languageChart = <span style="color: #61afef;">plotFrequencyHistogram</span>(<span style="color: #98c379;">'languageFreqChart'</span>, languageFrequencies[lang], languageChart, <span style="color: #98c379;">'#faa'</span>, <span style="color: #98c379;">`${lang} (avg)`</span>);
 
-    <span style="color: #5c6370; font-style: italic;">// 5. Show detected language</span>
-    <span style="color: #e5c07b;">document</span>.<span style="color: #61afef;">getElementById</span>(<span style="color: #98c379;">'detectedLangLabel'</span>).textContent = <span style="color: #98c379;">"Detected language: "</span> + lang;
-}
+                                    <span style="color: #5c6370; font-style: italic;">// 5. Show detected language</span>
+                                    <span style="color: #e5c07b;">document</span>.<span style="color: #61afef;">getElementById</span>(<span style="color: #98c379;">'detectedLangLabel'</span>).textContent = <span style="color: #98c379;">"Detected language: "</span> + lang;
+                                }
                             </code>
                         </pre>
                     </p>
