@@ -688,6 +688,25 @@ textarea[readonly] {
     color: #9ca3af;
 }
 
+/* Histogram frequency container styling */
+#histogram-freq-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+#histogram-freq-container > div {
+    flex: 1;
+    min-width: 400px;
+}
+
+#histogram-freq-container canvas {
+    width: 100% !important;
+    max-height: 300px;
+    height: 300px !important;
+}
+
 /* Button Styling */
 .btn {
     background: linear-gradient(135deg, #24a3e1 0%, #1e7bb8 100%);
