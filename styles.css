@@ -640,6 +640,54 @@ script[type="text/javascript-display"] .js-variable {
     color: #e06c75;
 }
 
+/* Input and Textarea Styling */
+input[type="text"],
+input[type="number"],
+textarea {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    color: #e8e8e8;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    border-color: rgba(36, 163, 225, 0.6);
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 0 3px rgba(36, 163, 225, 0.1);
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+    color: #6b7280;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+    line-height: 1.6;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+}
+
+input[type="number"] {
+    width: auto;
+}
+
+/* Readonly inputs and textareas */
+input[readonly],
+textarea[readonly] {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
+    cursor: not-allowed;
+    color: #9ca3af;
+}
+
 /* Button Styling */
 .btn {
     background: linear-gradient(135deg, #24a3e1 0%, #1e7bb8 100%);
