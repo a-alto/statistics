@@ -528,6 +528,7 @@ script[type="text/javascript-display"],
     letter-spacing: 0.05em;
 }
 
+.code-block.language-javascript::before,
 .js-code-block::before,
 script[type="text/javascript-display"]::before {
     content: 'JavaScript';
@@ -602,41 +603,41 @@ script[type="text/javascript-display"]::before {
 }
 
 /* JavaScript Syntax Highlighting */
-.js-code-block .js-keyword,
-script[type="text/javascript-display"] .js-keyword {
+.code-block.language-javascript .keyword,
+.js-code-block .keyword {
     color: #c678dd;
     font-weight: 600;
 }
 
-.js-code-block .js-function,
-script[type="text/javascript-display"] .js-function {
+.code-block.language-javascript .function,
+.js-code-block .function {
     color: #61afef;
     font-weight: 500;
 }
 
-.js-code-block .js-string,
-script[type="text/javascript-display"] .js-string {
+.code-block.language-javascript .string,
+.js-code-block .string {
     color: #98c379;
 }
 
-.js-code-block .js-number,
-script[type="text/javascript-display"] .js-number {
+.code-block.language-javascript .number,
+.js-code-block .number {
     color: #d19a66;
 }
 
-.js-code-block .js-comment,
-script[type="text/javascript-display"] .js-comment {
+.code-block.language-javascript .comment,
+.js-code-block .comment {
     color: #5c6370;
     font-style: italic;
 }
 
-.js-code-block .js-operator,
-script[type="text/javascript-display"] .js-operator {
+.code-block.language-javascript .operator,
+.js-code-block .operator {
     color: #56b6c2;
 }
 
-.js-code-block .js-variable,
-script[type="text/javascript-display"] .js-variable {
+.code-block.language-javascript .variable,
+.js-code-block .variable {
     color: #e06c75;
 }
 
