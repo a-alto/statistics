@@ -727,6 +727,116 @@
                             document.getElementById('outputText').value = ciphered;
                         }
                         </script>
+
+                        <br>
+
+                        Here is the JavaScript code use to break the Caesar cipher:
+
+                        <pre style="background: #181b22; color: #baf2ff; border-radius: 9px; padding: 1.1em 1.2em; font-size: 1em; overflow-x: auto; margin-top: 1.3em; margin-bottom: 1.3em; border: 1px solid #30323a;">
+                            <code>
+                            /**
+                            * Calculate frequencies of A-Z letters in given text (as percentages)
+                            */
+                            function getLetterFrequencies(text) {
+                                let freq = Array(26).fill(0);
+                                let total = 0;
+                                for (let ch of text.toUpperCase()) {
+                                    const idx = ch.charCodeAt(0) - 65;
+                                    if (idx >= 0 && idx < 26) {
+                                        freq[idx]++;
+                                        total++;
+                                    }
+                                }
+                                if (total === 0) return freq;
+                                return freq.map(f => (f * 100) / total);
+                            }
+
+                            /**
+                            * Compute chi-squared distance between two distributions
+                            */
+                            function chiSquared(observed, expected) {
+                                let dist = 0;
+                                for (let i = 0; i &lt; 26; i++) {
+                                    if (expected[i] &gt; 0) { // Avoid division by zero
+                                        let diff = observed[i] - expected[i];
+                                        dist += (diff * diff) / expected[i];
+                                    }
+                                }
+                                return dist;
+                            }
+
+                            /**
+                            * Estimate Caesar shift and best language by minimizing chi-squared distance
+                            */
+                            function estimateShiftAndLanguage(cipherFreq) {
+                                let best = {shift: 0, lang: 'English', dist: Infinity};
+                                for (const [lang, langFreqs] of Object.entries(languageFrequencies)) {
+                                    for (let shift = 0; shift &lt; 26; shift++) {
+                                        let shifted = cipherFreq.slice();
+                                        // Unshifted version (simulate decrypting Caesar)
+                                        shifted = shifted.map((_, idx) =&gt; cipherFreq[(idx+shift)%26]);
+                                        const dist = chiSquared(shifted, langFreqs);
+                                        if (dist &lt; best.dist) {
+                                            best = {shift: shift, lang: lang, dist: dist};
+                                        }
+                                    }
+                                }
+                                return best;
+                            }
+
+                            /**
+                            * Caesar decryption (shift backwards)
+                            */
+                            function caesarDecipher(text, shift) {
+                                shift = ((shift % 26) + 26) % 26;
+                                function unshiftChar(c) {
+                                    const code = c.charCodeAt(0);
+                                    if (code &gt;= 65 &amp;&amp; code &lt;= 90) { // uppercase
+                                        return String.fromCharCode(((code - 65 - shift + 26) % 26) + 65);
+                                    }
+                                    if (code &gt;= 97 &amp;&amp; code &lt;= 122) { // lowercase
+                                        return String.fromCharCode(((code - 97 - shift + 26) % 26) + 97);
+                                    }
+                                    return c;
+                                }
+                                let deciphered = '';
+                                for (let i = 0; i &lt; text.length; i++) {
+                                    deciphered += unshiftChar(text[i]);
+                                }
+                                return deciphered;
+                            }
+
+                            /**
+                            * Break Caesar cipher: detect shift, detect language, show deciphered text, show frequency histograms
+                            */
+                            function breakCaesarCipher() {
+                                const cipheredText = document.getElementById('outputText').value;
+                                if (!cipheredText.trim()) {
+                                    alert("Please apply the Caesar cipher first!");
+                                    return;
+                                }
+                                // 1. Frequency analysis
+                                const freq = getLetterFrequencies(cipheredText);
+
+                                // 2. Estimate shift and language
+                                const { shift, lang } = estimateShiftAndLanguage(freq);
+
+                                // 3. Decipher using found shift
+                                const deciphered = caesarDecipher(cipheredText, shift);
+
+                                document.getElementById('decipheredText').value = deciphered;
+
+                                // 4. Plot histograms
+                                if (cipheredChart) cipheredChart.destroy();
+                                if (languageChart) languageChart.destroy();
+                                cipheredChart = plotFrequencyHistogram('cipheredFreqChart', freq, cipheredChart, '#3af', 'Ciphered');
+                                languageChart = plotFrequencyHistogram('languageFreqChart', languageFrequencies[lang], languageChart, '#faa', `${lang} (avg)`);
+
+                                // 5. Show detected language
+                                document.getElementById('detectedLangLabel').textContent = "Detected language: " + lang;
+                            }
+                            </code>
+                        </pre>
                     </p>
                 </div>
             </div>
