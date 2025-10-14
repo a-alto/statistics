@@ -473,23 +473,260 @@
                     <p>
                         Now we will apply the concept of distribution to break the Caesar chipher through an attack method called <b>frequency analysis</b>.
 
-                        For this work I will use the following text:
+                        Type your text below (should be long enough).
 
-                        <div style="margin: 2rem 0;">
-                            <object 
-                                data="./assets/hmwk2/quantum.pdf" 
-                                type="application/pdf"
-                                width="100%" 
-                                height="600px"
-                                style="border: 1px solid #444; border-radius: 8px; background: #222;">
-                                <p>Your browser doesn't support PDFs. <a href="./assets/hmwk2/quantum.pdf" target="_blank" style="color: #61dafb;">Click here to download the PDF</a>.</p>
-                            </object>
-                            <div style="font-size: 0.95em; color: #b8b8b8; margin-top: 0.5rem;">
-                                If the PDF does not load, <a href="./assets/hmwk2/quantum.pdf" target="_blank" style="color: #61dafb;">click here to download/view quantum.pdf</a>.
-                            </div>
+                        <div style="margin-top: 2rem; margin-bottom: 1rem;">
+                            <label for="inputText" style="font-weight: 500;">Input text:</label><br>
+                            <textarea id="inputText" rows="5" style="width: 100%; margin-bottom: 1rem;">A quantum computer is a (real or theoretical) computer that uses quantum mechanical phenomena in an essential way: it exploits superposed and entangled states, and the intrinsically non-deterministic outcomes of quantum measurements, as features of its computation. Quantum computers can be viewed as sampling from quantum systems that evolve in ways classically described as operating on an enormous number of possibilities simultaneously, though still subject to strict computational constraints. By contrast, ordinary ("classical") computers operate according to deterministic rules. Any classical computer can, in principle, be replicated by a (classical) mechanical device such as a Turing machine, with only polynomial overhead in time. Quantum computers, on the other hand are believed to require exponentially more resources to simulate classically. It is widely believed that a scalable quantum computer could perform some calculations exponentially faster than any classical computer. Theoretically, a large-scale quantum computer could break some widely used public-key cryptographic schemes and aid physicists in performing physical simulations. However, current hardware implementations of quantum computation are largely experimental and only suitable for specialized tasks.
+                                The basic unit of information in quantum computing, the qubit (or "quantum bit"), serves the same function as the bit in ordinary or "classical" computing. However, unlike a classical bit, which can be in one of two states (a binary), a qubit can exist in a linear combination of two states known as a quantum superposition. The result of measuring a qubit is one of the two states given by a probabilistic rule. If a quantum computer manipulates the qubit in a particular way, wave interference effects amplify the probability of the desired measurement result. The design of quantum algorithms involves creating procedures that allow a quantum computer to perform this amplification.
+                                Quantum computers are not yet practical for real-world applications. Physically engineering high-quality qubits has proven to be challenging. If a physical qubit is not sufficiently isolated from its environment, it suffers from quantum decoherence, introducing noise into calculations. National governments have invested heavily in experimental research aimed at developing scalable qubits with longer coherence times and lower error rates. Example implementations include superconductors (which isolate an electrical current by eliminating electrical resistance) and ion traps (which confine a single atomic particle using electromagnetic fields). Researchers have claimed, and are widely believed to be correct, that certain quantum devices can outperform classical computers on narrowly defined tasks, a milestone referred to as quantum advantage or quantum supremacy. These tasks are not necessarily useful for real-world applications.
+                            </textarea>
+                        </div>
+                        <!-- INSERT_YOUR_CODE -->
+                        <div style="margin-bottom: 1rem;">
+                            <button class="btn" onclick="computeLetterFrequency()">Compute Letter Frequency &amp; Show Histogram</button>
+                        </div>
+                        <div style="margin-bottom:1.5rem; max-width:600px;">
+                            <canvas id="letterFrequencyChart" height="200"></canvas>
+                        </div>
+                        <script>
+                        let letterFreqChart = null;
+
+                        function computeLetterFrequency() {
+                            const text = document.getElementById('inputText').value;
+                            // Calculate frequencies
+                            let freq = Array(26).fill(0);
+                            let total = 0;
+                            for (let c of text.toUpperCase()) {
+                                const idx = c.charCodeAt(0) - 65;
+                                if (idx >= 0 && idx < 26) {
+                                    freq[idx]++;
+                                    total++;
+                                }
+                            }
+                            // Convert to percent
+                            const freqPercent = freq.map(f => total ? 100 * f / total : 0);
+
+                            // Plot with Chart.js
+                            if (letterFreqChart) letterFreqChart.destroy();
+                            const ctx = document.getElementById('letterFrequencyChart').getContext('2d');
+                            letterFreqChart = new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: Array.from({length:26},(_,i)=>String.fromCharCode(65+i)),
+                                    datasets: [{
+                                        label: 'Letter Frequency (%)',
+                                        data: freqPercent,
+                                        backgroundColor: '#4bc0c0cc',
+                                        borderColor: '#086363',
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: { display: false }
+                                    },
+                                    scales: {
+                                        x: {
+                                            title: { display:true, text:'Letter' },
+                                            grid: { display: false }
+                                        },
+                                        y: {
+                                            beginAtZero: true,
+                                            title: { display: true, text: "Frequency (%)" }
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                        </script>
+                        <div style="margin-bottom: 1rem;">
+                            <label for="caesarShift" style="font-weight: 500;">Caesar shift:</label>
+                            <input type="number" id="caesarShift" value="3" style="width:60px; margin-left: 0.5em; margin-right: 1em;">
+                            <button class="btn" onclick="applyCaesarCipher()">Apply Shift</button>
+                        </div>
+                        <div style="margin-bottom: 0.5rem;">
+                            <label for="outputText" style="font-weight: 500;">Ciphered output:</label><br>
+                            <textarea id="outputText" rows="5" style="width: 100%;" readonly></textarea>
                         </div>
 
+                        <button class="btn" onclick="breakCaesarCipher()">Break Caesar Cipher (Auto-Decipher)</button>
+                        <br><br>
+                        <label for="decipheredText" style="font-weight: 500;">Deciphered text:</label><br>
+                        <textarea id="decipheredText" rows="5" style="width: 100%;" readonly></textarea>
+                        <div id="histogram-freq-container" style="display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 1.5rem;">
+                            <div style="flex:1; min-width:300px;">
+                                <b>Letter Frequency (Ciphered):</b>
+                                <canvas id="cipheredFreqChart" height="200"></canvas>
+                            </div>
+                            <div style="flex:1; min-width:300px;">
+                                <b>Letter Frequency (Detected Language):</b>
+                                <div id="detectedLangLabel" style="color:#aaf; margin-bottom:0.3em;"></div>
+                                <canvas id="languageFreqChart" height="200"></canvas>
+                            </div>
+                        </div>
+                        <script>
+                        // Major languages' typical letter frequencies (A-Z, normalized)
+                        const languageFrequencies = {
+                            English: [8.167,1.492,2.782,4.253,12.702,2.228,2.015,6.094,6.966,0.153,0.772,4.025,2.406,6.749,7.507,1.929,0.095,5.987,6.327,9.056,2.758,0.978,2.360,0.150,1.974,0.074],
+                            French:  [7.636,0.901,3.260,3.669,14.715,1.066,0.866,0.737,7.529,0.613,0.049,5.456,2.968,7.095,5.796,2.521,1.362,6.693,7.948,7.244,6.311,1.628,0.114,0.427,0.128,0.326],
+                            German:  [6.516,1.886,2.732,5.076,16.396,1.656,3.009,4.577,6.550,0.268,1.417,3.437,2.534,9.776,2.594,0.670,0.018,7.003,7.270,6.154,4.166,0.846,1.921,0.034,0.039,1.134],
+                            Italian: [11.745,0.927,4.501,3.736,11.792,1.153,1.644,0.636,10.143,0.011,0.009,6.510,2.512,6.883,9.832,3.056,0.505,6.367,4.981,5.623,3.011,2.097,0.033,0.003,0.020,1.181],
+                            Spanish: [12.525,2.215,4.019,5.010,13.681,0.692,1.768,0.703,6.247,0.493,0.011,4.967,3.157,6.712,8.683,2.510,0.877,6.871,7.977,4.632,2.927,1.138,0.017,0.215,1.008,0.467]
+                        };
 
+                        // Letter labels A-Z
+                        const alphabet = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
+
+                        // Utility: calculate frequencies of A-Z letters in given text (as percentages)
+                        function getLetterFrequencies(text) {
+                            let freq = Array(26).fill(0);
+                            let total = 0;
+                            for (let ch of text.toUpperCase()) {
+                                const idx = ch.charCodeAt(0) - 65;
+                                if (idx >= 0 && idx < 26) {
+                                    freq[idx]++;
+                                    total++;
+                                }
+                            }
+                            if (total === 0) return freq;
+                            return freq.map(f => (f * 100) / total);
+                        }
+
+                        // Utility: chi-squared distance, for matching distributions
+                        function chiSquared(observed, expected) {
+                            let dist = 0;
+                            for (let i = 0; i < 26; i++) {
+                                if (expected[i] > 0) { // Avoid division by zero
+                                    let diff = observed[i] - expected[i];
+                                    dist += (diff * diff) / expected[i];
+                                }
+                            }
+                            return dist;
+                        }
+
+                        // Estimate Caesar shift by minimizing chi-squared distance to best-fit language
+                        function estimateShiftAndLanguage(cipherFreq) {
+                            let best = {shift: 0, lang: 'English', dist: Infinity};
+                            for (const [lang, langFreqs] of Object.entries(languageFrequencies)) {
+                                for (let shift = 0; shift < 26; shift++) {
+                                    let shifted = cipherFreq.slice();
+                                    // Unshifted version (simulate decrypting Caesar)
+                                    shifted = shifted.map((_, idx) => cipherFreq[(idx+shift)%26]);
+                                    const dist = chiSquared(shifted, langFreqs);
+                                    if (dist < best.dist) {
+                                        best = {shift: shift, lang: lang, dist: dist};
+                                    }
+                                }
+                            }
+                            return best;
+                        }
+
+                        // Caesar decryption (shift backwards)
+                        function caesarDecipher(text, shift) {
+                            shift = ((shift % 26) + 26) % 26;
+                            function unshiftChar(c) {
+                                const code = c.charCodeAt(0);
+                                if (code >= 65 && code <= 90) { // uppercase
+                                    return String.fromCharCode(((code - 65 - shift + 26) % 26) + 65);
+                                }
+                                if (code >= 97 && code <= 122) { // lowercase
+                                    return String.fromCharCode(((code - 97 - shift + 26) % 26) + 97);
+                                }
+                                return c;
+                            }
+                            let deciphered = '';
+                            for (let i = 0; i < text.length; i++) {
+                                deciphered += unshiftChar(text[i]);
+                            }
+                            return deciphered;
+                        }
+
+                        // --- plotting with Chart.js ---
+
+                        let cipheredChart = null, languageChart = null;
+
+                        function plotFrequencyHistogram(canvasId, frequencies, chartRef, color='#3af', label='Frequency (%)') {
+                            const ctx = document.getElementById(canvasId).getContext('2d');
+                            if (chartRef && chartRef.destroy) chartRef.destroy();
+                            return new Chart(ctx, {
+                                type: 'bar',
+                                data: {
+                                    labels: alphabet,
+                                    datasets: [{
+                                        label: label,
+                                        data: frequencies.map(x => +x.toFixed(2)),
+                                        backgroundColor: color,
+                                        borderColor: "#111b",
+                                        borderWidth: 1,
+                                    }]
+                                },
+                                options: {
+                                    responsive: false,
+                                    plugins: {
+                                        legend: { display: false }
+                                    },
+                                    scales: {
+                                        x: { title: {display: true, text: 'Letter'}, grid: {display:false} },
+                                        y: { beginAtZero: true, title: {display:true, text:'Frequency (%)'} }
+                                    }
+                                }
+                            });
+                        }
+
+                        function breakCaesarCipher() {
+                            const cipheredText = document.getElementById('outputText').value;
+                            if (!cipheredText.trim()) {
+                                alert("Please apply the Caesar cipher first!");
+                                return;
+                            }
+                            // 1. Frequency analysis
+                            const freq = getLetterFrequencies(cipheredText);
+
+                            // 2. Estimate shift and language
+                            const { shift, lang } = estimateShiftAndLanguage(freq);
+
+                            // 3. Decipher using found shift
+                            const deciphered = caesarDecipher(cipheredText, shift);
+
+                            document.getElementById('decipheredText').value = deciphered;
+
+                            // 4. Plot histograms
+                            if (cipheredChart) cipheredChart.destroy();
+                            if (languageChart) languageChart.destroy();
+                            cipheredChart = plotFrequencyHistogram('cipheredFreqChart', freq, cipheredChart, '#3af', 'Ciphered');
+                            languageChart = plotFrequencyHistogram('languageFreqChart', languageFrequencies[lang], languageChart, '#faa', `${lang} (avg)`);
+
+                            // 5. Show detected language
+                            document.getElementById('detectedLangLabel').textContent = "Detected language: " + lang;
+                        }
+                        </script>
+
+                        <script>
+                        function applyCaesarCipher() {
+                            const text = document.getElementById('inputText').value;
+                            let shift = parseInt(document.getElementById('caesarShift').value) || 0;
+                            shift = ((shift % 26) + 26) % 26; // normalize shift
+
+                            function shiftChar(c) {
+                                const code = c.charCodeAt(0);
+                                if (code >= 65 && code <= 90) { // uppercase
+                                    return String.fromCharCode(((code - 65 + shift) % 26) + 65);
+                                }
+                                if (code >= 97 && code <= 122) { // lowercase
+                                    return String.fromCharCode(((code - 97 + shift) % 26) + 97);
+                                }
+                                return c;
+                            }
+
+                            let ciphered = '';
+                            for (let i = 0; i < text.length; i++) {
+                                ciphered += shiftChar(text[i]);
+                            }
+                            document.getElementById('outputText').value = ciphered;
+                        }
+                        </script>
                     </p>
                 </div>
             </div>
