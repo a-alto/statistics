@@ -95,271 +95,272 @@
                         </ul>
                         <b>Summary:</b><br>
                         RSA is fundamental to modern secure communications, providing both confidentiality (encryption) and authenticity (digital signatures) based on well-understood mathematical operations.
-                    </p>
+                    
 
-                    <div style="margin: 2.5rem 0; max-width: 570px; background: rgba(0,0,0,0.22); border-radius: 12px; padding: 2rem 1.5rem; border: 1.5px solid rgba(255,255,255,0.07); box-shadow: 0 3px 16px 2px rgba(12,18,22,.09);">
-                        <label for="rsaPlainText" style="font-weight:600;display:block;margin-bottom:8px;color:#efe4c6;">Clear text</label>
-                        <textarea id="rsaPlainText" rows="4" style="width:100%;resize:vertical;background:#161b20;color:#eee;font-size:1.07rem;padding:0.7rem 1rem;border-radius:6px;border:1.5px solid #2a4061;margin-bottom:1.1rem;font-family:inherit;">A quantum computer is a (real or theoretical) computer that uses quantum mechanical phenomena in an essential way: it exploits superposed and entangled states, and the intrinsically non-deterministic outcomes of quantum measurements, as features of its computation. Quantum computers can be viewed as sampling from quantum systems that evolve in ways classically described as operating on an enormous number of possibilities simultaneously, though still subject to strict computational constraints. By contrast, ordinary ("classical") computers operate according to deterministic rules. Any classical computer can, in principle, be replicated by a (classical) mechanical device such as a Turing machine, with only polynomial overhead in time. Quantum computers, on the other hand are believed to require exponentially more resources to simulate classically. It is widely believed that a scalable quantum computer could perform some calculations exponentially faster than any classical computer. Theoretically, a large-scale quantum computer could break some widely used public-key cryptographic schemes and aid physicists in performing physical simulations. However, current hardware implementations of quantum computation are largely experimental and only suitable for specialized tasks.
-                            The basic unit of information in quantum computing, the qubit (or "quantum bit"), serves the same function as the bit in ordinary or "classical" computing. However, unlike a classical bit, which can be in one of two states (a binary), a qubit can exist in a linear combination of two states known as a quantum superposition. The result of measuring a qubit is one of the two states given by a probabilistic rule. If a quantum computer manipulates the qubit in a particular way, wave interference effects amplify the probability of the desired measurement result. The design of quantum algorithms involves creating procedures that allow a quantum computer to perform this amplification.
-                            Quantum computers are not yet practical for real-world applications. Physically engineering high-quality qubits has proven to be challenging. If a physical qubit is not sufficiently isolated from its environment, it suffers from quantum decoherence, introducing noise into calculations. National governments have invested heavily in experimental research aimed at developing scalable qubits with longer coherence times and lower error rates. Example implementations include superconductors (which isolate an electrical current by eliminating electrical resistance) and ion traps (which confine a single atomic particle using electromagnetic fields). Researchers have claimed, and are widely believed to be correct, that certain quantum devices can outperform classical computers on narrowly defined tasks, a milestone referred to as quantum advantage or quantum supremacy. These tasks are not necessarily useful for real-world applications.
-                            </textarea>
+                        <div style="margin: 2.5rem 0; max-width: 570px; background: rgba(0,0,0,0.22); border-radius: 12px; padding: 2rem 1.5rem; border: 1.5px solid rgba(255,255,255,0.07); box-shadow: 0 3px 16px 2px rgba(12,18,22,.09);">
+                            <label for="rsaPlainText" style="font-weight:600;display:block;margin-bottom:8px;color:#efe4c6;">Clear text</label>
+                            <textarea id="rsaPlainText" rows="4" style="width:100%;resize:vertical;background:#161b20;color:#eee;font-size:1.07rem;padding:0.7rem 1rem;border-radius:6px;border:1.5px solid #2a4061;margin-bottom:1.1rem;font-family:inherit;">A quantum computer is a (real or theoretical) computer that uses quantum mechanical phenomena in an essential way: it exploits superposed and entangled states, and the intrinsically non-deterministic outcomes of quantum measurements, as features of its computation. Quantum computers can be viewed as sampling from quantum systems that evolve in ways classically described as operating on an enormous number of possibilities simultaneously, though still subject to strict computational constraints. By contrast, ordinary ("classical") computers operate according to deterministic rules. Any classical computer can, in principle, be replicated by a (classical) mechanical device such as a Turing machine, with only polynomial overhead in time. Quantum computers, on the other hand are believed to require exponentially more resources to simulate classically. It is widely believed that a scalable quantum computer could perform some calculations exponentially faster than any classical computer. Theoretically, a large-scale quantum computer could break some widely used public-key cryptographic schemes and aid physicists in performing physical simulations. However, current hardware implementations of quantum computation are largely experimental and only suitable for specialized tasks.
+                                The basic unit of information in quantum computing, the qubit (or "quantum bit"), serves the same function as the bit in ordinary or "classical" computing. However, unlike a classical bit, which can be in one of two states (a binary), a qubit can exist in a linear combination of two states known as a quantum superposition. The result of measuring a qubit is one of the two states given by a probabilistic rule. If a quantum computer manipulates the qubit in a particular way, wave interference effects amplify the probability of the desired measurement result. The design of quantum algorithms involves creating procedures that allow a quantum computer to perform this amplification.
+                                Quantum computers are not yet practical for real-world applications. Physically engineering high-quality qubits has proven to be challenging. If a physical qubit is not sufficiently isolated from its environment, it suffers from quantum decoherence, introducing noise into calculations. National governments have invested heavily in experimental research aimed at developing scalable qubits with longer coherence times and lower error rates. Example implementations include superconductors (which isolate an electrical current by eliminating electrical resistance) and ion traps (which confine a single atomic particle using electromagnetic fields). Researchers have claimed, and are widely believed to be correct, that certain quantum devices can outperform classical computers on narrowly defined tasks, a milestone referred to as quantum advantage or quantum supremacy. These tasks are not necessarily useful for real-world applications.
+                                </textarea>
 
-                        <div style="display:flex;gap:1.2rem;align-items:center;margin-bottom:1.2rem;">
-                            <div>
-                                <label for="rsaP" style="font-weight:500;font-size:0.97rem;color:#d9f7ea;">Prime number p:</label><br>
-                                <input id="rsaP" value="5" type="number" min="2" max="997" step="1" style="width:80px;padding:0.36rem 0.5rem;border-radius:5px;border:1px solid #34577c;font-size:1rem;background:#182430;color:#e1e1e1;">
+                            <div style="display:flex;gap:1.2rem;align-items:center;margin-bottom:1.2rem;">
+                                <div>
+                                    <label for="rsaP" style="font-weight:500;font-size:0.97rem;color:#d9f7ea;">Prime number p:</label><br>
+                                    <input id="rsaP" value="5" type="number" min="2" max="997" step="1" style="width:80px;padding:0.36rem 0.5rem;border-radius:5px;border:1px solid #34577c;font-size:1rem;background:#182430;color:#e1e1e1;">
+                                </div>
+                                <div>
+                                    <label for="rsaQ" style="font-weight:500;font-size:0.97rem;color:#d9f7ea;">Prime number q:</label><br>
+                                    <input id="rsaQ" value="83" type="number" min="2" max="997" step="1" style="width:80px;padding:0.36rem 0.5rem;border-radius:5px;border:1px solid #34577c;font-size:1rem;background:#182430;color:#e1e1e1;">
+                                </div>
+                                <div style="margin-top:1.6rem;">
+                                    <button id="rsaEncryptBtn" onclick="encryptRSA()" style="padding:0.50rem 1.27rem;font-weight:600;border-radius:6px;border:none;background:#27a461;color:#fff;cursor:pointer;font-size:1.07rem;box-shadow:0 2px 10px rgba(37,97,50,0.09);transition:background 0.19s;">Encrypt</button>
+                                </div>
                             </div>
-                            <div>
-                                <label for="rsaQ" style="font-weight:500;font-size:0.97rem;color:#d9f7ea;">Prime number q:</label><br>
-                                <input id="rsaQ" value="83" type="number" min="2" max="997" step="1" style="width:80px;padding:0.36rem 0.5rem;border-radius:5px;border:1px solid #34577c;font-size:1rem;background:#182430;color:#e1e1e1;">
-                            </div>
-                            <div style="margin-top:1.6rem;">
-                                <button id="rsaEncryptBtn" onclick="encryptRSA()" style="padding:0.50rem 1.27rem;font-weight:600;border-radius:6px;border:none;background:#27a461;color:#fff;cursor:pointer;font-size:1.07rem;box-shadow:0 2px 10px rgba(37,97,50,0.09);transition:background 0.19s;">Encrypt</button>
-                            </div>
+
+                            <label for="rsaCipherText" style="font-weight:600;display:block;margin-bottom:8px;color:#eddcfa;">Ciphered text (RSA):</label>
+                            <textarea id="rsaCipherText" rows="3" readonly style="width:100%;resize:vertical;background:#111722;color:#86d0f3;font-size:1.04rem;padding:0.7rem 1rem;border-radius:6px;border:1.5px solid #265173;margin-bottom:1.3rem;font-family:inherit;"></textarea>
+
+                            <button id="rsaBreakBtn" onclick="breakRSA()" style="padding:0.47rem 1.15rem;font-weight:600;border-radius:6px;border:none;background:#f54a3a;color:white;font-size:1.01rem;cursor:pointer;box-shadow:0 1px 7px rgba(185,40,40,0.07);margin-bottom:1.15rem;transition:background 0.18s;">Try decryption through factorization attack</button>
+
+                            <label for="rsaDecryptedText" style="font-weight:600;display:block;margin-bottom:8px;color:#aee59c;">Deciphered text:</label>
+                            <textarea id="rsaDecryptedText" rows="3" readonly style="width:100%;resize:vertical;background:#1b2417;color:#7eed91;font-size:1.045rem;padding:0.7rem 1rem;border-radius:6px;border:1.5px solid #38865b;margin-bottom:0.5rem;font-family:inherit;"></textarea>
                         </div>
 
-                        <label for="rsaCipherText" style="font-weight:600;display:block;margin-bottom:8px;color:#eddcfa;">Ciphered text (RSA):</label>
-                        <textarea id="rsaCipherText" rows="3" readonly style="width:100%;resize:vertical;background:#111722;color:#86d0f3;font-size:1.04rem;padding:0.7rem 1rem;border-radius:6px;border:1.5px solid #265173;margin-bottom:1.3rem;font-family:inherit;"></textarea>
-
-                        <button id="rsaBreakBtn" onclick="breakRSA()" style="padding:0.47rem 1.15rem;font-weight:600;border-radius:6px;border:none;background:#f54a3a;color:white;font-size:1.01rem;cursor:pointer;box-shadow:0 1px 7px rgba(185,40,40,0.07);margin-bottom:1.15rem;transition:background 0.18s;">Try decryption through factorization attack</button>
-
-                        <label for="rsaDecryptedText" style="font-weight:600;display:block;margin-bottom:8px;color:#aee59c;">Deciphered text:</label>
-                        <textarea id="rsaDecryptedText" rows="3" readonly style="width:100%;resize:vertical;background:#1b2417;color:#7eed91;font-size:1.045rem;padding:0.7rem 1rem;border-radius:6px;border:1.5px solid #38865b;margin-bottom:0.5rem;font-family:inherit;"></textarea>
-                    </div>
-
-                    <script>
-                    // Helper: check if n is prime (for small numbers)
-                    function isPrime(n) {
-                        if (n < 2) return false;
-                        for (let i = 2; i * i <= n; ++i) if (n % i === 0) return false;
-                        return true;
-                    }
-                    // Helper: gcd
-                    function gcd(a, b) {
-                        while (b !== 0) { let t=b; b=a%b; a=t; } return a;
-                    }
-                    // Helper: modular inverse of e mod phi, assumes e,phi coprime
-                    function modinv(e, phi) {
-                        let [t, newt] = [0, 1],
-                            [r, newr] = [phi, e];
-                        while (newr !== 0) {
-                            let q = Math.floor(r / newr);
-                            [t, newt] = [newt, t - q * newt];
-                            [r, newr] = [newr, r - q * newr];
+                        <script>
+                        // Helper: check if n is prime (for small numbers)
+                        function isPrime(n) {
+                            if (n < 2) return false;
+                            for (let i = 2; i * i <= n; ++i) if (n % i === 0) return false;
+                            return true;
                         }
-                        if (r > 1) return null; // e not invertible
-                        if (t < 0) t += phi;
-                        return t;
-                    }
-                    // Helper: modular exp (small numbers)
-                    function modpow(base, exp, mod) {
-                        let result = 1;
-                        base = base % mod;
-                        while (exp > 0) {
-                            if (exp % 2 === 1) result = (result * base) % mod;
-                            exp = Math.floor(exp / 2);
-                            base = (base * base) % mod;
+                        // Helper: gcd
+                        function gcd(a, b) {
+                            while (b !== 0) { let t=b; b=a%b; a=t; } return a;
                         }
-                        return result;
-                    }
-                    // Helper: convert a (short) utf-8 string to array of char codes
-                    function strToCodes(s) {
-                        // Only basic BMP (Italian ASCII/latin) chars supported for this demo
-                        return Array.from(s).map(c => c.charCodeAt(0));
-                    }
-                    function codesToStr(arr) {
-                        return arr.map(c => String.fromCharCode(c)).join('');
-                    }
-
-                    function encryptRSA() {
-                        // fetch inputs
-                        let text = document.getElementById('rsaPlainText').value;
-                        let p = parseInt(document.getElementById('rsaP').value, 10);
-                        let q = parseInt(document.getElementById('rsaQ').value, 10);
-                        if (!(isPrime(p) && isPrime(q) && p !== q)) {
-                            alert('Both p and q must be different valid prime numbers.');
-                            return;
-                        }
-                        let n = p * q;
-                        let phi = (p-1)*(q-1);
-                        // Select small e: 3 or 5 or 17 or 257, minimal (for demo). Find first available.
-                        let e = [3,5,17,257].find(candidate => gcd(candidate, phi) === 1);
-                        if (!e) { alert("No valid public exponent was found."); return; }
-
-                        // Convert message to char codes, do encrypt charwise
-                        let codes = strToCodes(text);
-                        // Only encrypt chars that fit: code < n (so for demonstration pick n>=150 recommended)
-                        if (codes.some(code => code >= n)) {
-                            alert("n=p*q must be greater than the maximum character value of the text (" +
-                                Math.max(...codes) + ").");
-                            return;
-                        }
-
-                        // Encrypt: for each code c: c' = c^e mod n
-                        let encrypted = codes.map(c => modpow(c, e, n));
-                        // Display as space-separated cipher block
-                        document.getElementById('rsaCipherText').value = encrypted.join(' ');
-                        document.getElementById('rsaDecryptedText').value = ""; // clear previous
-                    }
-
-                    function breakRSA() {
-                        // Try to factor n, then get d and decrypt
-                        let p = parseInt(document.getElementById('rsaP').value, 10);
-                        let q = parseInt(document.getElementById('rsaQ').value, 10);
-                        let n = p * q;
-                        let cipherText = document.getElementById('rsaCipherText').value.trim();
-                        if (!cipherText) {
-                            alert('Ciphertext not present.');
-                            return;
-                        }
-                        let encryptedBlocks = cipherText.split(/\s+/).map(Number);
-                        // Try to factor n - for demo, we know it's p * q. But in a realistic attack, try all 2..sqrt(n)
-                        let found_p = null, found_q = null;
-                        for (let i = 2; i*i <= n; ++i) {
-                            if (n % i === 0 && isPrime(i) && isPrime(n/i)) {
-                                found_p = i; found_q = n/i;
-                                break;
-                            }
-                        }
-                        if (!found_p) {
-                            alert('I was unable to factor n.');
-                            return;
-                        }
-                        let phi = (found_p-1)*(found_q-1);
-                        // Try to recover e — attempt common small exponents
-                        let possibleEs = [3,5,17,257];
-                        let recoveredE = possibleEs.find(e => gcd(e, phi) === 1);
-                        if (!recoveredE) {
-                            alert('I was unable to determine the exponent e.');
-                            return;
-                        }
-                        // Compute d (modular inverse)
-                        let d = modinv(recoveredE, phi);
-                        if (d === null) {
-                            alert('I couldn\'t calculate d.');
-                            return;
-                        }
-                        // Decrypt
-                        let decryptedCodes = encryptedBlocks.map(block => modpow(block, d, n));
-                        let decryptedText = codesToStr(decryptedCodes);
-                        document.getElementById('rsaDecryptedText').value = decryptedText;
-                    }
-                    </script>
-
-                    <br>
-
-                    Here is the JavaScript code used to encrypt using RSA and break it (for small primes p and q):
-
-                    <pre style="background: rgba(0, 0, 0, 0.3); color: #e8e8e8; border-radius: 8px; padding: 1.5rem; padding-top: 2.5rem; font-size: 0.93rem; overflow-x: auto; margin: 2rem 0; border: 1px solid rgba(255,255,255,0.10); font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace; line-height: 1.6; position: relative; white-space: pre;">
-                        <span style="position: absolute; top: 0.5rem; right: 1rem; background: rgba(255, 223, 0, 0.15); color: #f0db4f; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em;">JavaScript</span>
-                        <code><span style="color:#5c6370;font-style:italic;">// Helper: check if n is prime (small numbers)</span>
-                        <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">isPrime</span>(n) {
-                            <span style="color:#c678dd;font-weight:600;">if</span> (n &lt; 2) <span style="color:#c678dd;font-weight:600;">return</span> false;
-                            <span style="color:#c678dd;font-weight:600;">for</span> (<span style="color:#c678dd;font-weight:600;">let</span> i = 2; i * i &lt;= n; ++i)
-                                <span style="color:#c678dd;font-weight:600;">if</span> (n % i === 0) <span style="color:#c678dd;font-weight:600;">return</span> false;
-                            <span style="color:#c678dd;font-weight:600;">return</span> true;
-                        }
-                        <span style="color:#5c6370;font-style:italic;">// Greatest common divisor</span>
-                        <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">gcd</span>(a, b) {
-                            <span style="color:#c678dd;font-weight:600;">while</span> (b !== 0) { <span style="color:#c678dd;font-weight:600;">let</span> t = b; b = a % b; a = t; }
-                            <span style="color:#c678dd;font-weight:600;">return</span> a;
-                        }
-                        <span style="color:#5c6370;font-style:italic;">// Modular inverse of e mod phi</span>
-                        <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">modinv</span>(e, phi) {
-                            <span style="color:#c678dd;font-weight:600;">let</span> [t, newt] = [0, 1], [r, newr] = [phi, e];
-                            <span style="color:#c678dd;font-weight:600;">while</span> (newr !== 0) {
-                                <span style="color:#c678dd;font-weight:600;">let</span> q = Math.floor(r / newr);
+                        // Helper: modular inverse of e mod phi, assumes e,phi coprime
+                        function modinv(e, phi) {
+                            let [t, newt] = [0, 1],
+                                [r, newr] = [phi, e];
+                            while (newr !== 0) {
+                                let q = Math.floor(r / newr);
                                 [t, newt] = [newt, t - q * newt];
                                 [r, newr] = [newr, r - q * newr];
                             }
-                            <span style="color:#c678dd;font-weight:600;">if</span> (r &gt; 1) <span style="color:#c678dd;font-weight:600;">return</span> null;
-                            <span style="color:#c678dd;font-weight:600;">if</span> (t &lt; 0) t += phi;
-                            <span style="color:#c678dd;font-weight:600;">return</span> t;
+                            if (r > 1) return null; // e not invertible
+                            if (t < 0) t += phi;
+                            return t;
                         }
-                        <span style="color:#5c6370;font-style:italic;">// Modular exponentiation</span>
-                        <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">modpow</span>(base, exp, mod) {
-                            <span style="color:#c678dd;font-weight:600;">let</span> result = 1;
+                        // Helper: modular exp (small numbers)
+                        function modpow(base, exp, mod) {
+                            let result = 1;
                             base = base % mod;
-                            <span style="color:#c678dd;font-weight:600;">while</span> (exp &gt; 0) {
-                                <span style="color:#c678dd;font-weight:600;">if</span> (exp % 2 === 1) result = (result * base) % mod;
+                            while (exp > 0) {
+                                if (exp % 2 === 1) result = (result * base) % mod;
                                 exp = Math.floor(exp / 2);
                                 base = (base * base) % mod;
                             }
-                            <span style="color:#c678dd;font-weight:600;">return</span> result;
+                            return result;
                         }
-                        <span style="color:#5c6370;font-style:italic;">// String to UTF-16 char codes (for demo; only latin/ASCII works safely)</span>
-                        <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">strToCodes</span>(s) {
-                            <span style="color:#c678dd;font-weight:600;">return</span> Array.from(s).map(c =&gt; c.charCodeAt(0));
+                        // Helper: convert a (short) utf-8 string to array of char codes
+                        function strToCodes(s) {
+                            // Only basic BMP (Italian ASCII/latin) chars supported for this demo
+                            return Array.from(s).map(c => c.charCodeAt(0));
                         }
-                        <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">codesToStr</span>(arr) {
-                            <span style="color:#c678dd;font-weight:600;">return</span> arr.map(c =&gt; String.fromCharCode(c)).join('');
+                        function codesToStr(arr) {
+                            return arr.map(c => String.fromCharCode(c)).join('');
                         }
 
-                        <span style="color:#57a64a;font-weight:600;">// Encrypt message with RSA</span>
-                        <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">encryptRSA</span>() {
-                            <span style="color:#c678dd;font-weight:600;">let</span> text = document.getElementById('rsaPlainText').value;
-                            <span style="color:#c678dd;font-weight:600;">let</span> p = parseInt(document.getElementById('rsaP').value, 10);
-                            <span style="color:#c678dd;font-weight:600;">let</span> q = parseInt(document.getElementById('rsaQ').value, 10);
-                            <span style="color:#c678dd;font-weight:600;">if</span> (!(isPrime(p) &amp;&amp; isPrime(q) &amp;&amp; p !== q)) {
+                        function encryptRSA() {
+                            // fetch inputs
+                            let text = document.getElementById('rsaPlainText').value;
+                            let p = parseInt(document.getElementById('rsaP').value, 10);
+                            let q = parseInt(document.getElementById('rsaQ').value, 10);
+                            if (!(isPrime(p) && isPrime(q) && p !== q)) {
                                 alert('Both p and q must be different valid prime numbers.');
-                                <span style="color:#c678dd;font-weight:600;">return</span>;
+                                return;
                             }
-                            <span style="color:#c678dd;font-weight:600;">let</span> n = p * q;
-                            <span style="color:#c678dd;font-weight:600;">let</span> phi = (p-1)*(q-1);
-                            <span style="color:#c678dd;font-weight:600;">let</span> e = [3,5,17,257].find(candidate =&gt; gcd(candidate, phi) === 1);
-                            <span style="color:#c678dd;font-weight:600;">if</span> (!e) { alert("No valid public exponent was found."); <span style="color:#c678dd;font-weight:600;">return</span>; }
-                            <span style="color:#c678dd;font-weight:600;">let</span> codes = strToCodes(text);
-                            <span style="color:#c678dd;font-weight:600;">if</span> (codes.some(code =&gt; code &gt;= n)) {
-                                alert("n=p*q must be greater than the maximum character value.");
-                                <span style="color:#c678dd;font-weight:600;">return</span>;
+                            let n = p * q;
+                            let phi = (p-1)*(q-1);
+                            // Select small e: 3 or 5 or 17 or 257, minimal (for demo). Find first available.
+                            let e = [3,5,17,257].find(candidate => gcd(candidate, phi) === 1);
+                            if (!e) { alert("No valid public exponent was found."); return; }
+
+                            // Convert message to char codes, do encrypt charwise
+                            let codes = strToCodes(text);
+                            // Only encrypt chars that fit: code < n (so for demonstration pick n>=150 recommended)
+                            if (codes.some(code => code >= n)) {
+                                alert("n=p*q must be greater than the maximum character value of the text (" +
+                                    Math.max(...codes) + ").");
+                                return;
                             }
-                            <span style="color:#c678dd;font-weight:600;">let</span> encrypted = codes.map(c =&gt; modpow(c, e, n));
+
+                            // Encrypt: for each code c: c' = c^e mod n
+                            let encrypted = codes.map(c => modpow(c, e, n));
+                            // Display as space-separated cipher block
                             document.getElementById('rsaCipherText').value = encrypted.join(' ');
-                            document.getElementById('rsaDecryptedText').value = ""; <span style="color:#5c6370;">// clear previous</span>
+                            document.getElementById('rsaDecryptedText').value = ""; // clear previous
                         }
 
-                        <span style="color:#57a64a;font-weight:600;">// Break/decrypt RSA (factor n, find e, get d, decrypt)</span>
-                        <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">breakRSA</span>() {
-                            <span style="color:#c678dd;font-weight:600;">let</span> p = parseInt(document.getElementById('rsaP').value, 10);
-                            <span style="color:#c678dd;font-weight:600;">let</span> q = parseInt(document.getElementById('rsaQ').value, 10);
-                            <span style="color:#c678dd;font-weight:600;">let</span> n = p * q;
-                            <span style="color:#c678dd;font-weight:600;">let</span> cipherText = document.getElementById('rsaCipherText').value.trim();
-                            <span style="color:#c678dd;font-weight:600;">if</span> (!cipherText) {
+                        function breakRSA() {
+                            // Try to factor n, then get d and decrypt
+                            let p = parseInt(document.getElementById('rsaP').value, 10);
+                            let q = parseInt(document.getElementById('rsaQ').value, 10);
+                            let n = p * q;
+                            let cipherText = document.getElementById('rsaCipherText').value.trim();
+                            if (!cipherText) {
                                 alert('Ciphertext not present.');
-                                <span style="color:#c678dd;font-weight:600;">return</span>;
+                                return;
                             }
-                            <span style="color:#c678dd;font-weight:600;">let</span> encryptedBlocks = cipherText.split(/\s+/).map(Number);
-                            <span style="color:#5c6370;font-style:italic;">// Try to factor n: check all divisors up to sqrt(n)</span>
-                            <span style="color:#c678dd;font-weight:600;">let</span> found_p = null, found_q = null;
-                            <span style="color:#c678dd;font-weight:600;">for</span> (<span style="color:#c678dd;font-weight:600;">let</span> i = 2; i*i &lt;= n; ++i) {
-                                <span style="color:#c678dd;font-weight:600;">if</span> (n % i === 0 &amp;&amp; isPrime(i) &amp;&amp; isPrime(n/i)) {
+                            let encryptedBlocks = cipherText.split(/\s+/).map(Number);
+                            // Try to factor n - for demo, we know it's p * q. But in a realistic attack, try all 2..sqrt(n)
+                            let found_p = null, found_q = null;
+                            for (let i = 2; i*i <= n; ++i) {
+                                if (n % i === 0 && isPrime(i) && isPrime(n/i)) {
                                     found_p = i; found_q = n/i;
-                                    <span style="color:#c678dd;font-weight:600;">break</span>;
+                                    break;
                                 }
                             }
-                            <span style="color:#c678dd;font-weight:600;">if</span> (!found_p) {
+                            if (!found_p) {
                                 alert('I was unable to factor n.');
-                                <span style="color:#c678dd;font-weight:600;">return</span>;
+                                return;
                             }
-                            <span style="color:#c678dd;font-weight:600;">let</span> phi = (found_p-1)*(found_q-1);
-                            <span style="color:#5c6370;font-style:italic;">// Try small common exponents e</span>
-                            <span style="color:#c678dd;font-weight:600;">let</span> possibleEs = [3,5,17,257];
-                            <span style="color:#c678dd;font-weight:600;">let</span> recoveredE = possibleEs.find(e =&gt; gcd(e, phi) === 1);
-                            <span style="color:#c678dd;font-weight:600;">if</span> (!recoveredE) {
+                            let phi = (found_p-1)*(found_q-1);
+                            // Try to recover e — attempt common small exponents
+                            let possibleEs = [3,5,17,257];
+                            let recoveredE = possibleEs.find(e => gcd(e, phi) === 1);
+                            if (!recoveredE) {
                                 alert('I was unable to determine the exponent e.');
-                                <span style="color:#c678dd;font-weight:600;">return</span>;
+                                return;
                             }
-                            <span style="color:#c678dd;font-weight:600;">let</span> d = modinv(recoveredE, phi);
-                            <span style="color:#c678dd;font-weight:600;">if</span> (d === null) {
+                            // Compute d (modular inverse)
+                            let d = modinv(recoveredE, phi);
+                            if (d === null) {
                                 alert('I couldn\'t calculate d.');
-                                <span style="color:#c678dd;font-weight:600;">return</span>;
+                                return;
                             }
-                            <span style="color:#c678dd;font-weight:600;">let</span> decryptedCodes = encryptedBlocks.map(block =&gt; modpow(block, d, n));
-                            <span style="color:#c678dd;font-weight:600;">let</span> decryptedText = codesToStr(decryptedCodes);
+                            // Decrypt
+                            let decryptedCodes = encryptedBlocks.map(block => modpow(block, d, n));
+                            let decryptedText = codesToStr(decryptedCodes);
                             document.getElementById('rsaDecryptedText').value = decryptedText;
                         }
-                        </code>
-                    </pre>
+                        </script>
+
+                        <br>
+
+                        Here is the JavaScript code used to encrypt using RSA and break it (for small primes p and q):
+
+                        <pre style="background: rgba(0, 0, 0, 0.3); color: #e8e8e8; border-radius: 8px; padding: 1.5rem; padding-top: 2.5rem; font-size: 0.93rem; overflow-x: auto; margin: 2rem 0; border: 1px solid rgba(255,255,255,0.10); font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace; line-height: 1.6; position: relative; white-space: pre;">
+                            <span style="position: absolute; top: 0.5rem; right: 1rem; background: rgba(255, 223, 0, 0.15); color: #f0db4f; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em;">JavaScript</span>
+                            <code><span style="color:#5c6370;font-style:italic;">// Helper: check if n is prime (small numbers)</span>
+                            <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">isPrime</span>(n) {
+                                <span style="color:#c678dd;font-weight:600;">if</span> (n &lt; 2) <span style="color:#c678dd;font-weight:600;">return</span> false;
+                                <span style="color:#c678dd;font-weight:600;">for</span> (<span style="color:#c678dd;font-weight:600;">let</span> i = 2; i * i &lt;= n; ++i)
+                                    <span style="color:#c678dd;font-weight:600;">if</span> (n % i === 0) <span style="color:#c678dd;font-weight:600;">return</span> false;
+                                <span style="color:#c678dd;font-weight:600;">return</span> true;
+                            }
+                            <span style="color:#5c6370;font-style:italic;">// Greatest common divisor</span>
+                            <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">gcd</span>(a, b) {
+                                <span style="color:#c678dd;font-weight:600;">while</span> (b !== 0) { <span style="color:#c678dd;font-weight:600;">let</span> t = b; b = a % b; a = t; }
+                                <span style="color:#c678dd;font-weight:600;">return</span> a;
+                            }
+                            <span style="color:#5c6370;font-style:italic;">// Modular inverse of e mod phi</span>
+                            <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">modinv</span>(e, phi) {
+                                <span style="color:#c678dd;font-weight:600;">let</span> [t, newt] = [0, 1], [r, newr] = [phi, e];
+                                <span style="color:#c678dd;font-weight:600;">while</span> (newr !== 0) {
+                                    <span style="color:#c678dd;font-weight:600;">let</span> q = Math.floor(r / newr);
+                                    [t, newt] = [newt, t - q * newt];
+                                    [r, newr] = [newr, r - q * newr];
+                                }
+                                <span style="color:#c678dd;font-weight:600;">if</span> (r &gt; 1) <span style="color:#c678dd;font-weight:600;">return</span> null;
+                                <span style="color:#c678dd;font-weight:600;">if</span> (t &lt; 0) t += phi;
+                                <span style="color:#c678dd;font-weight:600;">return</span> t;
+                            }
+                            <span style="color:#5c6370;font-style:italic;">// Modular exponentiation</span>
+                            <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">modpow</span>(base, exp, mod) {
+                                <span style="color:#c678dd;font-weight:600;">let</span> result = 1;
+                                base = base % mod;
+                                <span style="color:#c678dd;font-weight:600;">while</span> (exp &gt; 0) {
+                                    <span style="color:#c678dd;font-weight:600;">if</span> (exp % 2 === 1) result = (result * base) % mod;
+                                    exp = Math.floor(exp / 2);
+                                    base = (base * base) % mod;
+                                }
+                                <span style="color:#c678dd;font-weight:600;">return</span> result;
+                            }
+                            <span style="color:#5c6370;font-style:italic;">// String to UTF-16 char codes (for demo; only latin/ASCII works safely)</span>
+                            <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">strToCodes</span>(s) {
+                                <span style="color:#c678dd;font-weight:600;">return</span> Array.from(s).map(c =&gt; c.charCodeAt(0));
+                            }
+                            <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">codesToStr</span>(arr) {
+                                <span style="color:#c678dd;font-weight:600;">return</span> arr.map(c =&gt; String.fromCharCode(c)).join('');
+                            }
+
+                            <span style="color:#57a64a;font-weight:600;">// Encrypt message with RSA</span>
+                            <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">encryptRSA</span>() {
+                                <span style="color:#c678dd;font-weight:600;">let</span> text = document.getElementById('rsaPlainText').value;
+                                <span style="color:#c678dd;font-weight:600;">let</span> p = parseInt(document.getElementById('rsaP').value, 10);
+                                <span style="color:#c678dd;font-weight:600;">let</span> q = parseInt(document.getElementById('rsaQ').value, 10);
+                                <span style="color:#c678dd;font-weight:600;">if</span> (!(isPrime(p) &amp;&amp; isPrime(q) &amp;&amp; p !== q)) {
+                                    alert('Both p and q must be different valid prime numbers.');
+                                    <span style="color:#c678dd;font-weight:600;">return</span>;
+                                }
+                                <span style="color:#c678dd;font-weight:600;">let</span> n = p * q;
+                                <span style="color:#c678dd;font-weight:600;">let</span> phi = (p-1)*(q-1);
+                                <span style="color:#c678dd;font-weight:600;">let</span> e = [3,5,17,257].find(candidate =&gt; gcd(candidate, phi) === 1);
+                                <span style="color:#c678dd;font-weight:600;">if</span> (!e) { alert("No valid public exponent was found."); <span style="color:#c678dd;font-weight:600;">return</span>; }
+                                <span style="color:#c678dd;font-weight:600;">let</span> codes = strToCodes(text);
+                                <span style="color:#c678dd;font-weight:600;">if</span> (codes.some(code =&gt; code &gt;= n)) {
+                                    alert("n=p*q must be greater than the maximum character value.");
+                                    <span style="color:#c678dd;font-weight:600;">return</span>;
+                                }
+                                <span style="color:#c678dd;font-weight:600;">let</span> encrypted = codes.map(c =&gt; modpow(c, e, n));
+                                document.getElementById('rsaCipherText').value = encrypted.join(' ');
+                                document.getElementById('rsaDecryptedText').value = ""; <span style="color:#5c6370;">// clear previous</span>
+                            }
+
+                            <span style="color:#57a64a;font-weight:600;">// Break/decrypt RSA (factor n, find e, get d, decrypt)</span>
+                            <span style="color:#c678dd;font-weight:600;">function</span> <span style="color:#61afef;">breakRSA</span>() {
+                                <span style="color:#c678dd;font-weight:600;">let</span> p = parseInt(document.getElementById('rsaP').value, 10);
+                                <span style="color:#c678dd;font-weight:600;">let</span> q = parseInt(document.getElementById('rsaQ').value, 10);
+                                <span style="color:#c678dd;font-weight:600;">let</span> n = p * q;
+                                <span style="color:#c678dd;font-weight:600;">let</span> cipherText = document.getElementById('rsaCipherText').value.trim();
+                                <span style="color:#c678dd;font-weight:600;">if</span> (!cipherText) {
+                                    alert('Ciphertext not present.');
+                                    <span style="color:#c678dd;font-weight:600;">return</span>;
+                                }
+                                <span style="color:#c678dd;font-weight:600;">let</span> encryptedBlocks = cipherText.split(/\s+/).map(Number);
+                                <span style="color:#5c6370;font-style:italic;">// Try to factor n: check all divisors up to sqrt(n)</span>
+                                <span style="color:#c678dd;font-weight:600;">let</span> found_p = null, found_q = null;
+                                <span style="color:#c678dd;font-weight:600;">for</span> (<span style="color:#c678dd;font-weight:600;">let</span> i = 2; i*i &lt;= n; ++i) {
+                                    <span style="color:#c678dd;font-weight:600;">if</span> (n % i === 0 &amp;&amp; isPrime(i) &amp;&amp; isPrime(n/i)) {
+                                        found_p = i; found_q = n/i;
+                                        <span style="color:#c678dd;font-weight:600;">break</span>;
+                                    }
+                                }
+                                <span style="color:#c678dd;font-weight:600;">if</span> (!found_p) {
+                                    alert('I was unable to factor n.');
+                                    <span style="color:#c678dd;font-weight:600;">return</span>;
+                                }
+                                <span style="color:#c678dd;font-weight:600;">let</span> phi = (found_p-1)*(found_q-1);
+                                <span style="color:#5c6370;font-style:italic;">// Try small common exponents e</span>
+                                <span style="color:#c678dd;font-weight:600;">let</span> possibleEs = [3,5,17,257];
+                                <span style="color:#c678dd;font-weight:600;">let</span> recoveredE = possibleEs.find(e =&gt; gcd(e, phi) === 1);
+                                <span style="color:#c678dd;font-weight:600;">if</span> (!recoveredE) {
+                                    alert('I was unable to determine the exponent e.');
+                                    <span style="color:#c678dd;font-weight:600;">return</span>;
+                                }
+                                <span style="color:#c678dd;font-weight:600;">let</span> d = modinv(recoveredE, phi);
+                                <span style="color:#c678dd;font-weight:600;">if</span> (d === null) {
+                                    alert('I couldn\'t calculate d.');
+                                    <span style="color:#c678dd;font-weight:600;">return</span>;
+                                }
+                                <span style="color:#c678dd;font-weight:600;">let</span> decryptedCodes = encryptedBlocks.map(block =&gt; modpow(block, d, n));
+                                <span style="color:#c678dd;font-weight:600;">let</span> decryptedText = codesToStr(decryptedCodes);
+                                document.getElementById('rsaDecryptedText').value = decryptedText;
+                            }
+                            </code>
+                        </pre>
+                    </p>
                 </div>
             </div>
         </section>
