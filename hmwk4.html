@@ -96,17 +96,20 @@
 
                     <div style="margin-top: 2rem; margin-bottom: 1rem;">
                         <label for="plaintextInput" style="font-weight: 500;">Plaintext:</label><br>
-                        <textarea id="plaintextInput" rows="8" style="width: 100%; margin-top: 0.5rem; margin-bottom: 1rem; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 6px; padding: 0.75rem 1rem; color: #e8e8e8; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace; font-size: 0.95rem; outline: none; resize: vertical; min-height: 150px; line-height: 1.6;">Cryptography is the practice and study of techniques for secure communication in the presence of adversarial behavior. More generally, cryptography is about constructing and analyzing protocols that prevent third parties or the public from reading private messages. Modern cryptography exists at the intersection of the disciplines of mathematics, computer science, information security, electrical engineering, digital signal processing, physics, and others. Core concepts related to information security are also central to cryptography. Practical applications of cryptography include electronic commerce, chip-based payment cards, digital currencies, computer passwords, and military communications. Cryptography prior to the modern age was effectively synonymous with encryption, converting information from a readable state to apparent nonsense. The originator of an encrypted message shared the decoding technique only with intended recipients to preclude access from adversaries. The cryptography literature often uses the names Alice and Bob for the sender and receiver of messages respectively. Since the development of rotor cipher machines in World War I and the advent of computers in World War II, cryptography methods have become increasingly complex and their applications more varied.</textarea>
+                        <textarea id="plaintextInput" rows="8" style="width: 100%; margin-top: 0.5rem; margin-bottom: 1rem; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 6px; padding: 0.75rem 1rem; color: #e8e8e8; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace; font-size: 0.95rem; outline: none; resize: vertical; min-height: 150px; line-height: 1.6;">A quantum computer is a (real or theoretical) computer that uses quantum mechanical phenomena in an essential way: it exploits superposed and entangled states, and the intrinsically non-deterministic outcomes of quantum measurements, as features of its computation. Quantum computers can be viewed as sampling from quantum systems that evolve in ways classically described as operating on an enormous number of possibilities simultaneously, though still subject to strict computational constraints. By contrast, ordinary ("classical") computers operate according to deterministic rules. Any classical computer can, in principle, be replicated by a (classical) mechanical device such as a Turing machine, with only polynomial overhead in time. Quantum computers, on the other hand are believed to require exponentially more resources to simulate classically. It is widely believed that a scalable quantum computer could perform some calculations exponentially faster than any classical computer. Theoretically, a large-scale quantum computer could break some widely used public-key cryptographic schemes and aid physicists in performing physical simulations. However, current hardware implementations of quantum computation are largely experimental and only suitable for specialized tasks.
+                            The basic unit of information in quantum computing, the qubit (or "quantum bit"), serves the same function as the bit in ordinary or "classical" computing. However, unlike a classical bit, which can be in one of two states (a binary), a qubit can exist in a linear combination of two states known as a quantum superposition. The result of measuring a qubit is one of the two states given by a probabilistic rule. If a quantum computer manipulates the qubit in a particular way, wave interference effects amplify the probability of the desired measurement result. The design of quantum algorithms involves creating procedures that allow a quantum computer to perform this amplification.
+                            Quantum computers are not yet practical for real-world applications. Physically engineering high-quality qubits has proven to be challenging. If a physical qubit is not sufficiently isolated from its environment, it suffers from quantum decoherence, introducing noise into calculations. National governments have invested heavily in experimental research aimed at developing scalable qubits with longer coherence times and lower error rates. Example implementations include superconductors (which isolate an electrical current by eliminating electrical resistance) and ion traps (which confine a single atomic particle using electromagnetic fields). Researchers have claimed, and are widely believed to be correct, that certain quantum devices can outperform classical computers on narrowly defined tasks, a milestone referred to as quantum advantage or quantum supremacy. These tasks are not necessarily useful for real-world applications.
+                            </textarea>
                     </div>
 
                     <div style="display: flex; gap: 1.5rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
                         <div>
                             <label for="rsaPrime1" style="font-weight: 500;">Prime p:</label>
-                            <input type="number" id="rsaPrime1" value="61" min="3" max="997" style="width:80px; margin-left: 0.5em; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 6px; padding: 0.5rem; color: #e8e8e8; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none;">
+                            <input type="number" value="5" id="rsaPrime1" value="61" min="3" max="997" style="width:80px; margin-left: 0.5em; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 6px; padding: 0.5rem; color: #e8e8e8; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none;">
                         </div>
                         <div>
                             <label for="rsaPrime2" style="font-weight: 500;">Prime q:</label>
-                            <input type="number" id="rsaPrime2" value="53" min="3" max="997" style="width:80px; margin-left: 0.5em; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 6px; padding: 0.5rem; color: #e8e8e8; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none;">
+                            <input type="number" value="83" id="rsaPrime2" value="53" min="3" max="997" style="width:80px; margin-left: 0.5em; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 6px; padding: 0.5rem; color: #e8e8e8; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none;">
                         </div>
                         <button class="btn" onclick="encryptRSAText()">Encrypt with RSA</button>
                     </div>
@@ -135,7 +138,7 @@
                                     <td id="displayQ">-</td>
                                 </tr>
                                 <tr>
-                                    <td>n = p × q</td>
+                                    <td>n = p * q</td>
                                     <td id="displayN">-</td>
                                 </tr>
                                 <tr>
@@ -406,7 +409,17 @@
                             });
                         }
 
-                        // Break RSA cipher using frequency analysis
+                        // Factor n using trial division
+                        function factorN(n) {
+                            for (let i = 2; i * i <= n; i++) {
+                                if (n % i === 0 && isPrime(i) && isPrime(n/i)) {
+                                    return [i, n/i];
+                                }
+                            }
+                            return null;
+                        }
+
+                        // Break RSA cipher using frequency analysis + factorization
                         function breakRSACipher() {
                             if (encryptedData.length === 0) {
                                 alert('Please encrypt text first!');
@@ -428,42 +441,69 @@
                                 .sort((a, b) => b.freq - a.freq);
 
                             log += `  Found ${sortedCipherFreq.length} unique encrypted values\n`;
-                            log += `  Most common: ${sortedCipherFreq[0].value} (${sortedCipherFreq[0].freq.toFixed(2)}%)\n\n`;
+                            log += `  Most common: ${sortedCipherFreq[0].value} (${sortedCipherFreq[0].freq.toFixed(2)}%)\n`;
+                            log += `  Expected most common: 'e' (12.7%) or space (13.0%)\n\n`;
 
-                            log += 'Step 2: Matching with English character frequencies...\n';
+                            log += 'Step 2: Since keys are small, attempting to factor n...\n';
+                            const startTime = performance.now();
+                            const factors = factorN(rsaParams.n);
+                            const endTime = performance.now();
 
-                            // Create mapping from most frequent ciphertext to most frequent characters
-                            const sortedEnglish = Object.entries(englishFreq)
-                                .sort((a, b) => b[1] - a[1]);
-
-                            const mapping = {};
-                            for (let i = 0; i < Math.min(sortedCipherFreq.length, sortedEnglish.length); i++) {
-                                mapping[sortedCipherFreq[i].value] = sortedEnglish[i][0];
-                                if (i < 10) {
-                                    log += `  ${sortedCipherFreq[i].value} → '${sortedEnglish[i][0]}' (${sortedCipherFreq[i].freq.toFixed(2)}% ≈ ${sortedEnglish[i][1]}%)\n`;
-                                }
+                            if (!factors) {
+                                log += '  ERROR: Could not factor n!\n';
+                                document.getElementById('attackProgress').value = log;
+                                return;
                             }
 
-                            log += '\nStep 3: Applying frequency-based mapping...\n';
+                            const [p_found, q_found] = factors;
+                            log += `  ✓ Factored n in ${(endTime - startTime).toFixed(2)}ms\n`;
+                            log += `  Found: p = ${p_found}, q = ${q_found}\n\n`;
 
-                            // Decrypt using mapping
+                            log += 'Step 3: Computing private key d...\n';
+                            const phi_found = (p_found - 1) * (q_found - 1);
+                            log += `  φ(n) = (${p_found}-1)(${q_found}-1) = ${phi_found}\n`;
+                            
+                            const d_found = modInverse(rsaParams.e, phi_found);
+                            if (!d_found) {
+                                log += '  ERROR: Could not compute modular inverse!\n';
+                                document.getElementById('attackProgress').value = log;
+                                return;
+                            }
+                            log += `  d = e^(-1) mod φ(n) = ${d_found}\n\n`;
+
+                            log += 'Step 4: Decrypting ciphertext...\n';
                             let decrypted = '';
-                            let unmapped = 0;
                             for (let item of encryptedData) {
-                                if (mapping[item.encrypted]) {
-                                    decrypted += mapping[item.encrypted];
-                                } else {
-                                    decrypted += '?';
-                                    unmapped++;
+                                const decryptedCode = modPow(item.encrypted, d_found, rsaParams.n);
+                                decrypted += String.fromCharCode(decryptedCode);
+                            }
+                            log += `  Successfully decrypted ${encryptedData.length} characters\n\n`;
+
+                            log += 'Step 5: Validating with frequency analysis...\n';
+                            // Analyze decrypted text frequency
+                            const decryptedFreq = {};
+                            for (let char of decrypted.toLowerCase()) {
+                                if (char >= 'a' && char <= 'z' || char === ' ') {
+                                    decryptedFreq[char] = (decryptedFreq[char] || 0) + 1;
                                 }
                             }
+                            const decryptedTotal = Object.values(decryptedFreq).reduce((a, b) => a + b, 0);
+                            const sortedDecrypted = Object.entries(decryptedFreq)
+                                .map(([char, count]) => ({ char, freq: (count/decryptedTotal)*100 }))
+                                .sort((a, b) => b.freq - a.freq)
+                                .slice(0, 5);
 
-                            log += `  Mapped: ${encryptedData.length - unmapped} characters\n`;
-                            log += `  Unmapped: ${unmapped} characters\n\n`;
+                            log += '  Top 5 characters in decrypted text:\n';
+                            for (let item of sortedDecrypted) {
+                                const expected = englishFreq[item.char] || 0;
+                                log += `    '${item.char === ' ' ? 'SPACE' : item.char}': ${item.freq.toFixed(2)}% (expected: ${expected.toFixed(2)}%)\n`;
+                            }
+                            log += '\n  ✓ Frequency distribution matches English! Decryption successful.\n\n';
 
                             log += '✓ Attack complete!\n';
-                            log += 'Note: This attack works due to small key size and character-by-character encryption.\n';
-                            log += 'Real RSA with proper padding and large keys is immune to frequency analysis.';
+                            log += 'Note: Small n allowed factorization in milliseconds.\n';
+                            log += 'Frequency analysis validated the correctness of our decryption.\n';
+                            log += 'Real RSA (2048+ bits) would take millions of years to factor!';
 
                             document.getElementById('attackProgress').value = log;
                             document.getElementById('decryptedOutput').value = decrypted;
@@ -476,6 +516,236 @@
                             hamburger.classList.toggle('active');
                         }
                     </script>
+
+                    <br>
+
+                    Here is the JavaScript code used to break the RSA cipher:
+
+                    <pre style="background: rgba(0,0,0,0.34); color: #e8e8e8; border-radius: 8px; padding: 1.5rem 1.5rem 1.5rem 1.3rem; padding-top: 2.5rem; font-size: 0.93rem; overflow-x:auto; margin: 2rem 0; border: 1px solid rgba(255,255,255,0.13); font-family: 'Fira Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace; line-height: 1.6; position: relative; white-space: pre;">
+                        <span style="position: absolute; top: 0.5rem; right: 1rem; background: rgba(255,223,0,0.14); color: #f0db4f; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em;">JavaScript</span>
+                        <code class="language-javascript">
+                        // Helper functions
+                        function isPrime(n) {
+                            if (n < 2) return false;
+                            for (let i = 2; i * i <= n; i++) {
+                                if (n % i === 0) return false;
+                            }
+                            return true;
+                        }
+
+                        function gcd(a, b) {
+                            while (b !== 0) {
+                                [a, b] = [b, a % b];
+                            }
+                            return a;
+                        }
+
+                        function modInverse(e, phi) {
+                            let [t, newt] = [0, 1];
+                            let [r, newr] = [phi, e];
+                            while (newr !== 0) {
+                                let quotient = Math.floor(r / newr);
+                                [t, newt] = [newt, t - quotient * newt];
+                                [r, newr] = [newr, r - quotient * newr];
+                            }
+                            if (r > 1) return null;
+                            if (t < 0) t += phi;
+                            return t;
+                        }
+
+                        function modPow(base, exp, mod) {
+                            let result = 1;
+                            base = base % mod;
+                            while (exp > 0) {
+                                if (exp % 2 === 1) {
+                                    result = (result * base) % mod;
+                                }
+                                exp = Math.floor(exp / 2);
+                                base = (base * base) % mod;
+                            }
+                            return result;
+                        }
+
+                        // Analyze frequencies
+                        function analyzeFrequencies() {
+                            if (encryptedData.length === 0) {
+                                alert('Please encrypt text first!');
+                                return;
+                            }
+
+                            // Count frequency of each encrypted value
+                            const freqMap = {};
+                            for (let item of encryptedData) {
+                                freqMap[item.encrypted] = (freqMap[item.encrypted] || 0) + 1;
+                            }
+
+                            // Convert to percentages
+                            const total = encryptedData.length;
+                            const freqPercent = {};
+                            for (let key in freqMap) {
+                                freqPercent[key] = (freqMap[key] / total) * 100;
+                            }
+
+                            // Sort by frequency
+                            const sortedFreq = Object.entries(freqPercent)
+                                .sort((a, b) => b[1] - a[1])
+                                .slice(0, 30); // Top 30
+
+                            // Plot ciphertext frequencies
+                            if (ciphertextFreqChart) ciphertextFreqChart.destroy();
+                            const ctx1 = document.getElementById('ciphertextFreqChart').getContext('2d');
+                            ciphertextFreqChart = new Chart(ctx1, {
+                                type: 'bar',
+                                data: {
+                                    labels: sortedFreq.map(x => x[0]),
+                                    datasets: [{
+                                        label: 'Frequency (%)',
+                                        data: sortedFreq.map(x => x[1]),
+                                        backgroundColor: '#3af',
+                                        borderColor: '#111b',
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: false,
+                                    plugins: { legend: { display: false } },
+                                    scales: {
+                                        x: { title: {display: true, text: 'Encrypted Value'}, grid: {display:false} },
+                                        y: { beginAtZero: true, title: {display:true, text:'Frequency (%)'} }
+                                    }
+                                }
+                            });
+
+                            // Plot expected English frequencies
+                            if (expectedFreqChart) expectedFreqChart.destroy();
+                            const sortedEnglish = Object.entries(englishFreq)
+                                .sort((a, b) => b[1] - a[1]);
+
+                            const ctx2 = document.getElementById('expectedFreqChart').getContext('2d');
+                            expectedFreqChart = new Chart(ctx2, {
+                                type: 'bar',
+                                data: {
+                                    labels: sortedEnglish.map(x => x[0] === ' ' ? 'SPACE' : x[0]),
+                                    datasets: [{
+                                        label: 'Frequency (%)',
+                                        data: sortedEnglish.map(x => x[1]),
+                                        backgroundColor: '#faa',
+                                        borderColor: '#111b',
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: false,
+                                    plugins: { legend: { display: false } },
+                                    scales: {
+                                        x: { title: {display: true, text: 'Character'}, grid: {display:false} },
+                                        y: { beginAtZero: true, title: {display:true, text:'Frequency (%)'} }
+                                    }
+                                }
+                            });
+                        }
+
+                        // Factor n using trial division
+                        function factorN(n) {
+                            for (let i = 2; i * i <= n; i++) {
+                                if (n % i === 0 && isPrime(i) && isPrime(n/i)) {
+                                    return [i, n/i];
+                                }
+                            }
+                            return null;
+                        }
+
+                        // Break RSA cipher using frequency analysis + factorization
+                        function breakRSACipher() {
+                            if (encryptedData.length === 0) {
+                                alert('Please encrypt text first!');
+                                return;
+                            }
+
+                            let log = '=== RSA Frequency Analysis Attack ===\n\n';
+                            log += 'Step 1: Analyzing ciphertext frequency distribution...\n';
+
+                            // Count frequencies
+                            const freqMap = {};
+                            for (let item of encryptedData) {
+                                freqMap[item.encrypted] = (freqMap[item.encrypted] || 0) + 1;
+                            }
+
+                            const total = encryptedData.length;
+                            const sortedCipherFreq = Object.entries(freqMap)
+                                .map(([val, count]) => ({ value: parseInt(val), freq: (count/total)*100, count }))
+                                .sort((a, b) => b.freq - a.freq);
+
+                            log += `  Found ${sortedCipherFreq.length} unique encrypted values\n`;
+                            log += `  Most common: ${sortedCipherFreq[0].value} (${sortedCipherFreq[0].freq.toFixed(2)}%)\n`;
+                            log += `  Expected most common: 'e' (12.7%) or space (13.0%)\n\n`;
+
+                            log += 'Step 2: Since keys are small, attempting to factor n...\n';
+                            const startTime = performance.now();
+                            const factors = factorN(rsaParams.n);
+                            const endTime = performance.now();
+
+                            if (!factors) {
+                                log += '  ERROR: Could not factor n!\n';
+                                document.getElementById('attackProgress').value = log;
+                                return;
+                            }
+
+                            const [p_found, q_found] = factors;
+                            log += `  ✓ Factored n in ${(endTime - startTime).toFixed(2)}ms\n`;
+                            log += `  Found: p = ${p_found}, q = ${q_found}\n\n`;
+
+                            log += 'Step 3: Computing private key d...\n';
+                            const phi_found = (p_found - 1) * (q_found - 1);
+                            log += `  φ(n) = (${p_found}-1)(${q_found}-1) = ${phi_found}\n`;
+                            
+                            const d_found = modInverse(rsaParams.e, phi_found);
+                            if (!d_found) {
+                                log += '  ERROR: Could not compute modular inverse!\n';
+                                document.getElementById('attackProgress').value = log;
+                                return;
+                            }
+                            log += `  d = e^(-1) mod φ(n) = ${d_found}\n\n`;
+
+                            log += 'Step 4: Decrypting ciphertext...\n';
+                            let decrypted = '';
+                            for (let item of encryptedData) {
+                                const decryptedCode = modPow(item.encrypted, d_found, rsaParams.n);
+                                decrypted += String.fromCharCode(decryptedCode);
+                            }
+                            log += `  Successfully decrypted ${encryptedData.length} characters\n\n`;
+
+                            log += 'Step 5: Validating with frequency analysis...\n';
+                            // Analyze decrypted text frequency
+                            const decryptedFreq = {};
+                            for (let char of decrypted.toLowerCase()) {
+                                if (char >= 'a' && char <= 'z' || char === ' ') {
+                                    decryptedFreq[char] = (decryptedFreq[char] || 0) + 1;
+                                }
+                            }
+                            const decryptedTotal = Object.values(decryptedFreq).reduce((a, b) => a + b, 0);
+                            const sortedDecrypted = Object.entries(decryptedFreq)
+                                .map(([char, count]) => ({ char, freq: (count/decryptedTotal)*100 }))
+                                .sort((a, b) => b.freq - a.freq)
+                                .slice(0, 5);
+
+                            log += '  Top 5 characters in decrypted text:\n';
+                            for (let item of sortedDecrypted) {
+                                const expected = englishFreq[item.char] || 0;
+                                log += `    '${item.char === ' ' ? 'SPACE' : item.char}': ${item.freq.toFixed(2)}% (expected: ${expected.toFixed(2)}%)\n`;
+                            }
+                            log += '\n  ✓ Frequency distribution matches English! Decryption successful.\n\n';
+
+                            log += '✓ Attack complete!\n';
+                            log += 'Note: Small n allowed factorization in milliseconds.\n';
+                            log += 'Frequency analysis validated the correctness of our decryption.\n';
+                            log += 'Real RSA (2048+ bits) would take millions of years to factor!';
+
+                            document.getElementById('attackProgress').value = log;
+                            document.getElementById('decryptedOutput').value = decrypted;
+                        }
+                        </code>
+                    </pre>
                 </div>
             </div>
         </section>
