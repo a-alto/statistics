@@ -25,6 +25,7 @@
                 <li><a href="/statistics/index.html#home">Home</a></li>
                 <li><a href="/statistics/hmwk2.html">HMWK 2</a></li>
                 <li><a href="/statistics/hmwk3.html">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html">HMWK 4</a></li>
             </ul>
             <div class="hamburger" onclick="toggleMenu()">
                 <span></span>
@@ -37,6 +38,7 @@
                 <li><a href="/statistics/index.html#home" onclick="toggleMenu()">Home</a></li>
                 <li><a href="/statistics/hmwk2.html" onclick="toggleMenu()">HMWK 2</a></li>
                 <li><a href="/statistics/hmwk3.html" onclick="toggleMenu()">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html" onclick="toggleMenu()">HMWK 4</a></li>
             </ul>
         </div>
     </nav>
@@ -629,198 +631,6 @@
                         }
                         </code>
                     </pre>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-section">
-            <div class="container">
-                <div class="section-number">02</div>
-                <!-- <div class="section-label">Breaking the Caesar chipher: frequency analysis</div> -->
-
-                <div class="content-wrapper">
-                    <h2>Law of large numbers</h2>
-                    <p>
-                        <!-- Law of Large Numbers Description -->
-                        <div style="margin-bottom: 1.1em;">
-                            <b>Law of Large Numbers:</b> In probability theory, the law of large numbers (LLN) states that as the number of trials in a random experiment increases, the average of the results obtained from those trials converges to the expected value. That is, the empirical mean (observed average) gets closer to the theoretical mean predicted by probability as the sample size grows.
-                        </div>
-
-                        <!-- Controls for the experiment -->
-                        <div style="margin-bottom:1.2em;">
-                            <label for="llnNumTrials" style="font-weight:500;">Number of trials (n):</label>
-                            <input type="number" id="llnNumTrials" value="10" min="2" max="100" step="1" style="width:70px;margin-left:.6em;margin-right:1.2em;">
-                            <button class="btn" onclick="runLLNExperiment()">Run LLN Experiment</button>
-                        </div>
-
-                        <!-- Line chart for the number of successes per trial -->
-                        <div style="margin-top:2em;margin-bottom:0.8em;">
-                            <canvas id="llnLineChart" height="280"></canvas>
-                        </div>
-
-                        <!-- Density chart for the success frequencies -->
-                        <div style="margin-top:2.4em;">
-                            <canvas id="llnDensityChart" height="200"></canvas>
-                        </div>
-
-                        <script>
-                            // Refs to instantiated charts for later destruction
-                            let llnLineChart = null;
-                            let llnDensityChart = null;
-
-                            function runLLNExperiment() {
-                                const trials = parseInt(document.getElementById('llnNumTrials').value, 10) || 10;
-                                const bitsPerTrial = 50; // as specified
-
-                                // Generate data: array of arrays per trial, each with results (0 or 1)
-                                const trialResults = [];
-                                const trialSuccessCounts = []; // For each trial: array of cumulative number of 1s
-                                const trialSuccessFreqs = [];  // For each trial: array of cumulative freq. of 1s
-
-                                for (let t = 0; t < trials; t++) {
-                                    let bits = [];
-                                    let cumulSuccesses = [];
-                                    let cumulFreqs = [];
-                                    let sum = 0;
-                                    for (let i = 0; i < bitsPerTrial; i++) {
-                                        let randBit = Math.random() < 0.5 ? 0 : 1;
-                                        bits.push(randBit);
-                                        sum += randBit;
-                                        cumulSuccesses.push(sum);
-                                        cumulFreqs.push(sum / (i + 1));
-                                    }
-                                    trialResults.push(bits);
-                                    trialSuccessCounts.push(cumulSuccesses);
-                                    trialSuccessFreqs.push(cumulFreqs);
-                                }
-
-                                // --- Draw the line chart (X: number of bits, Y: number of 1s for each trial) ---
-                                const lineChartCtx = document.getElementById('llnLineChart').getContext('2d');
-                                if (llnLineChart) llnLineChart.destroy();
-
-                                // Generate distinct colors for the lines
-                                function getColor(idx, total) {
-                                    // Use HSL for visually distinct
-                                    let h = ((idx * 360) / total) % 360;
-                                    return `hsl(${h},80%,54%)`;
-                                }
-                                let datasets = [];
-                                for (let t = 0; t < trials; t++) {
-                                    datasets.push({
-                                        label: `Trial ${t+1}`,
-                                        data: trialSuccessCounts[t],
-                                        borderColor: getColor(t, trials),
-                                        borderWidth: 2,
-                                        fill: false,
-                                        pointRadius: 0,
-                                        tension: 0.10,
-                                    });
-                                }
-
-                                llnLineChart = new Chart(lineChartCtx, {
-                                    type: 'line',
-                                    data: {
-                                        labels: [...Array(bitsPerTrial).keys()].map(i=>i+1),
-                                        datasets: datasets,
-                                    },
-                                    options: {
-                                        responsive: true,
-                                        plugins: {
-                                            legend: {
-                                                display: false
-                                            },
-                                            title: {
-                                                display: true,
-                                                text: "Number of '1's (successes) vs. number of bits generated (each trial)"
-                                            }
-                                        },
-                                        scales: {
-                                            x: {
-                                                title: {
-                                                    display: true,
-                                                    text: "Bits generated"
-                                                },
-                                                min: 1,
-                                                max: bitsPerTrial,
-                                            },
-                                            y: {
-                                                title: {
-                                                    display: true,
-                                                    text: "Cumulative number of '1's"
-                                                },
-                                                min: 0,
-                                                max: bitsPerTrial,
-                                                ticks: {
-                                                    stepSize: 5
-                                                }
-                                            }
-                                        }
-                                    }
-                                });
-
-                                // --- Now, second chart: plot distribution of frequency of successes across trials ---
-                                // For each trial: frequency = successes / bitsPerTrial (i.e., at the end of each trial)
-                                const freqs = trialSuccessCounts.map(arr => arr[bitsPerTrial-1] / bitsPerTrial);
-
-                                // Make histogram bins (e.g., 10 bins from 0.0 to 1.0)
-                                const bins = 10;
-                                const binWidth = 1 / bins;
-                                let hist = Array(bins).fill(0);
-                                for (let f of freqs) {
-                                    let idx = Math.floor(f / binWidth);
-                                    if (idx >= bins) idx = bins - 1; // Clamp upper
-                                    hist[idx]++;
-                                }
-                                // Turn counts into density: sum(hist) = trials, density = count/(total*binWidth)
-                                let density = hist.map(count => count / (trials * binWidth));
-
-                                // X axis: bin centers
-                                let binCenters = Array(bins).fill(0).map((_,i)=>(i+0.5)*binWidth);
-
-                                const densityChartCtx = document.getElementById('llnDensityChart').getContext('2d');
-                                if (llnDensityChart) llnDensityChart.destroy();
-
-                                llnDensityChart = new Chart(densityChartCtx, {
-                                    type: 'line',
-                                    data: {
-                                        labels: binCenters.map(c=>c.toFixed(2)),
-                                        datasets: [{
-                                            label: 'Density',
-                                            data: density,
-                                            backgroundColor: "rgba(97, 218, 251, 0.2)",
-                                            borderColor: "#218bbd",
-                                            borderWidth: 2.5,
-                                            fill: true,
-                                            tension: 0.4,
-                                            pointRadius: 3,
-                                            pointBackgroundColor: "#218bbd",
-                                            pointBorderColor: "#fff",
-                                            pointBorderWidth: 1,
-                                        }]
-                                    },
-                                    options: {
-                                        responsive: true,
-                                        plugins: {
-                                            legend: { display: false },
-                                            title: {
-                                                display: true,
-                                                text: "Frequency distribution of 'success' rate (across trials)"
-                                            }
-                                        },
-                                        scales: {
-                                            x: {
-                                                title: { display: true, text: "Fraction of successes (number of '1's out of 50)" }
-                                            },
-                                            y: {
-                                                title: { display: true, text: "Density" },
-                                                beginAtZero: true
-                                            }
-                                        }
-                                    }
-                                });
-                            }
-                        </script>
-                    </p>
                 </div>
             </div>
         </section>
