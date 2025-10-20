@@ -185,11 +185,6 @@
                     </div>
 
                     <div style="margin-bottom: 2rem;">
-                        <label for="attackProgress" style="font-weight: 500;">Attack Progress Log:</label><br>
-                        <textarea id="attackProgress" rows="10" readonly style="width: 100%; margin-top: 0.5rem; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 6px; padding: 0.75rem 1rem; color: #9ca3af; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace; font-size: 0.9rem; outline: none; resize: vertical; min-height: 200px; line-height: 1.6;"></textarea>
-                    </div>
-
-                    <div style="margin-bottom: 2rem;">
                         <label for="decryptedOutput" style="font-weight: 500;">Decrypted Text:</label><br>
                         <textarea id="decryptedOutput" rows="8" readonly style="width: 100%; margin-top: 0.5rem; background: rgba(0, 0, 0, 0.25); border: 2px solid rgba(34, 197, 94, 0.3); border-radius: 6px; padding: 0.75rem 1rem; color: #4ade80; font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace; font-size: 0.95rem; font-weight: 500; outline: none; resize: vertical; min-height: 150px; line-height: 1.6;"></textarea>
                     </div>
@@ -426,86 +421,31 @@
                                 return;
                             }
 
-                            let log = '=== RSA Frequency Analysis Attack ===\n\n';
-                            log += 'Step 1: Analyzing ciphertext frequency distribution...\n';
-
-                            // Count frequencies
-                            const freqMap = {};
-                            for (let item of encryptedData) {
-                                freqMap[item.encrypted] = (freqMap[item.encrypted] || 0) + 1;
-                            }
-
-                            const total = encryptedData.length;
-                            const sortedCipherFreq = Object.entries(freqMap)
-                                .map(([val, count]) => ({ value: parseInt(val), freq: (count/total)*100, count }))
-                                .sort((a, b) => b.freq - a.freq);
-
-                            log += `  Found ${sortedCipherFreq.length} unique encrypted values\n`;
-                            log += `  Most common: ${sortedCipherFreq[0].value} (${sortedCipherFreq[0].freq.toFixed(2)}%)\n`;
-                            log += `  Expected most common: 'e' (12.7%) or space (13.0%)\n\n`;
-
-                            log += 'Step 2: Since keys are small, attempting to factor n...\n';
-                            const startTime = performance.now();
+                            // Factor n
                             const factors = factorN(rsaParams.n);
-                            const endTime = performance.now();
-
                             if (!factors) {
-                                log += '  ERROR: Could not factor n!\n';
-                                document.getElementById('attackProgress').value = log;
+                                alert('ERROR: Could not factor n!');
                                 return;
                             }
 
                             const [p_found, q_found] = factors;
-                            log += `  ✓ Factored n in ${(endTime - startTime).toFixed(2)}ms\n`;
-                            log += `  Found: p = ${p_found}, q = ${q_found}\n\n`;
-
-                            log += 'Step 3: Computing private key d...\n';
-                            const phi_found = (p_found - 1) * (q_found - 1);
-                            log += `  φ(n) = (${p_found}-1)(${q_found}-1) = ${phi_found}\n`;
                             
+                            // Compute private key d
+                            const phi_found = (p_found - 1) * (q_found - 1);
                             const d_found = modInverse(rsaParams.e, phi_found);
+                            
                             if (!d_found) {
-                                log += '  ERROR: Could not compute modular inverse!\n';
-                                document.getElementById('attackProgress').value = log;
+                                alert('ERROR: Could not compute modular inverse!');
                                 return;
                             }
-                            log += `  d = e^(-1) mod φ(n) = ${d_found}\n\n`;
 
-                            log += 'Step 4: Decrypting ciphertext...\n';
+                            // Decrypt ciphertext
                             let decrypted = '';
                             for (let item of encryptedData) {
                                 const decryptedCode = modPow(item.encrypted, d_found, rsaParams.n);
                                 decrypted += String.fromCharCode(decryptedCode);
                             }
-                            log += `  Successfully decrypted ${encryptedData.length} characters\n\n`;
 
-                            log += 'Step 5: Validating with frequency analysis...\n';
-                            // Analyze decrypted text frequency
-                            const decryptedFreq = {};
-                            for (let char of decrypted.toLowerCase()) {
-                                if (char >= 'a' && char <= 'z' || char === ' ') {
-                                    decryptedFreq[char] = (decryptedFreq[char] || 0) + 1;
-                                }
-                            }
-                            const decryptedTotal = Object.values(decryptedFreq).reduce((a, b) => a + b, 0);
-                            const sortedDecrypted = Object.entries(decryptedFreq)
-                                .map(([char, count]) => ({ char, freq: (count/decryptedTotal)*100 }))
-                                .sort((a, b) => b.freq - a.freq)
-                                .slice(0, 5);
-
-                            log += '  Top 5 characters in decrypted text:\n';
-                            for (let item of sortedDecrypted) {
-                                const expected = englishFreq[item.char] || 0;
-                                log += `    '${item.char === ' ' ? 'SPACE' : item.char}': ${item.freq.toFixed(2)}% (expected: ${expected.toFixed(2)}%)\n`;
-                            }
-                            log += '\n  ✓ Frequency distribution matches English! Decryption successful.\n\n';
-
-                            log += '✓ Attack complete!\n';
-                            log += 'Note: Small n allowed factorization in milliseconds.\n';
-                            log += 'Frequency analysis validated the correctness of our decryption.\n';
-                            log += 'Real RSA (2048+ bits) would take millions of years to factor!';
-
-                            document.getElementById('attackProgress').value = log;
                             document.getElementById('decryptedOutput').value = decrypted;
                         }
 
@@ -662,86 +602,31 @@
                                 <span style="color: #c678dd; font-weight: 600;">return</span>;
                             }
 
-                            <span style="color: #c678dd;">let</span> log = <span style="color: #98c379;">'=== RSA Frequency Analysis Attack ===\n\n'</span>;
-                            log += <span style="color: #98c379;">'Step 1: Analyzing ciphertext frequency distribution...\n'</span>;
-
-                            <span style="color: #5c6370; font-style: italic;">// Count frequencies</span>
-                            <span style="color: #c678dd;">const</span> freqMap = {};
-                            <span style="color: #c678dd;">for</span> (<span style="color: #c678dd;">let</span> item <span style="color: #c678dd;">of</span> encryptedData) {
-                                freqMap[item.encrypted] = (freqMap[item.encrypted] || <span style="color: #d19a66;">0</span>) + <span style="color: #d19a66;">1</span>;
-                            }
-
-                            <span style="color: #c678dd;">const</span> total = encryptedData.length;
-                            <span style="color: #c678dd;">const</span> sortedCipherFreq = <span style="color: #61afef;">Object</span>.entries(freqMap)
-                                .map((<span style="color: #c678dd;">[val, count]</span>) =&gt; ({ value: <span style="color: #61afef;">parseInt</span>(val), freq: (count/total)*<span style="color: #d19a66;">100</span>, count }))
-                                .sort((a, b) =&gt; b.freq - a.freq);
-
-                            log += <span style="color: #98c379;">`  Found ${sortedCipherFreq.length} unique encrypted values\n`</span>;
-                            log += <span style="color: #98c379;">`  Most common: ${sortedCipherFreq[0].value} (${sortedCipherFreq[0].freq.toFixed(2)}%)\n`</span>;
-                            log += <span style="color: #98c379;">`  Expected most common: 'e' (12.7%) or space (13.0%)\n\n`</span>;
-
-                            log += <span style="color: #98c379;">'Step 2: Since keys are small, attempting to factor n...\n'</span>;
-                            <span style="color: #c678dd;">const</span> startTime = performance.now();
+                            <span style="color: #5c6370; font-style: italic;">// Factor n</span>
                             <span style="color: #c678dd;">const</span> factors = <span style="color: #61afef;">factorN</span>(rsaParams.n);
-                            <span style="color: #c678dd;">const</span> endTime = performance.now();
-
                             <span style="color: #c678dd; font-weight: 600;">if</span> (!factors) {
-                                log += <span style="color: #98c379;">'  ERROR: Could not factor n!\n'</span>;
-                                <span style="color: #61afef;">document</span>.getElementById(<span style="color: #98c379;">'attackProgress'</span>).value = log;
+                                <span style="color: #61afef;">alert</span>(<span style="color: #98c379;">'ERROR: Could not factor n!'</span>);
                                 <span style="color: #c678dd; font-weight: 600;">return</span>;
                             }
 
                             <span style="color: #c678dd;">const</span> [p_found, q_found] = factors;
-                            log += <span style="color: #98c379;">`  ✓ Factored n in ${(endTime - startTime).toFixed(2)}ms\n`</span>;
-                            log += <span style="color: #98c379;">`  Found: p = ${p_found}, q = ${q_found}\n\n`</span>;
-
-                            log += <span style="color: #98c379;">'Step 3: Computing private key d...\n'</span>;
-                            <span style="color: #c678dd;">const</span> phi_found = (p_found - <span style="color: #d19a66;">1</span>) * (q_found - <span style="color: #d19a66;">1</span>);
-                            log += <span style="color: #98c379;">`  φ(n) = (${p_found}-1)(${q_found}-1) = ${phi_found}\n`</span>;
                             
+                            <span style="color: #5c6370; font-style: italic;">// Compute private key d</span>
+                            <span style="color: #c678dd;">const</span> phi_found = (p_found - <span style="color: #d19a66;">1</span>) * (q_found - <span style="color: #d19a66;">1</span>);
                             <span style="color: #c678dd;">const</span> d_found = <span style="color: #61afef;">modInverse</span>(rsaParams.e, phi_found);
+                            
                             <span style="color: #c678dd; font-weight: 600;">if</span> (!d_found) {
-                                log += <span style="color: #98c379;">'  ERROR: Could not compute modular inverse!\n'</span>;
-                                <span style="color: #61afef;">document</span>.getElementById(<span style="color: #98c379;">'attackProgress'</span>).value = log;
+                                <span style="color: #61afef;">alert</span>(<span style="color: #98c379;">'ERROR: Could not compute modular inverse!'</span>);
                                 <span style="color: #c678dd; font-weight: 600;">return</span>;
                             }
-                            log += <span style="color: #98c379;">`  d = e^(-1) mod φ(n) = ${d_found}\n\n`</span>;
 
-                            log += <span style="color: #98c379;">'Step 4: Decrypting ciphertext...\n'</span>;
+                            <span style="color: #5c6370; font-style: italic;">// Decrypt ciphertext</span>
                             <span style="color: #c678dd;">let</span> decrypted = <span style="color: #98c379;">''</span>;
                             <span style="color: #c678dd;">for</span> (<span style="color: #c678dd;">let</span> item <span style="color: #c678dd;">of</span> encryptedData) {
                                 <span style="color: #c678dd;">const</span> decryptedCode = <span style="color: #61afef;">modPow</span>(item.encrypted, d_found, rsaParams.n);
                                 decrypted += <span style="color: #61afef;">String</span>.fromCharCode(decryptedCode);
                             }
-                            log += <span style="color: #98c379;">`  Successfully decrypted ${encryptedData.length} characters\n\n`</span>;
 
-                            log += <span style="color: #98c379;">'Step 5: Validating with frequency analysis...\n'</span>;
-                            <span style="color: #5c6370; font-style: italic;">// Analyze decrypted text frequency</span>
-                            <span style="color: #c678dd;">const</span> decryptedFreq = {};
-                            <span style="color: #c678dd;">for</span> (<span style="color: #c678dd;">let</span> char <span style="color: #c678dd;">of</span> decrypted.toLowerCase()) {
-                                <span style="color: #c678dd; font-weight: 600;">if</span> ((char &gt;= <span style="color: #98c379;">'a'</span> &amp;&amp; char &lt;= <span style="color: #98c379;">'z'</span>) || char === <span style="color: #98c379;">' '</span>) {
-                                    decryptedFreq[char] = (decryptedFreq[char] || <span style="color: #d19a66;">0</span>) + <span style="color: #d19a66;">1</span>;
-                                }
-                            }
-                            <span style="color: #c678dd;">const</span> decryptedTotal = <span style="color: #61afef;">Object</span>.values(decryptedFreq).reduce((a, b) =&gt; a + b, <span style="color: #d19a66;">0</span>);
-                            <span style="color: #c678dd;">const</span> sortedDecrypted = <span style="color: #61afef;">Object</span>.entries(decryptedFreq)
-                                .map((<span style="color: #c678dd;">[char, count]</span>) =&gt; ({ char, freq: (count/decryptedTotal)*<span style="color: #d19a66;">100</span> }))
-                                .sort((a, b) =&gt; b.freq - a.freq)
-                                .slice(<span style="color: #d19a66;">0</span>, <span style="color: #d19a66;">5</span>);
-
-                            log += <span style="color: #98c379;">'  Top 5 characters in decrypted text:\n'</span>;
-                            <span style="color: #c678dd;">for</span> (<span style="color: #c678dd;">let</span> item <span style="color: #c678dd;">of</span> sortedDecrypted) {
-                                <span style="color: #c678dd;">const</span> expected = englishFreq[item.char] || <span style="color: #d19a66;">0</span>;
-                                log += <span style="color: #98c379;">`    '${item.char === ' ' ? 'SPACE' : item.char}': ${item.freq.toFixed(2)}% (expected: ${expected.toFixed(2)}%)\n`</span>;
-                            }
-                            log += <span style="color: #98c379;">'\n  ✓ Frequency distribution matches English! Decryption successful.\n\n'</span>;
-
-                            log += <span style="color: #98c379;">'✓ Attack complete!\n'</span>;
-                            log += <span style="color: #98c379;">'Note: Small n allowed factorization in milliseconds.\n'</span>;
-                            log += <span style="color: #98c379;">'Frequency analysis validated the correctness of our decryption.\n'</span>;
-                            log += <span style="color: #98c379;">'Real RSA (2048+ bits) would take millions of years to factor!'</span>;
-
-                            <span style="color: #61afef;">document</span>.getElementById(<span style="color: #98c379;">'attackProgress'</span>).value = log;
                             <span style="color: #61afef;">document</span>.getElementById(<span style="color: #98c379;">'decryptedOutput'</span>).value = decrypted;
                         }
                         </code>
