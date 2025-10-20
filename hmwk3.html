@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 3 | Statistics - Sapienza University of Rome</title>
+    <link rel="stylesheet" href="/statistics/styles.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(','\\)'], ['$', '$']],
+                displayMath: [['\\[','\\]'], ['$$','$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/statistics/index.html" class="logo">STATISTICS</a>
+            <ul class="nav-menu">
+                <li><a href="/statistics/index.html#home">Home</a></li>
+                <li><a href="/statistics/hmwk2.html">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html">HMWK 3</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="/statistics/index.html#home" onclick="toggleMenu()">Home</a></li>
+                <li><a href="/statistics/hmwk2.html" onclick="toggleMenu()">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html" onclick="toggleMenu()">HMWK 3</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <div class="section-number">01</div>
+                <div class="section-label">HOMEWORK 3</div>
+                <div class="hero-content">
+                    <h1>Statistical Inference and Hypothesis Testing</h1>
+                    <div class="hero-underline"></div>
+                    <p class="hero-description">
+                        Statistical inference is the process of drawing conclusions about populations or scientific truths from data.
+                        It provides a framework for making decisions and predictions when complete information is not available.
+                        
+                        <div class="math-block">\[ H_0: \mu = \mu_0 \quad \text{vs} \quad H_1: \mu \neq \mu_0 \]</div>
+                        
+                        Hypothesis testing is a fundamental tool in statistical inference. We start with a null hypothesis \( H_0 \)
+                        and an alternative hypothesis \( H_1 \). Using sample data, we calculate a test statistic and compare it
+                        to a critical value or compute a p-value to determine whether to reject the null hypothesis.
+                        
+                        <div class="math-block">\[ \text{p-value} = P(|T| \geq |t_{\text{obs}}| \mid H_0 \text{ is true}) \]</div>
+                        
+                        This homework explores confidence intervals, t-tests, chi-squared tests, and other inferential procedures
+                        commonly used in data analysis and experimental design.
+                    </p>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">02</div>
+
+                <div class="content-wrapper">
+                    <h2>Confidence Intervals</h2>
+                    <p>
+                        A confidence interval provides a range of plausible values for an unknown parameter.
+                        For a population mean \( \mu \) with known variance \( \sigma^2 \), a 95% confidence interval is:
+                        
+                        <div class="math-block">\[ \bar{x} \pm 1.96 \cdot \frac{\sigma}{\sqrt{n}} \]</div>
+                        
+                        When the variance is unknown, we use the sample standard deviation \( s \) and the t-distribution:
+                        
+                        <div class="math-block">\[ \bar{x} \pm t_{\alpha/2, n-1} \cdot \frac{s}{\sqrt{n}} \]</div>
+                        
+                        where \( t_{\alpha/2, n-1} \) is the critical value from the t-distribution with \( n-1 \) degrees of freedom.
+                    </p>
+                    
+                    <h3>Example: Computing a Confidence Interval</h3>
+                    <p>
+                        Suppose we have a sample of \( n = 25 \) observations with sample mean \( \bar{x} = 12.5 \)
+                        and sample standard deviation \( s = 3.2 \). To compute a 95% confidence interval:
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Sample size (n)</td>
+                                    <td>25</td>
+                                </tr>
+                                <tr>
+                                    <td>Sample mean (\( \bar{x} \))</td>
+                                    <td>12.5</td>
+                                </tr>
+                                <tr>
+                                    <td>Sample std dev (s)</td>
+                                    <td>3.2</td>
+                                </tr>
+                                <tr>
+                                    <td>Degrees of freedom</td>
+                                    <td>24</td>
+                                </tr>
+                                <tr>
+                                    <td>t-critical value (α=0.05)</td>
+                                    <td>2.064</td>
+                                </tr>
+                                <tr>
+                                    <td>Standard error</td>
+                                    <td>0.64</td>
+                                </tr>
+                                <tr>
+                                    <td>Margin of error</td>
+                                    <td>1.32</td>
+                                </tr>
+                                <tr>
+                                    <td><b>95% CI</b></td>
+                                    <td><b>[11.18, 13.82]</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">03</div>
+
+                <div class="content-wrapper">
+                    <h2>Hypothesis Testing: Two-Sample t-Test</h2>
+                    <p>
+                        A two-sample t-test compares the means of two independent groups to determine if there is statistical
+                        evidence that the associated population means are significantly different.
+                        
+                        <div class="math-block">\[ t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}} \]</div>
+                    </p>
+                    
+                    <h3>Example Dataset</h3>
+                    <p>
+                        Suppose we have two groups of students and we want to compare their test scores:
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Group</th>
+                                    <th>Sample Size</th>
+                                    <th>Mean</th>
+                                    <th>Std Dev</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Group A (Control)</td>
+                                    <td>30</td>
+                                    <td>75.4</td>
+                                    <td>8.2</td>
+                                </tr>
+                                <tr>
+                                    <td>Group B (Treatment)</td>
+                                    <td>30</td>
+                                    <td>79.8</td>
+                                    <td>7.6</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </p>
+                    
+                    <h3>Test Results</h3>
+                    <p>
+                        <ul>
+                            <li><b>Null Hypothesis</b>: \( H_0: \mu_A = \mu_B \)</li>
+                            <li><b>Alternative Hypothesis</b>: \( H_1: \mu_A \neq \mu_B \)</li>
+                            <li><b>Test Statistic</b>: \( t = -2.15 \)</li>
+                            <li><b>Degrees of Freedom</b>: 58</li>
+                            <li><b>p-value</b>: 0.036</li>
+                            <li><b>Conclusion</b>: At \( \alpha = 0.05 \), we reject \( H_0 \) and conclude that there is a significant difference between the two groups.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">04</div>
+
+                <div class="content-wrapper">
+                    <h2>Chi-Squared Test of Independence</h2>
+                    <p>
+                        The chi-squared test of independence determines whether there is a significant association between two
+                        categorical variables. The test statistic is:
+                        
+                        <div class="math-block">\[ \chi^2 = \sum_{i=1}^{r} \sum_{j=1}^{c} \frac{(O_{ij} - E_{ij})^2}{E_{ij}} \]</div>
+                        
+                        where \( O_{ij} \) is the observed frequency and \( E_{ij} \) is the expected frequency under the null
+                        hypothesis of independence.
+                    </p>
+                    
+                    <h3>Example: Gender and Major Preference</h3>
+                    <p>
+                        We want to test whether there is an association between gender and choice of major among students.
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Gender / Major</th>
+                                    <th>STEM</th>
+                                    <th>Humanities</th>
+                                    <th>Business</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Male</td>
+                                    <td>45</td>
+                                    <td>20</td>
+                                    <td>35</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td>Female</td>
+                                    <td>30</td>
+                                    <td>40</td>
+                                    <td>30</td>
+                                    <td>100</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Total</b></td>
+                                    <td><b>75</b></td>
+                                    <td><b>60</b></td>
+                                    <td><b>65</b></td>
+                                    <td><b>200</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <h4>Test Results</h4>
+                        <ul>
+                            <li><b>Chi-squared statistic</b>: \( \chi^2 = 12.82 \)</li>
+                            <li><b>Degrees of freedom</b>: 2</li>
+                            <li><b>p-value</b>: 0.0016</li>
+                            <li><b>Conclusion</b>: At \( \alpha = 0.05 \), we reject the null hypothesis and conclude that there is a significant association between gender and major choice.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">05</div>
+
+                <div class="content-wrapper">
+                    <h2>ANOVA: Analysis of Variance</h2>
+                    <p>
+                        Analysis of Variance (ANOVA) is used to compare means across three or more groups. The F-statistic
+                        tests whether at least one group mean is significantly different from the others:
+                        
+                        <div class="math-block">\[ F = \frac{\text{MS}_{\text{between}}}{\text{MS}_{\text{within}}} = \frac{\text{SS}_{\text{between}}/(k-1)}{\text{SS}_{\text{within}}/(N-k)} \]</div>
+                        
+                        where \( k \) is the number of groups and \( N \) is the total sample size.
+                    </p>
+                    
+                    <h3>Example: Comparing Three Teaching Methods</h3>
+                    <p>
+                        We want to compare the effectiveness of three different teaching methods on student performance.
+                        
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Source</th>
+                                    <th>Sum of Squares</th>
+                                    <th>df</th>
+                                    <th>Mean Square</th>
+                                    <th>F</th>
+                                    <th>p-value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Between Groups</td>
+                                    <td>320.5</td>
+                                    <td>2</td>
+                                    <td>160.25</td>
+                                    <td>8.42</td>
+                                    <td>0.0004</td>
+                                </tr>
+                                <tr>
+                                    <td>Within Groups</td>
+                                    <td>1140.2</td>
+                                    <td>60</td>
+                                    <td>19.00</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Total</b></td>
+                                    <td><b>1460.7</b></td>
+                                    <td><b>62</b></td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <h4>Conclusion</h4>
+                        <p>
+                            With \( F = 8.42 \) and \( p = 0.0004 < 0.05 \), we reject the null hypothesis and conclude
+                            that there are significant differences in mean performance across the three teaching methods.
+                            Post-hoc tests (e.g., Tukey's HSD) would be needed to determine which specific pairs of methods differ.
+                        </p>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p class="footer-name">Andrea Altomare</p>
+                    <p class="footer-detail">2199451</p>
+                    <p class="footer-detail">altomare.2199451@studenti.uniroma1.it</p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Andrea Altomare</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
+
