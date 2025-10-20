@@ -524,225 +524,225 @@
                     <pre style="background: rgba(0,0,0,0.34); color: #e8e8e8; border-radius: 8px; padding: 1.5rem 1.5rem 1.5rem 1.3rem; padding-top: 2.5rem; font-size: 0.93rem; overflow-x:auto; margin: 2rem 0; border: 1px solid rgba(255,255,255,0.13); font-family: 'Fira Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace; line-height: 1.6; position: relative; white-space: pre;">
                         <span style="position: absolute; top: 0.5rem; right: 1rem; background: rgba(255,223,0,0.14); color: #f0db4f; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em;">JavaScript</span>
                         <code class="language-javascript">
-                        // Helper functions
-                        function isPrime(n) {
-                            if (n < 2) return false;
-                            for (let i = 2; i * i <= n; i++) {
-                                if (n % i === 0) return false;
+                        <span style="color: #5c6370; font-style: italic;">// Helper functions</span>
+                        <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">isPrime</span>(n) {
+                            <span style="color: #c678dd; font-weight: 600;">if</span> (n &lt; <span style="color: #d19a66;">2</span>) <span style="color: #c678dd; font-weight: 600;">return</span> <span style="color: #56b6c2;">false</span>;
+                            <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">let</span> i = <span style="color: #d19a66;">2</span>; i * i &lt;= n; i++) {
+                                <span style="color: #c678dd; font-weight: 600;">if</span> (n % i === <span style="color: #d19a66;">0</span>) <span style="color: #c678dd; font-weight: 600;">return</span> <span style="color: #56b6c2;">false</span>;
                             }
-                            return true;
+                            <span style="color: #c678dd; font-weight: 600;">return</span> <span style="color: #56b6c2;">true</span>;
                         }
 
-                        function gcd(a, b) {
-                            while (b !== 0) {
+                        <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">gcd</span>(a, b) {
+                            <span style="color: #c678dd; font-weight: 600;">while</span> (b !== <span style="color: #d19a66;">0</span>) {
                                 [a, b] = [b, a % b];
                             }
-                            return a;
+                            <span style="color: #c678dd; font-weight: 600;">return</span> a;
                         }
 
-                        function modInverse(e, phi) {
-                            let [t, newt] = [0, 1];
-                            let [r, newr] = [phi, e];
-                            while (newr !== 0) {
-                                let quotient = Math.floor(r / newr);
+                        <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">modInverse</span>(e, phi) {
+                            <span style="color: #c678dd; font-weight: 600;">let</span> [t, newt] = [<span style="color: #d19a66;">0</span>, <span style="color: #d19a66;">1</span>];
+                            <span style="color: #c678dd; font-weight: 600;">let</span> [r, newr] = [phi, e];
+                            <span style="color: #c678dd; font-weight: 600;">while</span> (newr !== <span style="color: #d19a66;">0</span>) {
+                                <span style="color: #c678dd; font-weight: 600;">let</span> quotient = <span style="color: #61afef;">Math</span>.<span style="color: #61afef;">floor</span>(r / newr);
                                 [t, newt] = [newt, t - quotient * newt];
                                 [r, newr] = [newr, r - quotient * newr];
                             }
-                            if (r > 1) return null;
-                            if (t < 0) t += phi;
-                            return t;
+                            <span style="color: #c678dd; font-weight: 600;">if</span> (r &gt; <span style="color: #d19a66;">1</span>) <span style="color: #c678dd; font-weight: 600;">return</span> <span style="color: #56b6c2;">null</span>;
+                            <span style="color: #c678dd; font-weight: 600;">if</span> (t &lt; <span style="color: #d19a66;">0</span>) t += phi;
+                            <span style="color: #c678dd; font-weight: 600;">return</span> t;
                         }
 
-                        function modPow(base, exp, mod) {
-                            let result = 1;
+                        <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">modPow</span>(base, exp, mod) {
+                            <span style="color: #c678dd; font-weight: 600;">let</span> result = <span style="color: #d19a66;">1</span>;
                             base = base % mod;
-                            while (exp > 0) {
-                                if (exp % 2 === 1) {
+                            <span style="color: #c678dd; font-weight: 600;">while</span> (exp &gt; <span style="color: #d19a66;">0</span>) {
+                                <span style="color: #c678dd; font-weight: 600;">if</span> (exp % <span style="color: #d19a66;">2</span> === <span style="color: #d19a66;">1</span>) {
                                     result = (result * base) % mod;
                                 }
-                                exp = Math.floor(exp / 2);
+                                exp = <span style="color: #61afef;">Math</span>.<span style="color: #61afef;">floor</span>(exp / <span style="color: #d19a66;">2</span>);
                                 base = (base * base) % mod;
                             }
-                            return result;
+                            <span style="color: #c678dd; font-weight: 600;">return</span> result;
                         }
 
-                        // Analyze frequencies
-                        function analyzeFrequencies() {
-                            if (encryptedData.length === 0) {
-                                alert('Please encrypt text first!');
-                                return;
+                        <span style="color: #5c6370; font-style: italic;">// Analyze frequencies</span>
+                        <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">analyzeFrequencies</span>() {
+                            <span style="color: #c678dd; font-weight: 600;">if</span> (encryptedData.length === <span style="color: #d19a66;">0</span>) {
+                                <span style="color: #61afef;">alert</span>(<span style="color: #98c379;">'Please encrypt text first!'</span>);
+                                <span style="color: #c678dd; font-weight: 600;">return</span>;
                             }
 
-                            // Count frequency of each encrypted value
-                            const freqMap = {};
-                            for (let item of encryptedData) {
-                                freqMap[item.encrypted] = (freqMap[item.encrypted] || 0) + 1;
+                            <span style="color: #5c6370; font-style: italic;">// Count frequency of each encrypted value</span>
+                            <span style="color: #c678dd; font-weight: 600;">const</span> freqMap = {};
+                            <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">let</span> item <span style="color: #56b6c2;">of</span> encryptedData) {
+                                freqMap[item.encrypted] = (freqMap[item.encrypted] || <span style="color: #d19a66;">0</span>) + <span style="color: #d19a66;">1</span>;
                             }
 
-                            // Convert to percentages
-                            const total = encryptedData.length;
-                            const freqPercent = {};
-                            for (let key in freqMap) {
-                                freqPercent[key] = (freqMap[key] / total) * 100;
+                            <span style="color: #5c6370; font-style: italic;">// Convert to percentages</span>
+                            <span style="color: #c678dd; font-weight: 600;">const</span> total = encryptedData.length;
+                            <span style="color: #c678dd; font-weight: 600;">const</span> freqPercent = {};
+                            <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">let</span> key <span style="color: #56b6c2;">in</span> freqMap) {
+                                freqPercent[key] = (freqMap[key] / total) * <span style="color: #d19a66;">100</span>;
                             }
 
-                            // Sort by frequency
-                            const sortedFreq = Object.entries(freqPercent)
-                                .sort((a, b) => b[1] - a[1])
-                                .slice(0, 30); // Top 30
+                            <span style="color: #5c6370; font-style: italic;">// Sort by frequency</span>
+                            <span style="color: #c678dd; font-weight: 600;">const</span> sortedFreq = <span style="color: #61afef;">Object</span>.entries(freqPercent)
+                                .sort((a, b) =&gt; b[1] - a[1])
+                                .slice(<span style="color: #d19a66;">0</span>, <span style="color: #d19a66;">30</span>); <span style="color: #5c6370; font-style: italic;">// Top 30</span>
 
-                            // Plot ciphertext frequencies
-                            if (ciphertextFreqChart) ciphertextFreqChart.destroy();
-                            const ctx1 = document.getElementById('ciphertextFreqChart').getContext('2d');
-                            ciphertextFreqChart = new Chart(ctx1, {
-                                type: 'bar',
+                            <span style="color: #5c6370; font-style: italic;">// Plot ciphertext frequencies</span>
+                            <span style="color: #c678dd; font-weight: 600;">if</span> (ciphertextFreqChart) ciphertextFreqChart.destroy();
+                            <span style="color: #c678dd; font-weight: 600;">const</span> ctx1 = <span style="color: #61afef;">document</span>.getElementById(<span style="color: #98c379;">'ciphertextFreqChart'</span>).getContext(<span style="color: #98c379;">'2d'</span>);
+                            ciphertextFreqChart = <span style="color: #61afef;">new</span> Chart(ctx1, {
+                                type: <span style="color: #98c379;">'bar'</span>,
                                 data: {
-                                    labels: sortedFreq.map(x => x[0]),
+                                    labels: sortedFreq.map(x =&gt; x[0]),
                                     datasets: [{
-                                        label: 'Frequency (%)',
-                                        data: sortedFreq.map(x => x[1]),
-                                        backgroundColor: '#3af',
-                                        borderColor: '#111b',
-                                        borderWidth: 1
+                                        label: <span style="color: #98c379;">'Frequency (%)'</span>,
+                                        data: sortedFreq.map(x =&gt; x[1]),
+                                        backgroundColor: <span style="color: #98c379;">'#3af'</span>,
+                                        borderColor: <span style="color: #98c379;">'#111b'</span>,
+                                        borderWidth: <span style="color: #d19a66;">1</span>
                                     }]
                                 },
                                 options: {
-                                    responsive: false,
-                                    plugins: { legend: { display: false } },
+                                    responsive: <span style="color: #56b6c2;">false</span>,
+                                    plugins: { legend: { display: <span style="color: #56b6c2;">false</span> } },
                                     scales: {
-                                        x: { title: {display: true, text: 'Encrypted Value'}, grid: {display:false} },
-                                        y: { beginAtZero: true, title: {display:true, text:'Frequency (%)'} }
+                                        x: { title: {display: <span style="color: #56b6c2;">true</span>, text: <span style="color: #98c379;">'Encrypted Value'</span>}, grid: {display:<span style="color: #56b6c2;">false</span>} },
+                                        y: { beginAtZero: <span style="color: #56b6c2;">true</span>, title: {display:<span style="color: #56b6c2;">true</span>, text:<span style="color: #98c379;">'Frequency (%)'</span>} }
                                     }
                                 }
                             });
 
-                            // Plot expected English frequencies
-                            if (expectedFreqChart) expectedFreqChart.destroy();
-                            const sortedEnglish = Object.entries(englishFreq)
-                                .sort((a, b) => b[1] - a[1]);
+                            <span style="color: #5c6370; font-style: italic;">// Plot expected English frequencies</span>
+                            <span style="color: #c678dd; font-weight: 600;">if</span> (expectedFreqChart) expectedFreqChart.destroy();
+                            <span style="color: #c678dd; font-weight: 600;">const</span> sortedEnglish = <span style="color: #61afef;">Object</span>.entries(englishFreq)
+                                .sort((a, b) =&gt; b[1] - a[1]);
 
-                            const ctx2 = document.getElementById('expectedFreqChart').getContext('2d');
-                            expectedFreqChart = new Chart(ctx2, {
-                                type: 'bar',
+                            <span style="color: #c678dd; font-weight: 600;">const</span> ctx2 = <span style="color: #61afef;">document</span>.getElementById(<span style="color: #98c379;">'expectedFreqChart'</span>).getContext(<span style="color: #98c379;">'2d'</span>);
+                            expectedFreqChart = <span style="color: #61afef;">new</span> Chart(ctx2, {
+                                type: <span style="color: #98c379;">'bar'</span>,
                                 data: {
-                                    labels: sortedEnglish.map(x => x[0] === ' ' ? 'SPACE' : x[0]),
+                                    labels: sortedEnglish.map(x =&gt; x[0] === <span style="color: #98c379;">' '</span> ? <span style="color: #98c379;">'SPACE'</span> : x[0]),
                                     datasets: [{
-                                        label: 'Frequency (%)',
-                                        data: sortedEnglish.map(x => x[1]),
-                                        backgroundColor: '#faa',
-                                        borderColor: '#111b',
-                                        borderWidth: 1
+                                        label: <span style="color: #98c379;">'Frequency (%)'</span>,
+                                        data: sortedEnglish.map(x =&gt; x[1]),
+                                        backgroundColor: <span style="color: #98c379;">'#faa'</span>,
+                                        borderColor: <span style="color: #98c379;">'#111b'</span>,
+                                        borderWidth: <span style="color: #d19a66;">1</span>
                                     }]
                                 },
                                 options: {
-                                    responsive: false,
-                                    plugins: { legend: { display: false } },
+                                    responsive: <span style="color: #56b6c2;">false</span>,
+                                    plugins: { legend: { display: <span style="color: #56b6c2;">false</span> } },
                                     scales: {
-                                        x: { title: {display: true, text: 'Character'}, grid: {display:false} },
-                                        y: { beginAtZero: true, title: {display:true, text:'Frequency (%)'} }
+                                        x: { title: {display: <span style="color: #56b6c2;">true</span>, text: <span style="color: #98c379;">'Character'</span>}, grid: {display:<span style="color: #56b6c2;">false</span>} },
+                                        y: { beginAtZero: <span style="color: #56b6c2;">true</span>, title: {display:<span style="color: #56b6c2;">true</span>, text:<span style="color: #98c379;">'Frequency (%)'</span>} }
                                     }
                                 }
                             });
                         }
 
-                        // Factor n using trial division
-                        function factorN(n) {
-                            for (let i = 2; i * i <= n; i++) {
-                                if (n % i === 0 && isPrime(i) && isPrime(n/i)) {
-                                    return [i, n/i];
+                        <span style="color: #5c6370; font-style: italic;">// Factor n using trial division</span>
+                        <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">factorN</span>(<span style="color: #e06c75;">n</span>) {
+                            <span style="color: #c678dd; font-weight: 600;">for</span> (<span style="color: #c678dd; font-weight: 600;">let</span> i = <span style="color: #d19a66;">2</span>; i * i &lt;= n; i++) {
+                                <span style="color: #c678dd; font-weight: 600;">if</span> (n % i === <span style="color: #d19a66;">0</span> &amp;&amp; <span style="color: #61afef;">isPrime</span>(i) &amp;&amp; <span style="color: #61afef;">isPrime</span>(n/i)) {
+                                    <span style="color: #c678dd; font-weight: 600;">return</span> [i, n/i];
                                 }
                             }
-                            return null;
+                            <span style="color: #c678dd; font-weight: 600;">return</span> <span style="color: #56b6c2;">null</span>;
                         }
 
-                        // Break RSA cipher using frequency analysis + factorization
-                        function breakRSACipher() {
-                            if (encryptedData.length === 0) {
-                                alert('Please encrypt text first!');
-                                return;
+                        <span style="color: #5c6370; font-style: italic;">// Break RSA cipher using frequency analysis + factorization</span>
+                        <span style="color: #c678dd; font-weight: 600;">function</span> <span style="color: #61afef;">breakRSACipher</span>() {
+                            <span style="color: #c678dd; font-weight: 600;">if</span> (encryptedData.length === <span style="color: #d19a66;">0</span>) {
+                                <span style="color: #61afef;">alert</span>(<span style="color: #98c379;">'Please encrypt text first!'</span>);
+                                <span style="color: #c678dd; font-weight: 600;">return</span>;
                             }
 
-                            let log = '=== RSA Frequency Analysis Attack ===\n\n';
-                            log += 'Step 1: Analyzing ciphertext frequency distribution...\n';
+                            <span style="color: #c678dd;">let</span> log = <span style="color: #98c379;">'=== RSA Frequency Analysis Attack ===\n\n'</span>;
+                            log += <span style="color: #98c379;">'Step 1: Analyzing ciphertext frequency distribution...\n'</span>;
 
-                            // Count frequencies
-                            const freqMap = {};
-                            for (let item of encryptedData) {
-                                freqMap[item.encrypted] = (freqMap[item.encrypted] || 0) + 1;
+                            <span style="color: #5c6370; font-style: italic;">// Count frequencies</span>
+                            <span style="color: #c678dd;">const</span> freqMap = {};
+                            <span style="color: #c678dd;">for</span> (<span style="color: #c678dd;">let</span> item <span style="color: #c678dd;">of</span> encryptedData) {
+                                freqMap[item.encrypted] = (freqMap[item.encrypted] || <span style="color: #d19a66;">0</span>) + <span style="color: #d19a66;">1</span>;
                             }
 
-                            const total = encryptedData.length;
-                            const sortedCipherFreq = Object.entries(freqMap)
-                                .map(([val, count]) => ({ value: parseInt(val), freq: (count/total)*100, count }))
-                                .sort((a, b) => b.freq - a.freq);
+                            <span style="color: #c678dd;">const</span> total = encryptedData.length;
+                            <span style="color: #c678dd;">const</span> sortedCipherFreq = <span style="color: #61afef;">Object</span>.entries(freqMap)
+                                .map((<span style="color: #c678dd;">[val, count]</span>) =&gt; ({ value: <span style="color: #61afef;">parseInt</span>(val), freq: (count/total)*<span style="color: #d19a66;">100</span>, count }))
+                                .sort((a, b) =&gt; b.freq - a.freq);
 
-                            log += `  Found ${sortedCipherFreq.length} unique encrypted values\n`;
-                            log += `  Most common: ${sortedCipherFreq[0].value} (${sortedCipherFreq[0].freq.toFixed(2)}%)\n`;
-                            log += `  Expected most common: 'e' (12.7%) or space (13.0%)\n\n`;
+                            log += <span style="color: #98c379;">`  Found ${sortedCipherFreq.length} unique encrypted values\n`</span>;
+                            log += <span style="color: #98c379;">`  Most common: ${sortedCipherFreq[0].value} (${sortedCipherFreq[0].freq.toFixed(2)}%)\n`</span>;
+                            log += <span style="color: #98c379;">`  Expected most common: 'e' (12.7%) or space (13.0%)\n\n`</span>;
 
-                            log += 'Step 2: Since keys are small, attempting to factor n...\n';
-                            const startTime = performance.now();
-                            const factors = factorN(rsaParams.n);
-                            const endTime = performance.now();
+                            log += <span style="color: #98c379;">'Step 2: Since keys are small, attempting to factor n...\n'</span>;
+                            <span style="color: #c678dd;">const</span> startTime = performance.now();
+                            <span style="color: #c678dd;">const</span> factors = <span style="color: #61afef;">factorN</span>(rsaParams.n);
+                            <span style="color: #c678dd;">const</span> endTime = performance.now();
 
-                            if (!factors) {
-                                log += '  ERROR: Could not factor n!\n';
-                                document.getElementById('attackProgress').value = log;
-                                return;
+                            <span style="color: #c678dd; font-weight: 600;">if</span> (!factors) {
+                                log += <span style="color: #98c379;">'  ERROR: Could not factor n!\n'</span>;
+                                <span style="color: #61afef;">document</span>.getElementById(<span style="color: #98c379;">'attackProgress'</span>).value = log;
+                                <span style="color: #c678dd; font-weight: 600;">return</span>;
                             }
 
-                            const [p_found, q_found] = factors;
-                            log += `  ✓ Factored n in ${(endTime - startTime).toFixed(2)}ms\n`;
-                            log += `  Found: p = ${p_found}, q = ${q_found}\n\n`;
+                            <span style="color: #c678dd;">const</span> [p_found, q_found] = factors;
+                            log += <span style="color: #98c379;">`  ✓ Factored n in ${(endTime - startTime).toFixed(2)}ms\n`</span>;
+                            log += <span style="color: #98c379;">`  Found: p = ${p_found}, q = ${q_found}\n\n`</span>;
 
-                            log += 'Step 3: Computing private key d...\n';
-                            const phi_found = (p_found - 1) * (q_found - 1);
-                            log += `  φ(n) = (${p_found}-1)(${q_found}-1) = ${phi_found}\n`;
+                            log += <span style="color: #98c379;">'Step 3: Computing private key d...\n'</span>;
+                            <span style="color: #c678dd;">const</span> phi_found = (p_found - <span style="color: #d19a66;">1</span>) * (q_found - <span style="color: #d19a66;">1</span>);
+                            log += <span style="color: #98c379;">`  φ(n) = (${p_found}-1)(${q_found}-1) = ${phi_found}\n`</span>;
                             
-                            const d_found = modInverse(rsaParams.e, phi_found);
-                            if (!d_found) {
-                                log += '  ERROR: Could not compute modular inverse!\n';
-                                document.getElementById('attackProgress').value = log;
-                                return;
+                            <span style="color: #c678dd;">const</span> d_found = <span style="color: #61afef;">modInverse</span>(rsaParams.e, phi_found);
+                            <span style="color: #c678dd; font-weight: 600;">if</span> (!d_found) {
+                                log += <span style="color: #98c379;">'  ERROR: Could not compute modular inverse!\n'</span>;
+                                <span style="color: #61afef;">document</span>.getElementById(<span style="color: #98c379;">'attackProgress'</span>).value = log;
+                                <span style="color: #c678dd; font-weight: 600;">return</span>;
                             }
-                            log += `  d = e^(-1) mod φ(n) = ${d_found}\n\n`;
+                            log += <span style="color: #98c379;">`  d = e^(-1) mod φ(n) = ${d_found}\n\n`</span>;
 
-                            log += 'Step 4: Decrypting ciphertext...\n';
-                            let decrypted = '';
-                            for (let item of encryptedData) {
-                                const decryptedCode = modPow(item.encrypted, d_found, rsaParams.n);
-                                decrypted += String.fromCharCode(decryptedCode);
+                            log += <span style="color: #98c379;">'Step 4: Decrypting ciphertext...\n'</span>;
+                            <span style="color: #c678dd;">let</span> decrypted = <span style="color: #98c379;">''</span>;
+                            <span style="color: #c678dd;">for</span> (<span style="color: #c678dd;">let</span> item <span style="color: #c678dd;">of</span> encryptedData) {
+                                <span style="color: #c678dd;">const</span> decryptedCode = <span style="color: #61afef;">modPow</span>(item.encrypted, d_found, rsaParams.n);
+                                decrypted += <span style="color: #61afef;">String</span>.fromCharCode(decryptedCode);
                             }
-                            log += `  Successfully decrypted ${encryptedData.length} characters\n\n`;
+                            log += <span style="color: #98c379;">`  Successfully decrypted ${encryptedData.length} characters\n\n`</span>;
 
-                            log += 'Step 5: Validating with frequency analysis...\n';
-                            // Analyze decrypted text frequency
-                            const decryptedFreq = {};
-                            for (let char of decrypted.toLowerCase()) {
-                                if (char >= 'a' && char <= 'z' || char === ' ') {
-                                    decryptedFreq[char] = (decryptedFreq[char] || 0) + 1;
+                            log += <span style="color: #98c379;">'Step 5: Validating with frequency analysis...\n'</span>;
+                            <span style="color: #5c6370; font-style: italic;">// Analyze decrypted text frequency</span>
+                            <span style="color: #c678dd;">const</span> decryptedFreq = {};
+                            <span style="color: #c678dd;">for</span> (<span style="color: #c678dd;">let</span> char <span style="color: #c678dd;">of</span> decrypted.toLowerCase()) {
+                                <span style="color: #c678dd; font-weight: 600;">if</span> ((char &gt;= <span style="color: #98c379;">'a'</span> &amp;&amp; char &lt;= <span style="color: #98c379;">'z'</span>) || char === <span style="color: #98c379;">' '</span>) {
+                                    decryptedFreq[char] = (decryptedFreq[char] || <span style="color: #d19a66;">0</span>) + <span style="color: #d19a66;">1</span>;
                                 }
                             }
-                            const decryptedTotal = Object.values(decryptedFreq).reduce((a, b) => a + b, 0);
-                            const sortedDecrypted = Object.entries(decryptedFreq)
-                                .map(([char, count]) => ({ char, freq: (count/decryptedTotal)*100 }))
-                                .sort((a, b) => b.freq - a.freq)
-                                .slice(0, 5);
+                            <span style="color: #c678dd;">const</span> decryptedTotal = <span style="color: #61afef;">Object</span>.values(decryptedFreq).reduce((a, b) =&gt; a + b, <span style="color: #d19a66;">0</span>);
+                            <span style="color: #c678dd;">const</span> sortedDecrypted = <span style="color: #61afef;">Object</span>.entries(decryptedFreq)
+                                .map((<span style="color: #c678dd;">[char, count]</span>) =&gt; ({ char, freq: (count/decryptedTotal)*<span style="color: #d19a66;">100</span> }))
+                                .sort((a, b) =&gt; b.freq - a.freq)
+                                .slice(<span style="color: #d19a66;">0</span>, <span style="color: #d19a66;">5</span>);
 
-                            log += '  Top 5 characters in decrypted text:\n';
-                            for (let item of sortedDecrypted) {
-                                const expected = englishFreq[item.char] || 0;
-                                log += `    '${item.char === ' ' ? 'SPACE' : item.char}': ${item.freq.toFixed(2)}% (expected: ${expected.toFixed(2)}%)\n`;
+                            log += <span style="color: #98c379;">'  Top 5 characters in decrypted text:\n'</span>;
+                            <span style="color: #c678dd;">for</span> (<span style="color: #c678dd;">let</span> item <span style="color: #c678dd;">of</span> sortedDecrypted) {
+                                <span style="color: #c678dd;">const</span> expected = englishFreq[item.char] || <span style="color: #d19a66;">0</span>;
+                                log += <span style="color: #98c379;">`    '${item.char === ' ' ? 'SPACE' : item.char}': ${item.freq.toFixed(2)}% (expected: ${expected.toFixed(2)}%)\n`</span>;
                             }
-                            log += '\n  ✓ Frequency distribution matches English! Decryption successful.\n\n';
+                            log += <span style="color: #98c379;">'\n  ✓ Frequency distribution matches English! Decryption successful.\n\n'</span>;
 
-                            log += '✓ Attack complete!\n';
-                            log += 'Note: Small n allowed factorization in milliseconds.\n';
-                            log += 'Frequency analysis validated the correctness of our decryption.\n';
-                            log += 'Real RSA (2048+ bits) would take millions of years to factor!';
+                            log += <span style="color: #98c379;">'✓ Attack complete!\n'</span>;
+                            log += <span style="color: #98c379;">'Note: Small n allowed factorization in milliseconds.\n'</span>;
+                            log += <span style="color: #98c379;">'Frequency analysis validated the correctness of our decryption.\n'</span>;
+                            log += <span style="color: #98c379;">'Real RSA (2048+ bits) would take millions of years to factor!'</span>;
 
-                            document.getElementById('attackProgress').value = log;
-                            document.getElementById('decryptedOutput').value = decrypted;
+                            <span style="color: #61afef;">document</span>.getElementById(<span style="color: #98c379;">'attackProgress'</span>).value = log;
+                            <span style="color: #61afef;">document</span>.getElementById(<span style="color: #98c379;">'decryptedOutput'</span>).value = decrypted;
                         }
                         </code>
                     </pre>
