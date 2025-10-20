@@ -781,15 +781,21 @@
                                 if (llnDensityChart) llnDensityChart.destroy();
 
                                 llnDensityChart = new Chart(densityChartCtx, {
-                                    type: 'bar',
+                                    type: 'line',
                                     data: {
                                         labels: binCenters.map(c=>c.toFixed(2)),
                                         datasets: [{
                                             label: 'Density',
                                             data: density,
-                                            backgroundColor: "#61dafbAA",
+                                            backgroundColor: "rgba(97, 218, 251, 0.2)",
                                             borderColor: "#218bbd",
-                                            borderWidth: 1,
+                                            borderWidth: 2.5,
+                                            fill: true,
+                                            tension: 0.4,
+                                            pointRadius: 3,
+                                            pointBackgroundColor: "#218bbd",
+                                            pointBorderColor: "#fff",
+                                            pointBorderWidth: 1,
                                         }]
                                     },
                                     options: {
@@ -806,7 +812,8 @@
                                                 title: { display: true, text: "Fraction of successes (number of '1's out of 50)" }
                                             },
                                             y: {
-                                                title: { display: true, text: "Density" }
+                                                title: { display: true, text: "Density" },
+                                                beginAtZero: true
                                             }
                                         }
                                     }
