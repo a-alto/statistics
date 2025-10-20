@@ -114,9 +114,34 @@
                 <div class="content-wrapper">
                     <h2>Breaking RSA</h2>
                     <p>
-                        <div style="margin: 2.3rem 0; width: 100%; max-width: 1100px; background:rgba(0,0,0,0.21); border-radius: 17px; padding:2.3rem 1.4rem; border:2.5px solid rgba(255,255,255,0.09); box-shadow: 0 5px 24px 3px rgba(12,18,22,.18); display: flex; flex-direction: row; gap:2.0rem; flex-wrap:wrap; justify-content: center; align-items: flex-start; min-height: 300px;">
-
-                            <div style="flex:1 1 420px; min-width:280px; max-width:590px;">
+                        <style>
+                            @media (max-width: 800px) {
+                                .rsa-flex-container {
+                                    flex-direction: column !important;
+                                    gap: 1.3rem !important;
+                                    min-width: 0 !important;
+                                    padding: 1.3rem 0.5rem !important;
+                                }
+                                .rsa-section {
+                                    min-width: 0 !important;
+                                    max-width: 100% !important;
+                                    width: 100% !important;
+                                }
+                            }
+                            @media (max-width: 540px) {
+                                .rsa-section textarea,
+                                .rsa-section input,
+                                .rsa-section button {
+                                    font-size: 1.01rem !important;
+                                }
+                                .rsa-section label {
+                                    font-size: 1rem !important;
+                                }
+                            }
+                        </style>
+                        <div class="rsa-flex-container"
+                             style="margin: 2.3rem 0; width: 100%; max-width: 1100px; background:rgba(0,0,0,0.21); border-radius: 17px; padding:2.3rem 1.4rem; border:2.5px solid rgba(255,255,255,0.09); box-shadow: 0 5px 24px 3px rgba(12,18,22,.18); display: flex; flex-direction: row; gap:2.0rem; flex-wrap:wrap; justify-content: center; align-items: flex-start; min-height: 300px;">
+                            <div class="rsa-section" style="flex:1 1 420px; min-width:280px; max-width:590px;">
                                 <label for="rsaPlainText" style="font-weight:700;display:block;margin-bottom:12px;color:#efe4c6;font-size:1.22rem;">Clear text</label>
                                 <textarea id="rsaPlainText" rows="9" style="width:100%;min-height:10em;max-height:18em;resize:vertical;background:#161b20;color:#eee;font-size:1.19rem;padding:0.85rem 1.05rem;border-radius:13px;border:2px solid #2a4061;margin-bottom:1.9rem;font-family:inherit;box-shadow:0 2px 6px 0 #1117;">A quantum computer is a computer that uses quantum mechanics to perform calculations. Classical computers use bits, while quantum computers use qubits.</textarea>
                                 <div style="display:flex;gap:1.45rem;align-items:center;flex-wrap:wrap;margin-bottom:1.9rem;">
@@ -133,8 +158,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div style="flex:1 1 420px; min-width:280px; max-width:590px; display:flex;flex-direction:column;justify-content:stretch;">
+                            <div class="rsa-section" style="flex:1 1 420px; min-width:280px; max-width:590px; display:flex;flex-direction:column;justify-content:stretch;">
                                 <label for="rsaCipherText" style="font-weight:700;display:block;margin-bottom:11px;color:#eddcfa;font-size:1.18rem;">Ciphered text (RSA):</label>
                                 <textarea id="rsaCipherText" rows="9" readonly style="width:100%;min-height:7.5em;max-height:15em;resize:vertical;background:#111722;color:#86d0f3;font-size:1.16rem;padding:0.75rem 1.05rem;border-radius:13px;border:2px solid #265173;margin-bottom:1.5rem;font-family:inherit;"></textarea>
                                 
