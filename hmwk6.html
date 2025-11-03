@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 6 | Statistics - Sapienza University of Rome</title>
+    <link rel="stylesheet" href="/statistics/styles.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(','\\)'], ['$', '$']],
+                displayMath: [['\\[','\\]'], ['$$','$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/statistics/index.html" class="logo">STATISTICS</a>
+            <ul class="nav-menu">
+                <li><a href="/statistics/index.html#home">Home</a></li>
+                <li><a href="/statistics/hmwk2.html">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html">HMWK 4</a></li>
+                <li><a href="/statistics/hmwk5.html">HMWK 5</a></li>
+                <li><a href="/statistics/hmwk6.html">HMWK 6</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="/statistics/index.html#home" onclick="toggleMenu()">Home</a></li>
+                <li><a href="/statistics/hmwk2.html" onclick="toggleMenu()">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html" onclick="toggleMenu()">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html" onclick="toggleMenu()">HMWK 4</a></li>
+                <li><a href="/statistics/hmwk5.html" onclick="toggleMenu()">HMWK 5</a></li>
+                <li><a href="/statistics/hmwk6.html" onclick="toggleMenu()">HMWK 6</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <div class="section-number">01</div>
+                <div class="section-label">HOMEWORK 6</div>
+                <div class="hero-content">
+                    <h1>Online Algorithms for Statistical Computation</h1>
+                    <div class="hero-underline"></div>
+                    <p class="hero-description">
+                        <b>Online algorithms</b> (also called incremental or streaming algorithms) compute
+                        statistics by processing data one observation at a time, updating results incrementally
+                        without storing the entire dataset. Unlike traditional batch algorithms that require
+                        multiple passes through data, online algorithms offer superior numerical stability,
+                        reduced memory requirements, and better computational efficiency—making them essential
+                        for large-scale data processing, real-time analytics, and streaming applications.
+                    </p>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">02</div>
+                <div class="content-wrapper">
+                    <h2>Online Algorithm for Arithmetic Mean</h2>
+                    <p>
+                        The online algorithm for computing the arithmetic mean allows us to update the mean
+                        incrementally as each new observation arrives, without recalculating from scratch.
+                    </p>
+
+                    <h3>Derivation of the Recurrence Relationship</h3>
+                    <p>
+                        Let \( \bar{x}_n \) denote the mean of the first \( n \) observations.
+                        We want to express \( \bar{x}_n \) in terms of \( \bar{x}_{n-1} \) and the new
+                        observation \( x_n \).
+                    </p>
+                    <div class="math-block">\[ \bar{x}_n = \frac{1}{n} \sum_{i=1}^{n} x_i = \frac{1}{n} \left( \sum_{i=1}^{n-1} x_i + x_n \right) \]</div>
+                    <p>
+                        We can rewrite the sum of the first \( n-1 \) terms using \( \bar{x}_{n-1} \):
+                    </p>
+                    <div class="math-block">\[ \sum_{i=1}^{n-1} x_i = (n-1) \bar{x}_{n-1} \]</div>
+                    <p>
+                        Substituting this into our expression:
+                    </p>
+                    <div class="math-block">\[ \bar{x}_n = \frac{1}{n} \left( (n-1) \bar{x}_{n-1} + x_n \right) = \frac{n-1}{n} \bar{x}_{n-1} + \frac{x_n}{n} \]</div>
+                    <p>
+                        Simplifying by factoring out \( \bar{x}_{n-1} \):
+                    </p>
+                    <div class="math-block">\[ \bar{x}_n = \bar{x}_{n-1} + \frac{x_n - \bar{x}_{n-1}}{n} \]</div>
+                    <p>
+                        <b>Final recurrence relationship:</b>
+                    </p>
+                    <div class="math-block" style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 1rem;">
+                        \[ \bar{x}_n = \bar{x}_{n-1} + \frac{x_n - \bar{x}_{n-1}}{n} \]
+                    </div>
+                    <p>
+                        This elegant formula updates the mean by adding a correction term that represents
+                        the scaled deviation of the new observation from the current mean. The correction
+                        diminishes as \( n \) increases, reflecting the decreasing influence of individual
+                        observations on the overall mean.
+                    </p>
+
+                    <h3>Algorithm Pseudocode</h3>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 6px; overflow-x: auto;"><code>function online_mean(x_new, mean_old, n):
+    mean_new = mean_old + (x_new - mean_old) / n
+    return mean_new
+
+# Initialization
+mean = 0
+n = 0
+
+# For each new observation x
+for x in data_stream:
+    n = n + 1
+    mean = online_mean(x, mean, n)</code></pre>
+
+                    <p>
+                        <b>Complexity:</b> O(1) time per update, O(1) space (only storing the current mean and count).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">03</div>
+                <div class="content-wrapper">
+                    <h2>Online Algorithm for Variance (Welford's Algorithm)</h2>
+                    <p>
+                        Computing variance online is more complex than the mean, as the naive approach
+                        \( s^2 = \frac{1}{n-1}\sum(x_i - \bar{x})^2 \) requires storing all observations
+                        or making two passes. Welford's algorithm solves this elegantly using an auxiliary
+                        variable \( M_2 \) that accumulates the sum of squared deviations.
+                    </p>
+
+                    <h3>Derivation of the Recurrence Relationship</h3>
+                    <p>
+                        Define \( M_{2,n} \) as the sum of squared deviations from the mean:
+                    </p>
+                    <div class="math-block">\[ M_{2,n} = \sum_{i=1}^{n} (x_i - \bar{x}_n)^2 \]</div>
+                    <p>
+                        The sample variance is then: \( s_n^2 = \frac{M_{2,n}}{n-1} \)
+                    </p>
+                    <p>
+                        We need to find a recurrence for \( M_{2,n} \). Start by expanding:
+                    </p>
+                    <div class="math-block">\[ M_{2,n} = \sum_{i=1}^{n} (x_i - \bar{x}_n)^2 = \sum_{i=1}^{n-1} (x_i - \bar{x}_n)^2 + (x_n - \bar{x}_n)^2 \]</div>
+                    <p>
+                        For the first \( n-1 \) terms, we add and subtract \( \bar{x}_{n-1} \):
+                    </p>
+                    <div class="math-block">\[ (x_i - \bar{x}_n)^2 = \left[(x_i - \bar{x}_{n-1}) + (\bar{x}_{n-1} - \bar{x}_n)\right]^2 \]</div>
+                    <div class="math-block">\[ = (x_i - \bar{x}_{n-1})^2 + 2(x_i - \bar{x}_{n-1})(\bar{x}_{n-1} - \bar{x}_n) + (\bar{x}_{n-1} - \bar{x}_n)^2 \]</div>
+                    <p>
+                        Summing over \( i = 1 \) to \( n-1 \):
+                    </p>
+                    <div class="math-block">\[ \sum_{i=1}^{n-1} (x_i - \bar{x}_n)^2 = M_{2,n-1} + 2(\bar{x}_{n-1} - \bar{x}_n)\sum_{i=1}^{n-1}(x_i - \bar{x}_{n-1}) + (n-1)(\bar{x}_{n-1} - \bar{x}_n)^2 \]</div>
+                    <p>
+                        Note that \( \sum_{i=1}^{n-1}(x_i - \bar{x}_{n-1}) = 0 \) (deviations from mean sum to zero), so:
+                    </p>
+                    <div class="math-block">\[ M_{2,n} = M_{2,n-1} + (n-1)(\bar{x}_{n-1} - \bar{x}_n)^2 + (x_n - \bar{x}_n)^2 \]</div>
+                    <p>
+                        Using the online mean update formula, we can show that:
+                    </p>
+                    <div class="math-block">\[ \bar{x}_n - \bar{x}_{n-1} = \frac{x_n - \bar{x}_{n-1}}{n} \]</div>
+                    <p>
+                        After algebraic manipulation (multiplying and simplifying), we arrive at:
+                    </p>
+                    <div class="math-block" style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 1rem;">
+                        \[ M_{2,n} = M_{2,n-1} + (x_n - \bar{x}_{n-1})(x_n - \bar{x}_n) \]
+                    </div>
+                    <p>
+                        The variance is then computed as:
+                    </p>
+                    <div class="math-block">\[ s_n^2 = \frac{M_{2,n}}{n-1} \]</div>
+
+                    <h3>Algorithm Pseudocode (Welford's Algorithm)</h3>
+                    <pre style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 6px; overflow-x: auto;"><code>function welford_update(x_new, mean_old, M2_old, n):
+    delta = x_new - mean_old
+    mean_new = mean_old + delta / n
+    delta2 = x_new - mean_new
+    M2_new = M2_old + delta * delta2
+    return (mean_new, M2_new)
+
+# Initialization
+mean = 0
+M2 = 0
+n = 0
+
+# For each new observation x
+for x in data_stream:
+    n = n + 1
+    (mean, M2) = welford_update(x, mean, M2, n)
+    
+    # Compute variance at any time
+    if n > 1:
+        variance = M2 / (n - 1)
+        std_dev = sqrt(variance)</code></pre>
+
+                    <p>
+                        <b>Complexity:</b> O(1) time per update, O(1) space (storing mean, M2, and count).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">04</div>
+                <div class="content-wrapper">
+                    <h2>Interactive Demonstration: Online vs Batch Algorithms</h2>
+                    <p>
+                        Test the online algorithms with live data. Enter values one at a time to see how
+                        the mean and variance update incrementally. Compare the results with batch computation.
+                    </p>
+
+                    <div style="margin: 2rem 0;">
+                        <label for="newValue" style="font-weight: 500;">Enter a new value:</label>
+                        <input type="number" id="newValue" step="any" placeholder="e.g., 42.5" 
+                               style="width: 150px; margin-left: 1rem; margin-right: 1rem; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 6px; padding: 0.5rem; color: #e8e8e8; font-size: 0.95rem; outline: none;">
+                        <button class="btn" onclick="addValue()">Add Value</button>
+                        <button class="btn" onclick="generateRandom()">Add Random (0-100)</button>
+                        <button class="btn" onclick="resetDemo()" style="background: rgba(239, 68, 68, 0.2); border-color: #ef4444;">Reset</button>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                        <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                            <h4 style="margin-top: 0; color: #60a5fa;">Online Algorithm Results</h4>
+                            <p><b>Count (n):</b> <span id="onlineCount">0</span></p>
+                            <p><b>Mean:</b> <span id="onlineMean">-</span></p>
+                            <p><b>Variance (s²):</b> <span id="onlineVariance">-</span></p>
+                            <p><b>Std Dev (s):</b> <span id="onlineStdDev">-</span></p>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                            <h4 style="margin-top: 0; color: #f472b6;">Batch Algorithm Results</h4>
+                            <p><b>Count (n):</b> <span id="batchCount">0</span></p>
+                            <p><b>Mean:</b> <span id="batchMean">-</span></p>
+                            <p><b>Variance (s²):</b> <span id="batchVariance">-</span></p>
+                            <p><b>Std Dev (s):</b> <span id="batchStdDev">-</span></p>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 2rem;">
+                        <h4 style="margin-top: 0;">Data Stream:</h4>
+                        <div id="dataDisplay" style="max-height: 150px; overflow-y: auto; font-family: 'Monaco', monospace; font-size: 0.9rem; color: #94a3b8;">
+                            (no data yet)
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <canvas id="dataChart" height="80"></canvas>
+                    </div>
+
+                    <script>
+                        // Global state
+                        let dataStream = [];
+                        let onlineMean = 0;
+                        let onlineM2 = 0;
+                        let dataChart = null;
+
+                        // Initialize chart
+                        function initChart() {
+                            const ctx = document.getElementById('dataChart').getContext('2d');
+                            dataChart = new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: [],
+                                    datasets: [{
+                                        label: 'Data Values',
+                                        data: [],
+                                        borderColor: '#60a5fa',
+                                        backgroundColor: 'rgba(96, 165, 250, 0.1)',
+                                        borderWidth: 2,
+                                        tension: 0.1,
+                                        fill: true
+                                    }, {
+                                        label: 'Running Mean',
+                                        data: [],
+                                        borderColor: '#34d399',
+                                        backgroundColor: 'transparent',
+                                        borderWidth: 2,
+                                        borderDash: [5, 5],
+                                        tension: 0.1,
+                                        fill: false
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    plugins: {
+                                        legend: { display: true, position: 'top' },
+                                        title: { display: true, text: 'Data Stream and Running Mean' }
+                                    },
+                                    scales: {
+                                        x: { title: { display: true, text: 'Observation Number' } },
+                                        y: { title: { display: true, text: 'Value' } }
+                                    }
+                                }
+                            });
+                        }
+
+                        // Online algorithm for mean
+                        function updateOnlineMean(newValue, n) {
+                            return onlineMean + (newValue - onlineMean) / n;
+                        }
+
+                        // Online algorithm for variance (Welford's)
+                        function updateOnlineVariance(newValue, n) {
+                            const delta = newValue - onlineMean;
+                            onlineMean = updateOnlineMean(newValue, n);
+                            const delta2 = newValue - onlineMean;
+                            onlineM2 += delta * delta2;
+                        }
+
+                        // Batch algorithms
+                        function computeBatchMean(data) {
+                            if (data.length === 0) return 0;
+                            return data.reduce((sum, x) => sum + x, 0) / data.length;
+                        }
+
+                        function computeBatchVariance(data) {
+                            if (data.length < 2) return 0;
+                            const mean = computeBatchMean(data);
+                            const sumSquaredDev = data.reduce((sum, x) => sum + Math.pow(x - mean, 2), 0);
+                            return sumSquaredDev / (data.length - 1);
+                        }
+
+                        // Add new value
+                        function addValue() {
+                            const input = document.getElementById('newValue');
+                            const value = parseFloat(input.value);
+                            
+                            if (isNaN(value)) {
+                                alert('Please enter a valid number');
+                                return;
+                            }
+
+                            // Add to data stream
+                            dataStream.push(value);
+                            const n = dataStream.length;
+
+                            // Update online statistics
+                            updateOnlineVariance(value, n);
+                            const onlineVar = n > 1 ? onlineM2 / (n - 1) : 0;
+                            const onlineStd = Math.sqrt(onlineVar);
+
+                            // Compute batch statistics
+                            const batchMean = computeBatchMean(dataStream);
+                            const batchVar = computeBatchVariance(dataStream);
+                            const batchStd = Math.sqrt(batchVar);
+
+                            // Update display
+                            document.getElementById('onlineCount').textContent = n;
+                            document.getElementById('onlineMean').textContent = onlineMean.toFixed(6);
+                            document.getElementById('onlineVariance').textContent = onlineVar.toFixed(6);
+                            document.getElementById('onlineStdDev').textContent = onlineStd.toFixed(6);
+
+                            document.getElementById('batchCount').textContent = n;
+                            document.getElementById('batchMean').textContent = batchMean.toFixed(6);
+                            document.getElementById('batchVariance').textContent = batchVar.toFixed(6);
+                            document.getElementById('batchStdDev').textContent = batchStd.toFixed(6);
+
+                            // Update data display
+                            const dataDisplay = document.getElementById('dataDisplay');
+                            dataDisplay.textContent = dataStream.map((v, i) => `[${i+1}] ${v.toFixed(2)}`).join(', ');
+
+                            // Update chart
+                            dataChart.data.labels.push(n);
+                            dataChart.data.datasets[0].data.push(value);
+                            dataChart.data.datasets[1].data.push(onlineMean);
+                            dataChart.update();
+
+                            // Clear input
+                            input.value = '';
+                            input.focus();
+                        }
+
+                        // Generate random value
+                        function generateRandom() {
+                            const randomValue = Math.random() * 100;
+                            document.getElementById('newValue').value = randomValue.toFixed(2);
+                            addValue();
+                        }
+
+                        // Reset demonstration
+                        function resetDemo() {
+                            dataStream = [];
+                            onlineMean = 0;
+                            onlineM2 = 0;
+
+                            document.getElementById('onlineCount').textContent = '0';
+                            document.getElementById('onlineMean').textContent = '-';
+                            document.getElementById('onlineVariance').textContent = '-';
+                            document.getElementById('onlineStdDev').textContent = '-';
+
+                            document.getElementById('batchCount').textContent = '0';
+                            document.getElementById('batchMean').textContent = '-';
+                            document.getElementById('batchVariance').textContent = '-';
+                            document.getElementById('batchStdDev').textContent = '-';
+
+                            document.getElementById('dataDisplay').textContent = '(no data yet)';
+
+                            dataChart.data.labels = [];
+                            dataChart.data.datasets[0].data = [];
+                            dataChart.data.datasets[1].data = [];
+                            dataChart.update();
+                        }
+
+                        // Allow Enter key to add value
+                        document.addEventListener('DOMContentLoaded', function() {
+                            initChart();
+                            document.getElementById('newValue').addEventListener('keypress', function(e) {
+                                if (e.key === 'Enter') {
+                                    addValue();
+                                }
+                            });
+                        });
+                    </script>
+
+                    <p style="margin-top: 2rem;">
+                        <b>Observation:</b> Notice that the online and batch algorithms produce identical results
+                        (up to floating-point precision), demonstrating the correctness of the online approach
+                        while using significantly less memory and computational resources.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">05</div>
+                <div class="content-wrapper">
+                    <h2>Computational Advantages of Online Algorithms</h2>
+                    <p>
+                        From a numerical analysis and computational perspective, online algorithms offer
+                        significant advantages over traditional batch methods.
+                    </p>
+
+                    <h3>1. Numerical Stability</h3>
+                    <p>
+                        <b>Batch variance (textbook formula):</b>
+                    </p>
+                    <div class="math-block">\[ s^2 = \frac{1}{n-1}\left(\sum_{i=1}^n x_i^2 - n\bar{x}^2\right) \]</div>
+                    <p>
+                        This formula is computationally unstable because it computes the difference of two
+                        potentially very large numbers (\(\sum x_i^2\) and \(n\bar{x}^2\)), which can lead
+                        to <b>catastrophic cancellation</b> when the variance is small relative to the mean.
+                    </p>
+                    <p>
+                        <b>Welford's algorithm</b> avoids this by maintaining a running sum of deviations
+                        that naturally remains close to the true variance magnitude, preventing loss of
+                        significant digits through subtraction.
+                    </p>
+
+                    <h3>2. Catastrophic Cancellation</h3>
+                    <p>
+                        <b>Example:</b> Consider data values close to 10,000,000:
+                        \( \{10000000, 10000001, 10000002\} \)
+                    </p>
+                    <p>
+                        Using the batch formula with finite precision (e.g., single-precision floating point):
+                    </p>
+                    <ul>
+                        <li>\( \sum x_i^2 \approx 3 \times 10^{14} \)</li>
+                        <li>\( n\bar{x}^2 \approx 3 \times 10^{14} \)</li>
+                        <li>Their difference might be computed as 0 or a wildly inaccurate value due to rounding errors</li>
+                    </ul>
+                    <p>
+                        Welford's algorithm computes deviations from the mean directly, avoiding this
+                        cancellation problem entirely.
+                    </p>
+
+                    <h3>3. Error Propagation</h3>
+                    <p>
+                        In batch algorithms, errors accumulate through multiple arithmetic operations
+                        (summing all values, squaring, computing differences). The error in the final
+                        result depends on the accumulated error from all intermediate steps.
+                    </p>
+                    <p>
+                        Online algorithms minimize error propagation by:
+                    </p>
+                    <ul>
+                        <li>Processing each value only once</li>
+                        <li>Maintaining numerically stable intermediate quantities</li>
+                        <li>Using incremental updates that naturally limit error accumulation</li>
+                    </ul>
+
+                    <h3>4. Overflow Management</h3>
+                    <p>
+                        <b>Batch approach:</b> Computing \( \sum x_i^2 \) can overflow for large datasets
+                        or large values, even when the final variance would fit in the available precision.
+                    </p>
+                    <p>
+                        <b>Online approach:</b> Welford's algorithm maintains \( M_2 \), which represents
+                        the sum of squared deviations—a quantity typically much smaller than \( \sum x_i^2 \),
+                        significantly reducing the risk of overflow.
+                    </p>
+
+                    <h3>5. Memory Efficiency</h3>
+                    <table class="data-table" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+                        <thead>
+                            <tr>
+                                <th>Algorithm</th>
+                                <th>Memory Complexity</th>
+                                <th>Storage Required</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Batch (two-pass)</b></td>
+                                <td>O(n)</td>
+                                <td>Must store all n observations</td>
+                            </tr>
+                            <tr>
+                                <td><b>Online (Welford's)</b></td>
+                                <td>O(1)</td>
+                                <td>Only 3 variables: mean, M2, count</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        For a dataset with 1 billion observations (8 bytes each), batch requires ~7.5 GB
+                        of RAM, while online requires only ~24 bytes regardless of dataset size.
+                    </p>
+
+                    <h3>6. Computational Efficiency</h3>
+                    <table class="data-table" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+                        <thead>
+                            <tr>
+                                <th>Algorithm</th>
+                                <th>Time Complexity</th>
+                                <th>Passes Through Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Batch (naive)</b></td>
+                                <td>O(n)</td>
+                                <td>2 passes (mean, then variance)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Batch (one-pass)</b></td>
+                                <td>O(n)</td>
+                                <td>1 pass (but numerically unstable)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Online (Welford's)</b></td>
+                                <td>O(n)</td>
+                                <td>1 pass (numerically stable)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        While asymptotic complexity is the same, online algorithms have better cache
+                        performance and can process streaming data without waiting for the entire dataset.
+                    </p>
+
+                    <h3>7. Robustness and Scalability</h3>
+                    <ul>
+                        <li><b>Streaming data:</b> Online algorithms can process infinite streams where
+                            batch algorithms are impossible</li>
+                        <li><b>Real-time analytics:</b> Statistics are available immediately after each update</li>
+                        <li><b>Distributed computing:</b> Online algorithms can be easily parallelized by
+                            combining statistics from multiple streams</li>
+                        <li><b>Incremental updates:</b> When data changes (additions/deletions), online
+                            algorithms can efficiently update without full recomputation</li>
+                    </ul>
+
+                    <h3>Comparative Summary</h3>
+                    <table class="data-table" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Batch Algorithm</th>
+                                <th>Online Algorithm</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Numerical Stability</b></td>
+                                <td>❌ Poor (cancellation errors)</td>
+                                <td>✅ Excellent (stable updates)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Memory Usage</b></td>
+                                <td>❌ O(n) - stores all data</td>
+                                <td>✅ O(1) - constant space</td>
+                            </tr>
+                            <tr>
+                                <td><b>Overflow Risk</b></td>
+                                <td>❌ High (computes Σx²)</td>
+                                <td>✅ Low (maintains deviations)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Error Propagation</b></td>
+                                <td>❌ Accumulates through all ops</td>
+                                <td>✅ Minimal per-update error</td>
+                            </tr>
+                            <tr>
+                                <td><b>Streaming Data</b></td>
+                                <td>❌ Impossible (needs full dataset)</td>
+                                <td>✅ Native support</td>
+                            </tr>
+                            <tr>
+                                <td><b>Real-time Updates</b></td>
+                                <td>❌ Must recompute entirely</td>
+                                <td>✅ Instant incremental update</td>
+                            </tr>
+                            <tr>
+                                <td><b>Implementation</b></td>
+                                <td>✅ Simple</td>
+                                <td>⚠️ Slightly more complex</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Conclusion</h3>
+                    <p>
+                        Online algorithms, particularly Welford's algorithm for variance, represent a
+                        superior approach for computing statistical measures in practice. They combine
+                        numerical stability, computational efficiency, and scalability while avoiding
+                        the pitfalls of catastrophic cancellation and overflow that plague traditional
+                        batch methods. For any application involving large datasets, streaming data, or
+                        real-time analytics, online algorithms are not just preferable—they are essential.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p class="footer-name">Andrea Altomare</p>
+                    <p class="footer-detail">2199451</p>
+                    <p class="footer-detail">altomare.2199451@studenti.uniroma1.it</p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Andrea Altomare</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
+
