@@ -75,6 +75,11 @@
                 <div class="content-wrapper">
                     <h2>Arithmetic Mean</h2>
                     <p>
+                        <b>When to use:</b> The arithmetic mean is the default choice for most situations with
+                        symmetric, normally distributed data without extreme outliers. It's ideal for interval
+                        and ratio data where all observations contribute equally to the analysis.
+                    </p>
+                    <p>
                         The <b>arithmetic mean</b> (or simply "mean") is the most commonly used measure of
                         central tendency. It is calculated by summing all values and dividing by the number
                         of observations.
@@ -102,6 +107,11 @@
                 <div class="section-number">03</div>
                 <div class="content-wrapper">
                     <h2>Median</h2>
+                    <p>
+                        <b>When to use:</b> Use the median when your data is skewed, contains outliers, or
+                        is ordinal (ranked). It's the preferred measure for income data, real estate prices,
+                        and any distribution where extreme values might distort the mean.
+                    </p>
                     <p>
                         The <b>median</b> is the middle value when the data is arranged in ascending order.
                         For an even number of observations, it is the average of the two middle values.
@@ -134,6 +144,11 @@
                 <div class="content-wrapper">
                     <h2>Mode</h2>
                     <p>
+                        <b>When to use:</b> Use the mode for categorical or nominal data (e.g., favorite colors,
+                        preferred brands) where mean and median don't make sense. It's also useful for discrete
+                        data to identify the most common value or for detecting multiple peaks in distributions.
+                    </p>
+                    <p>
                         The <b>mode</b> is the value that appears most frequently in a dataset.
                         A dataset may have one mode (unimodal), two modes (bimodal), multiple modes
                         (multimodal), or no mode at all.
@@ -165,6 +180,11 @@
                 <div class="content-wrapper">
                     <h2>Weighted Mean</h2>
                     <p>
+                        <b>When to use:</b> Use the weighted mean when different observations have different
+                        levels of importance, reliability, or frequency. Common applications include calculating
+                        GPA (weighted by credit hours), stock indices, and combining data from different sample sizes.
+                    </p>
+                    <p>
                         The <b>weighted mean</b> (or weighted average) assigns different weights to
                         different observations, reflecting their relative importance or frequency.
                     </p>
@@ -195,6 +215,11 @@
                 <div class="section-number">06</div>
                 <div class="content-wrapper">
                     <h2>Geometric Mean</h2>
+                    <p>
+                        <b>When to use:</b> Use the geometric mean when averaging growth rates, investment
+                        returns, ratios, or any multiplicative process. It's essential for financial analysis
+                        (compound interest, portfolio returns) and for averaging ratios or rates of change.
+                    </p>
                     <p>
                         The <b>geometric mean</b> is the \( n \)-th root of the product of \( n \) values.
                         It is particularly useful for datasets involving rates of change, ratios, or
@@ -229,6 +254,11 @@
                 <div class="content-wrapper">
                     <h2>Harmonic Mean</h2>
                     <p>
+                        <b>When to use:</b> Use the harmonic mean when averaging rates or speeds where the
+                        denominator (time, distance) is constant. Common applications include calculating
+                        average speed for round trips, average rates, and in electrical engineering (parallel resistances).
+                    </p>
+                    <p>
                         The <b>harmonic mean</b> is the reciprocal of the arithmetic mean of reciprocals.
                         It is useful when averaging rates or ratios where the quantity in the denominator
                         is fixed.
@@ -258,6 +288,11 @@
                 <div class="section-number">08</div>
                 <div class="content-wrapper">
                     <h2>Trimmed Mean</h2>
+                    <p>
+                        <b>When to use:</b> Use the trimmed mean when you want a compromise between the mean
+                        and median—retaining more information than the median while reducing the influence
+                        of outliers. Useful in sports scoring (e.g., Olympic judging) and robust statistical analysis.
+                    </p>
                     <p>
                         The <b>trimmed mean</b> (or truncated mean) is calculated by removing a specified
                         percentage of the smallest and largest values, then computing the arithmetic mean
@@ -292,6 +327,11 @@
                 <div class="content-wrapper">
                     <h2>Quadratic Mean (Root Mean Square)</h2>
                     <p>
+                        <b>When to use:</b> Use the RMS when measuring the magnitude of varying quantities,
+                        particularly in physics and engineering. Common applications include AC voltage/current
+                        calculations, signal processing, and computing standard deviation.
+                    </p>
+                    <p>
                         The <b>quadratic mean</b>, also known as the <b>root mean square (RMS)</b>,
                         is calculated as the square root of the arithmetic mean of the squares of the values.
                     </p>
@@ -318,6 +358,12 @@
                 <div class="section-number">10</div>
                 <div class="content-wrapper">
                     <h2>Generalized Mean (Power Mean)</h2>
+                    <p>
+                        <b>When to use:</b> The generalized mean is primarily used in theoretical work and
+                        advanced statistical analysis to provide a unified framework for understanding
+                        relationships between different types of means. It's useful in optimization and
+                        mathematical analysis.
+                    </p>
                     <p>
                         The <b>generalized mean</b> or <b>power mean</b> of order \( p \) unifies many
                         of the means discussed above into a single formula.
@@ -350,6 +396,11 @@
                 <div class="section-number">11</div>
                 <div class="content-wrapper">
                     <h2>Midrange</h2>
+                    <p>
+                        <b>When to use:</b> Use the midrange only for quick, rough estimates when computational
+                        resources are extremely limited or for uniform distributions. It's rarely used in
+                        serious statistical analysis due to its extreme sensitivity to outliers.
+                    </p>
                     <p>
                         The <b>midrange</b> is the average of the maximum and minimum values in a dataset.
                     </p>
@@ -469,6 +520,11 @@
                 <div class="content-wrapper">
                     <h2>Range</h2>
                     <p>
+                        <b>When to use:</b> Use the range for quick, preliminary assessments of data spread
+                        when you need an immediate rough estimate. It's useful for quality control checks
+                        and initial data exploration, but should not be relied upon for formal statistical analysis.
+                    </p>
+                    <p>
                         The <b>range</b> is the simplest measure of dispersion, calculated as the difference
                         between the maximum and minimum values in a dataset.
                     </p>
@@ -497,6 +553,11 @@
                 <div class="section-number">15</div>
                 <div class="content-wrapper">
                     <h2>Interquartile Range (IQR)</h2>
+                    <p>
+                        <b>When to use:</b> Use the IQR when your data contains outliers or is skewed,
+                        as it provides a robust measure of spread that isn't affected by extreme values.
+                        Essential for creating box plots and identifying outliers in exploratory data analysis.
+                    </p>
                     <p>
                         The <b>interquartile range</b> measures the spread of the middle 50% of the data,
                         calculated as the difference between the third quartile (Q3, 75th percentile) and
@@ -533,6 +594,12 @@
                 <div class="content-wrapper">
                     <h2>Variance</h2>
                     <p>
+                        <b>When to use:</b> Use variance primarily in theoretical statistical work, ANOVA,
+                        regression analysis, and when you need mathematical properties (e.g., variance is
+                        additive for independent variables). In practice, standard deviation is more commonly
+                        reported due to its interpretable units.
+                    </p>
+                    <p>
                         The <b>variance</b> measures the average squared deviation from the mean.
                         For a population, we use \( \sigma^2 \); for a sample, we use \( s^2 \).
                     </p>
@@ -566,6 +633,11 @@
                 <div class="content-wrapper">
                     <h2>Standard Deviation</h2>
                     <p>
+                        <b>When to use:</b> Use standard deviation as your default measure of spread for
+                        normally distributed data without extreme outliers. It's the most widely used and
+                        reported dispersion measure in research, business analytics, and quality control.
+                    </p>
+                    <p>
                         The <b>standard deviation</b> is the square root of the variance, bringing the
                         measure of dispersion back to the original units of the data.
                     </p>
@@ -594,6 +666,11 @@
                 <div class="section-number">18</div>
                 <div class="content-wrapper">
                     <h2>Mean Absolute Deviation (MAD)</h2>
+                    <p>
+                        <b>When to use:</b> Use MAD when you want a more intuitive measure of average
+                        deviation that is less sensitive to outliers than standard deviation. Particularly
+                        useful in robust statistics and when working with data that may contain measurement errors.
+                    </p>
                     <p>
                         The <b>mean absolute deviation</b> measures the average absolute deviation from the mean,
                         providing a more intuitive and robust alternative to standard deviation.
@@ -627,6 +704,12 @@
                 <div class="content-wrapper">
                     <h2>Coefficient of Variation (CV)</h2>
                     <p>
+                        <b>When to use:</b> Use the coefficient of variation when comparing the relative
+                        variability of datasets with different units or vastly different means. Essential in
+                        finance (comparing risk across assets), quality control (comparing precision of
+                        different measurements), and any cross-scale comparison.
+                    </p>
+                    <p>
                         The <b>coefficient of variation</b> is a normalized measure of dispersion that
                         expresses the standard deviation as a percentage of the mean. It allows comparison
                         of variability across datasets with different units or scales.
@@ -656,6 +739,12 @@
                 <div class="section-number">20</div>
                 <div class="content-wrapper">
                     <h2>Standard Error (SE)</h2>
+                    <p>
+                        <b>When to use:</b> Use standard error when conducting statistical inference—constructing
+                        confidence intervals, performing hypothesis tests, or assessing the reliability of
+                        sample estimates. It's essential for determining how precisely your sample statistic
+                        estimates the population parameter.
+                    </p>
                     <p>
                         The <b>standard error</b> measures the variability of a sample statistic (usually the mean)
                         across different samples from the same population. It decreases as sample size increases.
@@ -689,6 +778,12 @@
                 <div class="section-number">21</div>
                 <div class="content-wrapper">
                     <h2>Quantiles and Percentiles</h2>
+                    <p>
+                        <b>When to use:</b> Use quantiles and percentiles to describe the shape and spread
+                        of distributions, especially for skewed data. Common in standardized testing (reporting
+                        student performance), medicine (growth charts), and income analysis. Percentiles provide
+                        more detailed information about data distribution than single-number summaries.
+                    </p>
                     <p>
                         <b>Quantiles</b> divide a dataset into equal-sized groups. <b>Percentiles</b> are
                         specific quantiles that divide data into 100 equal parts. The \( p \)-th percentile
