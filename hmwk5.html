@@ -439,6 +439,361 @@
                 </div>
             </div>
         </section>
+
+        <section class="hero-section" style="margin-top: 4rem;">
+            <div class="container">
+                <div class="section-number">13</div>
+                <div class="section-label">MEASURES OF DISPERSION</div>
+                <div class="hero-content">
+                    <h1>Measures of Variability and Spread</h1>
+                    <div class="hero-underline"></div>
+                    <p class="hero-description">
+                        While measures of central tendency describe the center of a dataset, <b>measures of
+                        dispersion</b> (or variability) quantify how spread out the data is around that center.
+                        Two datasets may have the same mean but vastly different spreads. Understanding dispersion
+                        is essential for assessing data consistency, reliability, and risk in statistical analysis.
+                    </p>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">14</div>
+                <div class="content-wrapper">
+                    <h2>Range</h2>
+                    <p>
+                        The <b>range</b> is the simplest measure of dispersion, calculated as the difference
+                        between the maximum and minimum values in a dataset.
+                    </p>
+                    <div class="math-block">\[ \text{Range} = \max(x) - \min(x) \]</div>
+                    <p>
+                        <b>Properties:</b>
+                        <ul>
+                            <li>Easy to calculate and interpret</li>
+                            <li>Uses only two values, ignoring all others</li>
+                            <li>Extremely sensitive to outliers</li>
+                            <li>Increases with sample size (never decreases)</li>
+                            <li>Useful for quick rough estimates of spread</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> For the dataset {2, 5, 7, 8, 15}, the range is
+                        \( 15 - 2 = 13 \). If we add an outlier like 100, the range becomes 98,
+                        showing its sensitivity to extreme values.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">15</div>
+                <div class="content-wrapper">
+                    <h2>Interquartile Range (IQR)</h2>
+                    <p>
+                        The <b>interquartile range</b> measures the spread of the middle 50% of the data,
+                        calculated as the difference between the third quartile (Q3, 75th percentile) and
+                        the first quartile (Q1, 25th percentile).
+                    </p>
+                    <div class="math-block">\[ \text{IQR} = Q_3 - Q_1 \]</div>
+                    <p>
+                        where:
+                        <ul>
+                            <li>\( Q_1 \): First quartile (25th percentile) - 25% of data below this value</li>
+                            <li>\( Q_3 \): Third quartile (75th percentile) - 75% of data below this value</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Properties:</b>
+                        <ul>
+                            <li>Robust to outliers (uses middle 50% of data)</li>
+                            <li>More informative than range for skewed distributions</li>
+                            <li>Used in box plots to identify outliers</li>
+                            <li>Outliers are typically defined as values below \( Q_1 - 1.5 \times \text{IQR} \) or above \( Q_3 + 1.5 \times \text{IQR} \)</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> For the dataset {1, 2, 3, 4, 5, 6, 7, 8, 9},
+                        \( Q_1 = 2.5 \), \( Q_3 = 7.5 \), so \( \text{IQR} = 7.5 - 2.5 = 5 \).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">16</div>
+                <div class="content-wrapper">
+                    <h2>Variance</h2>
+                    <p>
+                        The <b>variance</b> measures the average squared deviation from the mean.
+                        For a population, we use \( \sigma^2 \); for a sample, we use \( s^2 \).
+                    </p>
+                    <div class="math-block">\[ \sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2 \quad \text{(Population variance)} \]</div>
+                    <div class="math-block">\[ s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2 \quad \text{(Sample variance)} \]</div>
+                    <p>
+                        Note: Sample variance uses \( n-1 \) (Bessel's correction) instead of \( n \) to provide
+                        an unbiased estimate of the population variance.
+                    </p>
+                    <p>
+                        <b>Properties:</b>
+                        <ul>
+                            <li>Always non-negative</li>
+                            <li>Squared units (e.g., if data is in meters, variance is in meters²)</li>
+                            <li>Sensitive to outliers (due to squaring)</li>
+                            <li>Mathematically convenient for theoretical work</li>
+                            <li>Zero variance means all values are identical</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> For {2, 4, 6, 8, 10} with mean \( \bar{x} = 6 \):
+                        \[ s^2 = \frac{(2-6)^2 + (4-6)^2 + (6-6)^2 + (8-6)^2 + (10-6)^2}{5-1} = \frac{16+4+0+4+16}{4} = \frac{40}{4} = 10 \]
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">17</div>
+                <div class="content-wrapper">
+                    <h2>Standard Deviation</h2>
+                    <p>
+                        The <b>standard deviation</b> is the square root of the variance, bringing the
+                        measure of dispersion back to the original units of the data.
+                    </p>
+                    <div class="math-block">\[ \sigma = \sqrt{\sigma^2} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2} \quad \text{(Population)} \]</div>
+                    <div class="math-block">\[ s = \sqrt{s^2} = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2} \quad \text{(Sample)} \]</div>
+                    <p>
+                        <b>Properties:</b>
+                        <ul>
+                            <li>Same units as the original data</li>
+                            <li>Most commonly used measure of dispersion</li>
+                            <li>For normal distributions, ~68% of data falls within \( \mu \pm \sigma \)</li>
+                            <li>For normal distributions, ~95% of data falls within \( \mu \pm 2\sigma \)</li>
+                            <li>Sensitive to outliers</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> Continuing from the variance example, \( s = \sqrt{10} \approx 3.16 \).
+                        This means values typically deviate from the mean by about 3.16 units.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">18</div>
+                <div class="content-wrapper">
+                    <h2>Mean Absolute Deviation (MAD)</h2>
+                    <p>
+                        The <b>mean absolute deviation</b> measures the average absolute deviation from the mean,
+                        providing a more intuitive and robust alternative to standard deviation.
+                    </p>
+                    <div class="math-block">\[ \text{MAD} = \frac{1}{n} \sum_{i=1}^{n} |x_i - \bar{x}| \]</div>
+                    <p>
+                        Alternatively, the MAD can be calculated around the median (MAD<sub>median</sub>):
+                    </p>
+                    <div class="math-block">\[ \text{MAD}_{\text{median}} = \text{median}(|x_i - \text{median}(x)|) \]</div>
+                    <p>
+                        <b>Properties:</b>
+                        <ul>
+                            <li>Uses absolute values instead of squares</li>
+                            <li>More robust to outliers than standard deviation</li>
+                            <li>Same units as the original data</li>
+                            <li>More intuitive interpretation than variance</li>
+                            <li>Less commonly used in statistical theory</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> For {2, 4, 6, 8, 10} with mean 6:
+                        \[ \text{MAD} = \frac{|2-6| + |4-6| + |6-6| + |8-6| + |10-6|}{5} = \frac{4+2+0+2+4}{5} = \frac{12}{5} = 2.4 \]
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">19</div>
+                <div class="content-wrapper">
+                    <h2>Coefficient of Variation (CV)</h2>
+                    <p>
+                        The <b>coefficient of variation</b> is a normalized measure of dispersion that
+                        expresses the standard deviation as a percentage of the mean. It allows comparison
+                        of variability across datasets with different units or scales.
+                    </p>
+                    <div class="math-block">\[ \text{CV} = \frac{\sigma}{\mu} \times 100\% \quad \text{or} \quad \text{CV} = \frac{s}{\bar{x}} \times 100\% \]</div>
+                    <p>
+                        <b>Properties:</b>
+                        <ul>
+                            <li>Dimensionless (unitless) measure</li>
+                            <li>Useful for comparing variability of datasets with different units or means</li>
+                            <li>Only meaningful for ratio-scale data (data with a true zero)</li>
+                            <li>Cannot be used when the mean is zero or close to zero</li>
+                            <li>Lower CV indicates more consistent/precise data</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> Dataset A: heights with mean = 170 cm, SD = 10 cm. CV = \( \frac{10}{170} \times 100\% \approx 5.88\% \).
+                        Dataset B: weights with mean = 70 kg, SD = 8 kg. CV = \( \frac{8}{70} \times 100\% \approx 11.43\% \).
+                        Dataset B shows more relative variability despite smaller absolute SD.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">20</div>
+                <div class="content-wrapper">
+                    <h2>Standard Error (SE)</h2>
+                    <p>
+                        The <b>standard error</b> measures the variability of a sample statistic (usually the mean)
+                        across different samples from the same population. It decreases as sample size increases.
+                    </p>
+                    <div class="math-block">\[ \text{SE}_{\bar{x}} = \frac{\sigma}{\sqrt{n}} \approx \frac{s}{\sqrt{n}} \]</div>
+                    <p>
+                        where \( n \) is the sample size, \( \sigma \) is the population standard deviation,
+                        and \( s \) is the sample standard deviation.
+                    </p>
+                    <p>
+                        <b>Properties:</b>
+                        <ul>
+                            <li>Measures precision of the sample mean as an estimate of the population mean</li>
+                            <li>Decreases with \( \sqrt{n} \) as sample size increases</li>
+                            <li>Used in constructing confidence intervals</li>
+                            <li>Smaller SE indicates more reliable estimate</li>
+                            <li>Critical for hypothesis testing and inference</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> If a sample of \( n = 100 \) has \( s = 15 \), then
+                        \( \text{SE} = \frac{15}{\sqrt{100}} = \frac{15}{10} = 1.5 \).
+                        The sample mean is expected to vary by about 1.5 units across different samples.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">21</div>
+                <div class="content-wrapper">
+                    <h2>Quantiles and Percentiles</h2>
+                    <p>
+                        <b>Quantiles</b> divide a dataset into equal-sized groups. <b>Percentiles</b> are
+                        specific quantiles that divide data into 100 equal parts. The \( p \)-th percentile
+                        is the value below which \( p\% \) of the data falls.
+                    </p>
+                    <div class="math-block">\[ P_p = \text{value at position } \frac{p(n+1)}{100} \]</div>
+                    <p>
+                        <b>Common quantiles:</b>
+                        <ul>
+                            <li><b>Quartiles</b>: Divide data into 4 parts (Q1 = 25th, Q2 = 50th = median, Q3 = 75th)</li>
+                            <li><b>Deciles</b>: Divide data into 10 parts (D1 = 10th, D2 = 20th, ..., D9 = 90th)</li>
+                            <li><b>Percentiles</b>: Divide data into 100 parts (P1, P2, ..., P99)</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Properties:</b>
+                        <ul>
+                            <li>Robust to outliers</li>
+                            <li>Provide detailed information about data distribution</li>
+                            <li>Used in standardized testing (e.g., "90th percentile")</li>
+                            <li>Useful for describing skewed distributions</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> If a student scores at the 85th percentile on a test, they performed
+                        better than 85% of all test-takers.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">22</div>
+                <div class="content-wrapper">
+                    <h2>Comparison of Dispersion Measures</h2>
+                    <p>
+                        Different measures of dispersion are appropriate for different situations:
+                    </p>
+                    <table class="data-table" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+                        <thead>
+                            <tr>
+                                <th>Measure</th>
+                                <th>Advantages</th>
+                                <th>Disadvantages</th>
+                                <th>Best Used When...</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Range</b></td>
+                                <td>Simple, easy to calculate</td>
+                                <td>Very sensitive to outliers</td>
+                                <td>Quick rough estimate needed</td>
+                            </tr>
+                            <tr>
+                                <td><b>IQR</b></td>
+                                <td>Robust to outliers</td>
+                                <td>Ignores extreme values</td>
+                                <td>Data has outliers or is skewed</td>
+                            </tr>
+                            <tr>
+                                <td><b>Variance</b></td>
+                                <td>Mathematically convenient</td>
+                                <td>Squared units, hard to interpret</td>
+                                <td>Theoretical statistical analysis</td>
+                            </tr>
+                            <tr>
+                                <td><b>Standard Deviation</b></td>
+                                <td>Same units as data, widely used</td>
+                                <td>Sensitive to outliers</td>
+                                <td>Normal distributions, general analysis</td>
+                            </tr>
+                            <tr>
+                                <td><b>MAD</b></td>
+                                <td>More robust than SD</td>
+                                <td>Less common, harder to work with theoretically</td>
+                                <td>Data contains outliers</td>
+                            </tr>
+                            <tr>
+                                <td><b>CV</b></td>
+                                <td>Dimensionless, allows comparison across scales</td>
+                                <td>Undefined when mean is zero</td>
+                                <td>Comparing variability of different datasets</td>
+                            </tr>
+                            <tr>
+                                <td><b>Standard Error</b></td>
+                                <td>Measures precision of estimates</td>
+                                <td>Specific to sample statistics</td>
+                                <td>Inference about population parameters</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <b>Key Relationships:</b>
+                        <ul>
+                            <li>For normal distributions: \( \text{IQR} \approx 1.35\sigma \)</li>
+                            <li>For normal distributions: \( \text{MAD} \approx 0.8\sigma \)</li>
+                            <li>Standard Error decreases as \( \frac{1}{\sqrt{n}} \) with sample size</li>
+                            <li>Range always increases (or stays same) with more data; other measures may not</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer>
