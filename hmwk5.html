@@ -75,14 +75,14 @@
                 <div class="content-wrapper">
                     <h2>Arithmetic Mean</h2>
                     <p>
-                        <b>When to use:</b> The arithmetic mean is the default choice for most situations with
-                        symmetric, normally distributed data without extreme outliers. It's ideal for interval
-                        and ratio data where all observations contribute equally to the analysis.
-                    </p>
-                    <p>
                         The <b>arithmetic mean</b> (or simply "mean") is the most commonly used measure of
                         central tendency. It is calculated by summing all values and dividing by the number
                         of observations.
+                    </p>
+                    <p>
+                        <b>When to use:</b> The arithmetic mean is the default choice for most situations with
+                        symmetric, normally distributed data without extreme outliers. It's ideal for interval
+                        and ratio data where all observations contribute equally to the analysis.
                     </p>
                     <div class="math-block">\[ \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i = \frac{x_1 + x_2 + \cdots + x_n}{n} \]</div>
                     <p>
@@ -108,13 +108,13 @@
                 <div class="content-wrapper">
                     <h2>Median</h2>
                     <p>
+                        The <b>median</b> is the middle value when the data is arranged in ascending order.
+                        For an even number of observations, it is the average of the two middle values.
+                    </p>
+                    <p>
                         <b>When to use:</b> Use the median when your data is skewed, contains outliers, or
                         is ordinal (ranked). It's the preferred measure for income data, real estate prices,
                         and any distribution where extreme values might distort the mean.
-                    </p>
-                    <p>
-                        The <b>median</b> is the middle value when the data is arranged in ascending order.
-                        For an even number of observations, it is the average of the two middle values.
                     </p>
                     <div class="math-block">\[ \text{Median} = \begin{cases}
                         x_{\frac{n+1}{2}} & \text{if } n \text{ is odd} \\
@@ -144,14 +144,14 @@
                 <div class="content-wrapper">
                     <h2>Mode</h2>
                     <p>
-                        <b>When to use:</b> Use the mode for categorical or nominal data (e.g., favorite colors,
-                        preferred brands) where mean and median don't make sense. It's also useful for discrete
-                        data to identify the most common value or for detecting multiple peaks in distributions.
-                    </p>
-                    <p>
                         The <b>mode</b> is the value that appears most frequently in a dataset.
                         A dataset may have one mode (unimodal), two modes (bimodal), multiple modes
                         (multimodal), or no mode at all.
+                    </p>
+                    <p>
+                        <b>When to use:</b> Use the mode for categorical or nominal data (e.g., favorite colors,
+                        preferred brands) where mean and median don't make sense. It's also useful for discrete
+                        data to identify the most common value or for detecting multiple peaks in distributions.
                     </p>
                     <div class="math-block">\[ \text{Mode} = \text{argmax}_{x} \, f(x) \]</div>
                     <p>
@@ -180,13 +180,13 @@
                 <div class="content-wrapper">
                     <h2>Weighted Mean</h2>
                     <p>
+                        The <b>weighted mean</b> (or weighted average) assigns different weights to
+                        different observations, reflecting their relative importance or frequency.
+                    </p>
+                    <p>
                         <b>When to use:</b> Use the weighted mean when different observations have different
                         levels of importance, reliability, or frequency. Common applications include calculating
                         GPA (weighted by credit hours), stock indices, and combining data from different sample sizes.
-                    </p>
-                    <p>
-                        The <b>weighted mean</b> (or weighted average) assigns different weights to
-                        different observations, reflecting their relative importance or frequency.
                     </p>
                     <div class="math-block">\[ \bar{x}_w = \frac{\sum_{i=1}^{n} w_i x_i}{\sum_{i=1}^{n} w_i} \]</div>
                     <p>
@@ -216,14 +216,14 @@
                 <div class="content-wrapper">
                     <h2>Geometric Mean</h2>
                     <p>
-                        <b>When to use:</b> Use the geometric mean when averaging growth rates, investment
-                        returns, ratios, or any multiplicative process. It's essential for financial analysis
-                        (compound interest, portfolio returns) and for averaging ratios or rates of change.
-                    </p>
-                    <p>
                         The <b>geometric mean</b> is the \( n \)-th root of the product of \( n \) values.
                         It is particularly useful for datasets involving rates of change, ratios, or
                         multiplicative processes.
+                    </p>
+                    <p>
+                        <b>When to use:</b> Use the geometric mean when averaging growth rates, investment
+                        returns, ratios, or any multiplicative process. It's essential for financial analysis
+                        (compound interest, portfolio returns) and for averaging ratios or rates of change.
                     </p>
                     <div class="math-block">\[ \text{GM} = \sqrt[n]{x_1 \cdot x_2 \cdot \ldots \cdot x_n} = \left( \prod_{i=1}^{n} x_i \right)^{1/n} \]</div>
                     <p>
@@ -254,14 +254,14 @@
                 <div class="content-wrapper">
                     <h2>Harmonic Mean</h2>
                     <p>
-                        <b>When to use:</b> Use the harmonic mean when averaging rates or speeds where the
-                        denominator (time, distance) is constant. Common applications include calculating
-                        average speed for round trips, average rates, and in electrical engineering (parallel resistances).
-                    </p>
-                    <p>
                         The <b>harmonic mean</b> is the reciprocal of the arithmetic mean of reciprocals.
                         It is useful when averaging rates or ratios where the quantity in the denominator
                         is fixed.
+                    </p>
+                    <p>
+                        <b>When to use:</b> Use the harmonic mean when averaging rates or speeds where the
+                        denominator (time, distance) is constant. Common applications include calculating
+                        average speed for round trips, average rates, and in electrical engineering (parallel resistances).
                     </p>
                     <div class="math-block">\[ \text{HM} = \frac{n}{\sum_{i=1}^{n} \frac{1}{x_i}} = \frac{n}{\frac{1}{x_1} + \frac{1}{x_2} + \cdots + \frac{1}{x_n}} \]</div>
                     <p>
@@ -289,14 +289,14 @@
                 <div class="content-wrapper">
                     <h2>Trimmed Mean</h2>
                     <p>
-                        <b>When to use:</b> Use the trimmed mean when you want a compromise between the mean
-                        and median—retaining more information than the median while reducing the influence
-                        of outliers. Useful in sports scoring (e.g., Olympic judging) and robust statistical analysis.
-                    </p>
-                    <p>
                         The <b>trimmed mean</b> (or truncated mean) is calculated by removing a specified
                         percentage of the smallest and largest values, then computing the arithmetic mean
                         of the remaining values.
+                    </p>
+                    <p>
+                        <b>When to use:</b> Use the trimmed mean when you want a compromise between the mean
+                        and median—retaining more information than the median while reducing the influence
+                        of outliers. Useful in sports scoring (e.g., Olympic judging) and robust statistical analysis.
                     </p>
                     <div class="math-block">\[ \bar{x}_{\text{trim}} = \frac{1}{n - 2k} \sum_{i=k+1}^{n-k} x_{(i)} \]</div>
                     <p>
@@ -327,13 +327,13 @@
                 <div class="content-wrapper">
                     <h2>Quadratic Mean (Root Mean Square)</h2>
                     <p>
+                        The <b>quadratic mean</b>, also known as the <b>root mean square (RMS)</b>,
+                        is calculated as the square root of the arithmetic mean of the squares of the values.
+                    </p>
+                    <p>
                         <b>When to use:</b> Use the RMS when measuring the magnitude of varying quantities,
                         particularly in physics and engineering. Common applications include AC voltage/current
                         calculations, signal processing, and computing standard deviation.
-                    </p>
-                    <p>
-                        The <b>quadratic mean</b>, also known as the <b>root mean square (RMS)</b>,
-                        is calculated as the square root of the arithmetic mean of the squares of the values.
                     </p>
                     <div class="math-block">\[ \text{QM} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} x_i^2} = \sqrt{\frac{x_1^2 + x_2^2 + \cdots + x_n^2}{n}} \]</div>
                     <p>
@@ -359,14 +359,14 @@
                 <div class="content-wrapper">
                     <h2>Generalized Mean (Power Mean)</h2>
                     <p>
+                        The <b>generalized mean</b> or <b>power mean</b> of order \( p \) unifies many
+                        of the means discussed above into a single formula.
+                    </p>
+                    <p>
                         <b>When to use:</b> The generalized mean is primarily used in theoretical work and
                         advanced statistical analysis to provide a unified framework for understanding
                         relationships between different types of means. It's useful in optimization and
                         mathematical analysis.
-                    </p>
-                    <p>
-                        The <b>generalized mean</b> or <b>power mean</b> of order \( p \) unifies many
-                        of the means discussed above into a single formula.
                     </p>
                     <div class="math-block">\[ M_p(x_1, \ldots, x_n) = \left( \frac{1}{n} \sum_{i=1}^{n} x_i^p \right)^{1/p} \]</div>
                     <p>
@@ -397,12 +397,12 @@
                 <div class="content-wrapper">
                     <h2>Midrange</h2>
                     <p>
+                        The <b>midrange</b> is the average of the maximum and minimum values in a dataset.
+                    </p>
+                    <p>
                         <b>When to use:</b> Use the midrange only for quick, rough estimates when computational
                         resources are extremely limited or for uniform distributions. It's rarely used in
                         serious statistical analysis due to its extreme sensitivity to outliers.
-                    </p>
-                    <p>
-                        The <b>midrange</b> is the average of the maximum and minimum values in a dataset.
                     </p>
                     <div class="math-block">\[ \text{Midrange} = \frac{\max(x) + \min(x)}{2} \]</div>
                     <p>
@@ -520,13 +520,13 @@
                 <div class="content-wrapper">
                     <h2>Range</h2>
                     <p>
+                        The <b>range</b> is the simplest measure of dispersion, calculated as the difference
+                        between the maximum and minimum values in a dataset.
+                    </p>
+                    <p>
                         <b>When to use:</b> Use the range for quick, preliminary assessments of data spread
                         when you need an immediate rough estimate. It's useful for quality control checks
                         and initial data exploration, but should not be relied upon for formal statistical analysis.
-                    </p>
-                    <p>
-                        The <b>range</b> is the simplest measure of dispersion, calculated as the difference
-                        between the maximum and minimum values in a dataset.
                     </p>
                     <div class="math-block">\[ \text{Range} = \max(x) - \min(x) \]</div>
                     <p>
@@ -554,14 +554,14 @@
                 <div class="content-wrapper">
                     <h2>Interquartile Range (IQR)</h2>
                     <p>
-                        <b>When to use:</b> Use the IQR when your data contains outliers or is skewed,
-                        as it provides a robust measure of spread that isn't affected by extreme values.
-                        Essential for creating box plots and identifying outliers in exploratory data analysis.
-                    </p>
-                    <p>
                         The <b>interquartile range</b> measures the spread of the middle 50% of the data,
                         calculated as the difference between the third quartile (Q3, 75th percentile) and
                         the first quartile (Q1, 25th percentile).
+                    </p>
+                    <p>
+                        <b>When to use:</b> Use the IQR when your data contains outliers or is skewed,
+                        as it provides a robust measure of spread that isn't affected by extreme values.
+                        Essential for creating box plots and identifying outliers in exploratory data analysis.
                     </p>
                     <div class="math-block">\[ \text{IQR} = Q_3 - Q_1 \]</div>
                     <p>
@@ -594,14 +594,14 @@
                 <div class="content-wrapper">
                     <h2>Variance</h2>
                     <p>
+                        The <b>variance</b> measures the average squared deviation from the mean.
+                        For a population, we use \( \sigma^2 \); for a sample, we use \( s^2 \).
+                    </p>
+                    <p>
                         <b>When to use:</b> Use variance primarily in theoretical statistical work, ANOVA,
                         regression analysis, and when you need mathematical properties (e.g., variance is
                         additive for independent variables). In practice, standard deviation is more commonly
                         reported due to its interpretable units.
-                    </p>
-                    <p>
-                        The <b>variance</b> measures the average squared deviation from the mean.
-                        For a population, we use \( \sigma^2 \); for a sample, we use \( s^2 \).
                     </p>
                     <div class="math-block">\[ \sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2 \quad \text{(Population variance)} \]</div>
                     <div class="math-block">\[ s^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2 \quad \text{(Sample variance)} \]</div>
@@ -633,13 +633,13 @@
                 <div class="content-wrapper">
                     <h2>Standard Deviation</h2>
                     <p>
+                        The <b>standard deviation</b> is the square root of the variance, bringing the
+                        measure of dispersion back to the original units of the data.
+                    </p>
+                    <p>
                         <b>When to use:</b> Use standard deviation as your default measure of spread for
                         normally distributed data without extreme outliers. It's the most widely used and
                         reported dispersion measure in research, business analytics, and quality control.
-                    </p>
-                    <p>
-                        The <b>standard deviation</b> is the square root of the variance, bringing the
-                        measure of dispersion back to the original units of the data.
                     </p>
                     <div class="math-block">\[ \sigma = \sqrt{\sigma^2} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2} \quad \text{(Population)} \]</div>
                     <div class="math-block">\[ s = \sqrt{s^2} = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2} \quad \text{(Sample)} \]</div>
@@ -667,13 +667,13 @@
                 <div class="content-wrapper">
                     <h2>Mean Absolute Deviation (MAD)</h2>
                     <p>
+                        The <b>mean absolute deviation</b> measures the average absolute deviation from the mean,
+                        providing a more intuitive and robust alternative to standard deviation.
+                    </p>
+                    <p>
                         <b>When to use:</b> Use MAD when you want a more intuitive measure of average
                         deviation that is less sensitive to outliers than standard deviation. Particularly
                         useful in robust statistics and when working with data that may contain measurement errors.
-                    </p>
-                    <p>
-                        The <b>mean absolute deviation</b> measures the average absolute deviation from the mean,
-                        providing a more intuitive and robust alternative to standard deviation.
                     </p>
                     <div class="math-block">\[ \text{MAD} = \frac{1}{n} \sum_{i=1}^{n} |x_i - \bar{x}| \]</div>
                     <p>
@@ -704,15 +704,15 @@
                 <div class="content-wrapper">
                     <h2>Coefficient of Variation (CV)</h2>
                     <p>
+                        The <b>coefficient of variation</b> is a normalized measure of dispersion that
+                        expresses the standard deviation as a percentage of the mean. It allows comparison
+                        of variability across datasets with different units or scales.
+                    </p>
+                    <p>
                         <b>When to use:</b> Use the coefficient of variation when comparing the relative
                         variability of datasets with different units or vastly different means. Essential in
                         finance (comparing risk across assets), quality control (comparing precision of
                         different measurements), and any cross-scale comparison.
-                    </p>
-                    <p>
-                        The <b>coefficient of variation</b> is a normalized measure of dispersion that
-                        expresses the standard deviation as a percentage of the mean. It allows comparison
-                        of variability across datasets with different units or scales.
                     </p>
                     <div class="math-block">\[ \text{CV} = \frac{\sigma}{\mu} \times 100\% \quad \text{or} \quad \text{CV} = \frac{s}{\bar{x}} \times 100\% \]</div>
                     <p>
@@ -740,14 +740,14 @@
                 <div class="content-wrapper">
                     <h2>Standard Error (SE)</h2>
                     <p>
+                        The <b>standard error</b> measures the variability of a sample statistic (usually the mean)
+                        across different samples from the same population. It decreases as sample size increases.
+                    </p>
+                    <p>
                         <b>When to use:</b> Use standard error when conducting statistical inference—constructing
                         confidence intervals, performing hypothesis tests, or assessing the reliability of
                         sample estimates. It's essential for determining how precisely your sample statistic
                         estimates the population parameter.
-                    </p>
-                    <p>
-                        The <b>standard error</b> measures the variability of a sample statistic (usually the mean)
-                        across different samples from the same population. It decreases as sample size increases.
                     </p>
                     <div class="math-block">\[ \text{SE}_{\bar{x}} = \frac{\sigma}{\sqrt{n}} \approx \frac{s}{\sqrt{n}} \]</div>
                     <p>
@@ -779,15 +779,15 @@
                 <div class="content-wrapper">
                     <h2>Quantiles and Percentiles</h2>
                     <p>
+                        <b>Quantiles</b> divide a dataset into equal-sized groups. <b>Percentiles</b> are
+                        specific quantiles that divide data into 100 equal parts. The \( p \)-th percentile
+                        is the value below which \( p\% \) of the data falls.
+                    </p>
+                    <p>
                         <b>When to use:</b> Use quantiles and percentiles to describe the shape and spread
                         of distributions, especially for skewed data. Common in standardized testing (reporting
                         student performance), medicine (growth charts), and income analysis. Percentiles provide
                         more detailed information about data distribution than single-number summaries.
-                    </p>
-                    <p>
-                        <b>Quantiles</b> divide a dataset into equal-sized groups. <b>Percentiles</b> are
-                        specific quantiles that divide data into 100 equal parts. The \( p \)-th percentile
-                        is the value below which \( p\% \) of the data falls.
                     </p>
                     <div class="math-block">\[ P_p = \text{value at position } \frac{p(n+1)}{100} \]</div>
                     <p>
