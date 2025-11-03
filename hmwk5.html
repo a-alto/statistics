@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 5 | Statistics - Sapienza University of Rome</title>
+    <link rel="stylesheet" href="/statistics/styles.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(','\\)'], ['$', '$']],
+                displayMath: [['\\[','\\]'], ['$$','$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/statistics/index.html" class="logo">STATISTICS</a>
+            <ul class="nav-menu">
+                <li><a href="/statistics/index.html#home">Home</a></li>
+                <li><a href="/statistics/hmwk2.html">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html">HMWK 4</a></li>
+                <li><a href="/statistics/hmwk5.html">HMWK 5</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="/statistics/index.html#home" onclick="toggleMenu()">Home</a></li>
+                <li><a href="/statistics/hmwk2.html" onclick="toggleMenu()">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html" onclick="toggleMenu()">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html" onclick="toggleMenu()">HMWK 4</a></li>
+                <li><a href="/statistics/hmwk5.html" onclick="toggleMenu()">HMWK 5</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <div class="section-number">01</div>
+                <div class="section-label">HOMEWORK 5</div>
+                <div class="hero-content">
+                    <h1>Measures of Central Tendency</h1>
+                    <div class="hero-underline"></div>
+                    <p class="hero-description">
+                        <b>Measures of central tendency</b>, also known as measures of location or averages,
+                        are statistical values that describe the center or typical value of a dataset.
+                        While the arithmetic mean is the most commonly used measure, different types of
+                        averages are better suited for different situations and types of data. Understanding
+                        when and how to use each measure is fundamental to statistical analysis.
+                    </p>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">02</div>
+                <div class="content-wrapper">
+                    <h2>Arithmetic Mean</h2>
+                    <p>
+                        The <b>arithmetic mean</b> (or simply "mean") is the most commonly used measure of
+                        central tendency. It is calculated by summing all values and dividing by the number
+                        of observations.
+                    </p>
+                    <div class="math-block">\[ \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i = \frac{x_1 + x_2 + \cdots + x_n}{n} \]</div>
+                    <p>
+                        <b>Properties:</b>
+                        <ul>
+                            <li>Sensitive to outliers and extreme values</li>
+                            <li>Best used for symmetric distributions without outliers</li>
+                            <li>Minimizes the sum of squared deviations: \( \sum (x_i - \bar{x})^2 \)</li>
+                            <li>Can be influenced by skewness in the distribution</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> For the dataset {2, 4, 6, 8, 10}, the arithmetic mean is
+                        \( \bar{x} = \frac{2+4+6+8+10}{5} = 6 \).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">03</div>
+                <div class="content-wrapper">
+                    <h2>Median</h2>
+                    <p>
+                        The <b>median</b> is the middle value when the data is arranged in ascending order.
+                        For an even number of observations, it is the average of the two middle values.
+                    </p>
+                    <div class="math-block">\[ \text{Median} = \begin{cases}
+                        x_{\frac{n+1}{2}} & \text{if } n \text{ is odd} \\
+                        \frac{x_{\frac{n}{2}} + x_{\frac{n}{2}+1}}{2} & \text{if } n \text{ is even}
+                    \end{cases} \]</div>
+                    <p>
+                        <b>Properties:</b>
+                        <ul>
+                            <li>Robust to outliers (resistant measure)</li>
+                            <li>Divides the dataset into two equal halves</li>
+                            <li>Preferred for skewed distributions</li>
+                            <li>Minimizes the sum of absolute deviations: \( \sum |x_i - \text{median}| \)</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> For the dataset {1, 3, 3, 6, 7, 8, 9}, the median is 6.
+                        For {1, 2, 3, 4, 5, 100}, the median is 3.5, while the mean would be 19.17,
+                        showing the median's resistance to outliers.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">04</div>
+                <div class="content-wrapper">
+                    <h2>Mode</h2>
+                    <p>
+                        The <b>mode</b> is the value that appears most frequently in a dataset.
+                        A dataset may have one mode (unimodal), two modes (bimodal), multiple modes
+                        (multimodal), or no mode at all.
+                    </p>
+                    <div class="math-block">\[ \text{Mode} = \text{argmax}_{x} \, f(x) \]</div>
+                    <p>
+                        where \( f(x) \) is the frequency (or probability density) of value \( x \).
+                    </p>
+                    <p>
+                        <b>Properties:</b>
+                        <ul>
+                            <li>Can be used for categorical, ordinal, and numerical data</li>
+                            <li>Not affected by extreme values</li>
+                            <li>May not exist or may not be unique</li>
+                            <li>Useful for identifying the most common category or value</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> For the dataset {1, 2, 2, 3, 3, 3, 4, 5}, the mode is 3.
+                        For {1, 1, 2, 2, 3, 4}, the dataset is bimodal with modes 1 and 2.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">05</div>
+                <div class="content-wrapper">
+                    <h2>Weighted Mean</h2>
+                    <p>
+                        The <b>weighted mean</b> (or weighted average) assigns different weights to
+                        different observations, reflecting their relative importance or frequency.
+                    </p>
+                    <div class="math-block">\[ \bar{x}_w = \frac{\sum_{i=1}^{n} w_i x_i}{\sum_{i=1}^{n} w_i} \]</div>
+                    <p>
+                        where \( w_i \) is the weight assigned to observation \( x_i \).
+                    </p>
+                    <p>
+                        <b>Applications:</b>
+                        <ul>
+                            <li>Computing grade point averages (GPA) with credit hours as weights</li>
+                            <li>Calculating weighted indices (e.g., stock market indices)</li>
+                            <li>Adjusting for different sample sizes or measurement precision</li>
+                            <li>Reduces to arithmetic mean when all weights are equal</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> A student scores 85 in a 3-credit course, 90 in a 4-credit course,
+                        and 75 in a 2-credit course. The weighted mean is:
+                        \( \bar{x}_w = \frac{3(85) + 4(90) + 2(75)}{3+4+2} = \frac{765}{9} = 85 \).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">06</div>
+                <div class="content-wrapper">
+                    <h2>Geometric Mean</h2>
+                    <p>
+                        The <b>geometric mean</b> is the \( n \)-th root of the product of \( n \) values.
+                        It is particularly useful for datasets involving rates of change, ratios, or
+                        multiplicative processes.
+                    </p>
+                    <div class="math-block">\[ \text{GM} = \sqrt[n]{x_1 \cdot x_2 \cdot \ldots \cdot x_n} = \left( \prod_{i=1}^{n} x_i \right)^{1/n} \]</div>
+                    <p>
+                        Equivalently, using logarithms:
+                    </p>
+                    <div class="math-block">\[ \log(\text{GM}) = \frac{1}{n} \sum_{i=1}^{n} \log(x_i) \]</div>
+                    <p>
+                        <b>Applications:</b>
+                        <ul>
+                            <li>Averaging growth rates (e.g., investment returns over multiple years)</li>
+                            <li>Computing average ratios (e.g., aspect ratios, density ratios)</li>
+                            <li>Geometric mean is always ≤ arithmetic mean (AM-GM inequality)</li>
+                            <li>Only defined for positive values</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> If an investment grows by 10%, 20%, and -5% over three years,
+                        the average growth rate is the geometric mean:
+                        \( \text{GM} = \sqrt[3]{1.10 \times 1.20 \times 0.95} \approx 1.0806 \) (8.06% average growth).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">07</div>
+                <div class="content-wrapper">
+                    <h2>Harmonic Mean</h2>
+                    <p>
+                        The <b>harmonic mean</b> is the reciprocal of the arithmetic mean of reciprocals.
+                        It is useful when averaging rates or ratios where the quantity in the denominator
+                        is fixed.
+                    </p>
+                    <div class="math-block">\[ \text{HM} = \frac{n}{\sum_{i=1}^{n} \frac{1}{x_i}} = \frac{n}{\frac{1}{x_1} + \frac{1}{x_2} + \cdots + \frac{1}{x_n}} \]</div>
+                    <p>
+                        <b>Applications:</b>
+                        <ul>
+                            <li>Averaging speeds or rates (e.g., average speed for a round trip)</li>
+                            <li>Computing average rates when denominators are equal (e.g., average price per unit)</li>
+                            <li>Harmonic mean ≤ geometric mean ≤ arithmetic mean (for positive values)</li>
+                            <li>More appropriate than arithmetic mean when averaging ratios</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> A car travels 100 km at 50 km/h and returns 100 km at 100 km/h.
+                        The average speed is the harmonic mean:
+                        \( \text{HM} = \frac{2}{\frac{1}{50} + \frac{1}{100}} = \frac{2}{0.03} \approx 66.67 \) km/h,
+                        not the arithmetic mean of 75 km/h.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">08</div>
+                <div class="content-wrapper">
+                    <h2>Trimmed Mean</h2>
+                    <p>
+                        The <b>trimmed mean</b> (or truncated mean) is calculated by removing a specified
+                        percentage of the smallest and largest values, then computing the arithmetic mean
+                        of the remaining values.
+                    </p>
+                    <div class="math-block">\[ \bar{x}_{\text{trim}} = \frac{1}{n - 2k} \sum_{i=k+1}^{n-k} x_{(i)} \]</div>
+                    <p>
+                        where \( x_{(i)} \) denotes the \( i \)-th order statistic (sorted values), and
+                        \( k \) is the number of values removed from each tail.
+                    </p>
+                    <p>
+                        <b>Properties:</b>
+                        <ul>
+                            <li>More robust than the mean, less robust than the median</li>
+                            <li>Reduces the influence of outliers without completely discarding information</li>
+                            <li>Common choices: 5% trimmed mean, 10% trimmed mean, 25% trimmed mean</li>
+                            <li>A 50% trimmed mean is equivalent to the median</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> For the dataset {1, 2, 3, 4, 5, 6, 7, 100}, a 25% trimmed mean
+                        removes the 2 smallest and 2 largest values: {1, 2, 100, 7}, leaving {3, 4, 5, 6}.
+                        The trimmed mean is \( \frac{3+4+5+6}{4} = 4.5 \).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">09</div>
+                <div class="content-wrapper">
+                    <h2>Quadratic Mean (Root Mean Square)</h2>
+                    <p>
+                        The <b>quadratic mean</b>, also known as the <b>root mean square (RMS)</b>,
+                        is calculated as the square root of the arithmetic mean of the squares of the values.
+                    </p>
+                    <div class="math-block">\[ \text{QM} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} x_i^2} = \sqrt{\frac{x_1^2 + x_2^2 + \cdots + x_n^2}{n}} \]</div>
+                    <p>
+                        <b>Applications:</b>
+                        <ul>
+                            <li>Measuring the magnitude of varying quantities (e.g., AC voltage, current)</li>
+                            <li>Computing standard deviation and variance</li>
+                            <li>Calculating Euclidean distance in multiple dimensions</li>
+                            <li>Always ≥ arithmetic mean (with equality only when all values are equal)</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> The RMS of {1, 2, 3, 4, 5} is:
+                        \( \text{QM} = \sqrt{\frac{1 + 4 + 9 + 16 + 25}{5}} = \sqrt{\frac{55}{5}} = \sqrt{11} \approx 3.317 \).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">10</div>
+                <div class="content-wrapper">
+                    <h2>Generalized Mean (Power Mean)</h2>
+                    <p>
+                        The <b>generalized mean</b> or <b>power mean</b> of order \( p \) unifies many
+                        of the means discussed above into a single formula.
+                    </p>
+                    <div class="math-block">\[ M_p(x_1, \ldots, x_n) = \left( \frac{1}{n} \sum_{i=1}^{n} x_i^p \right)^{1/p} \]</div>
+                    <p>
+                        <b>Special cases:</b>
+                        <ul>
+                            <li>\( p = 1 \): Arithmetic mean</li>
+                            <li>\( p = 2 \): Quadratic mean (RMS)</li>
+                            <li>\( p \to 0 \): Geometric mean (limiting case)</li>
+                            <li>\( p = -1 \): Harmonic mean</li>
+                            <li>\( p \to -\infty \): Minimum value</li>
+                            <li>\( p \to +\infty \): Maximum value</li>
+                        </ul>
+                    </p>
+                    <p>
+                        The generalized mean satisfies the inequality:
+                    </p>
+                    <div class="math-block">\[ M_p \leq M_q \quad \text{for } p < q \]</div>
+                    <p>
+                        This generalizes the relationship: harmonic mean ≤ geometric mean ≤ arithmetic mean ≤ quadratic mean.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">11</div>
+                <div class="content-wrapper">
+                    <h2>Midrange</h2>
+                    <p>
+                        The <b>midrange</b> is the average of the maximum and minimum values in a dataset.
+                    </p>
+                    <div class="math-block">\[ \text{Midrange} = \frac{\max(x) + \min(x)}{2} \]</div>
+                    <p>
+                        <b>Properties:</b>
+                        <ul>
+                            <li>Simple and easy to calculate</li>
+                            <li>Extremely sensitive to outliers (uses only two values)</li>
+                            <li>Useful for quick rough estimates</li>
+                            <li>Not commonly used in practice due to lack of robustness</li>
+                        </ul>
+                    </p>
+                    <p>
+                        <b>Example:</b> For the dataset {10, 15, 20, 25, 30}, the midrange is
+                        \( \frac{30 + 10}{2} = 20 \).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">12</div>
+                <div class="content-wrapper">
+                    <h2>Choosing the Right Measure</h2>
+                    <p>
+                        The choice of which measure of central tendency to use depends on the nature of
+                        the data and the question being asked:
+                    </p>
+                    <table class="data-table" style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
+                        <thead>
+                            <tr>
+                                <th>Measure</th>
+                                <th>Best Used When...</th>
+                                <th>Avoid When...</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Arithmetic Mean</b></td>
+                                <td>Data is symmetric, no outliers</td>
+                                <td>Data has extreme outliers or is highly skewed</td>
+                            </tr>
+                            <tr>
+                                <td><b>Geometric Mean</b></td>
+                                <td>Averaging growth rates, ratios, or multiplicative processes</td>
+                                <td>Data contains zero or negative values</td>
+                            </tr>
+                            <tr>
+                                <td><b>Harmonic Mean</b></td>
+                                <td>Averaging rates or speeds with equal denominators</td>
+                                <td>Data contains zero values</td>
+                            </tr>
+                            <tr>
+                                <td><b>Median</b></td>
+                                <td>Data is skewed or contains outliers</td>
+                                <td>Need to use all information in the data</td>
+                            </tr>
+                            <tr>
+                                <td><b>Mode</b></td>
+                                <td>Finding the most common value, categorical data</td>
+                                <td>Continuous data with no repeating values</td>
+                            </tr>
+                            <tr>
+                                <td><b>Weighted Mean</b></td>
+                                <td>Observations have different importance or frequency</td>
+                                <td>All observations are equally important</td>
+                            </tr>
+                            <tr>
+                                <td><b>Trimmed Mean</b></td>
+                                <td>Need compromise between mean and median</td>
+                                <td>Small sample size or all data is reliable</td>
+                            </tr>
+                            <tr>
+                                <td><b>RMS</b></td>
+                                <td>Measuring magnitude of varying quantities</td>
+                                <td>Simple average is sufficient</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <b>Key Principle:</b> Always consider the distribution of your data and the
+                        purpose of your analysis when choosing a measure of central tendency. Visualizing
+                        the data (e.g., with histograms or box plots) can help guide this decision.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p class="footer-name">Andrea Altomare</p>
+                    <p class="footer-detail">2199451</p>
+                    <p class="footer-detail">altomare.2199451@studenti.uniroma1.it</p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Andrea Altomare</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
+
