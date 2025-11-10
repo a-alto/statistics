@@ -15,7 +15,6 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -148,7 +147,9 @@
                         <p style="color: #b8b8b8; margin-bottom: 1rem;">
                             Showing a subset of individual server trajectories over time. Each line represents one server's cumulative security score.
                         </p>
-                        <div id="trajectoriesPlot" style="width: 100%; height: 500px; margin: 2rem 0;"></div>
+                        <div style="max-width: 900px; margin: 2rem auto;">
+                            <canvas id="trajectoriesChart" style="width: 100% !important; height: 500px !important;"></canvas>
+                        </div>
 
                         <h4 style="margin-top: 3rem;">Distribution of Final Scores</h4>
                         <p style="color: #b8b8b8; margin-bottom: 1rem;">
@@ -344,41 +345,108 @@
             document.getElementById('resultsContainer').style.display = 'block';
         }
 
+        let trajectoriesChart = null;
+
         function plotTrajectories(trajectories, numWeeks) {
-            const traces = trajectories.map((traj, idx) => ({
-                x: Array.from({ length: traj.length }, (_, i) => i),
-                y: traj,
-                type: 'scatter',
-                mode: 'lines',
-                line: { width: 1, color: `rgba(36, 163, 225, ${0.3 + 0.7 * (idx / trajectories.length)})` },
-                showlegend: false,
-                hovertemplate: 'Week %{x}<br>Score: %{y}<extra></extra>'
-            }));
+            // Destroy previous chart if exists
+            if (trajectoriesChart) {
+                trajectoriesChart.destroy();
+            }
 
-            const layout = {
-                title: {
-                    text: `Sample Random Walk Trajectories (showing ${trajectories.length} of total)`,
-                    font: { size: 16, color: '#e8e8e8' }
-                },
-                xaxis: {
-                    title: { text: 'Week', font: { color: '#b8b8b8' } },
-                    gridcolor: 'rgba(255, 255, 255, 0.1)',
-                    color: '#b8b8b8'
-                },
-                yaxis: {
-                    title: { text: 'Cumulative Score', font: { color: '#b8b8b8' } },
-                    gridcolor: 'rgba(255, 255, 255, 0.1)',
-                    color: '#b8b8b8',
-                    zeroline: true,
-                    zerolinecolor: 'rgba(255, 255, 255, 0.3)',
-                    zerolinewidth: 2
-                },
-                paper_bgcolor: 'rgba(0, 0, 0, 0)',
-                plot_bgcolor: 'rgba(0, 0, 0, 0.2)',
-                margin: { t: 50, r: 30, b: 60, l: 60 }
-            };
+            // Create datasets for each trajectory
+            const datasets = trajectories.map((traj, idx) => {
+                const alpha = 0.3 + 0.7 * (idx / trajectories.length);
+                return {
+                    label: `Trajectory ${idx + 1}`,
+                    data: traj,
+                    borderColor: `rgba(36, 163, 225, ${alpha})`,
+                    backgroundColor: `rgba(36, 163, 225, ${alpha * 0.1})`,
+                    borderWidth: 1.5,
+                    pointRadius: 0,
+                    pointHoverRadius: 4,
+                    tension: 0,
+                    fill: false
+                };
+            });
 
-            Plotly.newPlot('trajectoriesPlot', traces, layout, { responsive: true });
+            const ctx = document.getElementById('trajectoriesChart').getContext('2d');
+            trajectoriesChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({ length: numWeeks + 1 }, (_, i) => i),
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: `Sample Random Walk Trajectories (showing ${trajectories.length} of total)`,
+                            color: '#e8e8e8',
+                            font: { size: 17, weight: 'bold' },
+                            padding: { top: 10, bottom: 20 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(context) {
+                                    return 'Week ' + context[0].label;
+                                },
+                                label: function(context) {
+                                    return 'Score: ' + context.parsed.y;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { 
+                                display: true, 
+                                text: 'Week', 
+                                color: '#b8b8b8', 
+                                font: { size: 15 } 
+                            },
+                            ticks: { 
+                                color: '#b8b8b8', 
+                                font: { size: 12 },
+                                maxTicksLimit: 20
+                            },
+                            grid: { color: 'rgba(255, 255, 255, 0.10)' }
+                        },
+                        y: {
+                            title: { 
+                                display: true, 
+                                text: 'Cumulative Score', 
+                                color: '#b8b8b8', 
+                                font: { size: 15 } 
+                            },
+                            ticks: { color: '#b8b8b8', font: { size: 12 } },
+                            grid: { 
+                                color: function(context) {
+                                    if (context.tick.value === 0) {
+                                        return 'rgba(255, 255, 255, 0.3)';
+                                    }
+                                    return 'rgba(255, 255, 255, 0.12)';
+                                },
+                                lineWidth: function(context) {
+                                    if (context.tick.value === 0) {
+                                        return 2;
+                                    }
+                                    return 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         let distributionChart = null;
