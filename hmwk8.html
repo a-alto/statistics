@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 8 | Statistics - Sapienza University of Rome</title>
+    <link rel="stylesheet" href="/statistics/styles.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(','\\)'], ['$', '$']],
+                displayMath: [['\\[','\\]'], ['$$','$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/statistics/index.html" class="logo">STATISTICS</a>
+            <ul class="nav-menu">
+                <li><a href="/statistics/index.html#home">Home</a></li>
+                <li><a href="/statistics/hmwk2.html">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html">HMWK 4</a></li>
+                <li><a href="/statistics/hmwk5.html">HMWK 5</a></li>
+                <li><a href="/statistics/hmwk6.html">HMWK 6</a></li>
+                <li><a href="/statistics/hmwk7.html">HMWK 7</a></li>
+                <li><a href="/statistics/hmwk8.html">HMWK 8</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="/statistics/index.html#home" onclick="toggleMenu()">Home</a></li>
+                <li><a href="/statistics/hmwk2.html" onclick="toggleMenu()">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html" onclick="toggleMenu()">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html" onclick="toggleMenu()">HMWK 4</a></li>
+                <li><a href="/statistics/hmwk5.html" onclick="toggleMenu()">HMWK 5</a></li>
+                <li><a href="/statistics/hmwk6.html" onclick="toggleMenu()">HMWK 6</a></li>
+                <li><a href="/statistics/hmwk7.html" onclick="toggleMenu()">HMWK 7</a></li>
+                <li><a href="/statistics/hmwk8.html" onclick="toggleMenu()">HMWK 8</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <div class="section-number">01</div>
+                <div class="section-label">HOMEWORK 8</div>
+                <div class="hero-content">
+                    <h1>Connecting Random Walks & Bernoulli Processes</h1>
+                    <div class="hero-underline"></div>
+                    <p class="hero-description">
+                        This assignment explores the deep mathematical connections between the <b>random walk model</b> 
+                        from Homework 7 and the <b>Bernoulli process simulation</b> from Homework 4. Both models are 
+                        fundamentally related through the binomial distribution and share common mathematical structures 
+                        involving combinatorial coefficients, Pascal's triangle, and the binomial expansion.
+
+                        <div class="math-block">\[ \text{Bernoulli Process: } X_i \sim \text{Bernoulli}(p) \quad \Rightarrow \quad \sum_{i=1}^{n} X_i \sim B(n, p) \]</div>
+
+                        <div class="math-block">\[ \text{Random Walk: } S_n = \sum_{i=1}^{n} Y_i, \quad Y_i \in \{-1, +1\} \quad \Rightarrow \quad S_n = n - 2K, \quad K \sim B(n, p) \]</div>
+
+                        Through this analysis, we reveal how these seemingly different processes are manifestations of 
+                        the same underlying combinatorial and probabilistic principles, unified by the binomial theorem 
+                        and the rich structure of Pascal's triangle.
+                    </p>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">02</div>
+
+                <div class="content-wrapper">
+                    <h2>Similarities Between the Models</h2>
+                    
+                    <div class="content-columns">
+                        <div class="column">
+                            <h3>Common Foundation</h3>
+                            <p>
+                                Both models are built on <b>independent binary trials</b>:
+                            </p>
+                            <ul>
+                                <li><b>Homework 4</b>: Each coin flip is a Bernoulli trial with outcome 0 or 1</li>
+                                <li><b>Homework 7</b>: Each week represents a trial with outcome breach (-1) or secure (+1)</li>
+                            </ul>
+                            <p>
+                                Both accumulate results over \( n \) trials and study the distribution of cumulative outcomes.
+                                The <b>Law of Large Numbers</b> applies to both: as \( n \to \infty \), sample means converge to 
+                                expected values.
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h3>Binomial Connection</h3>
+                            <p>
+                                The binomial distribution \( B(n, p) \) is central to both:
+                            </p>
+                            <ul>
+                                <li><b>Homework 4</b>: The number of successes (1's) directly follows \( B(n, 0.5) \)</li>
+                                <li><b>Homework 7</b>: The number of breaches follows \( B(n, p) \), which determines the final score</li>
+                            </ul>
+                            <p>
+                                Both demonstrate convergence to the binomial distribution through simulation, 
+                                and both show how the <b>Central Limit Theorem</b> leads to normal approximation for large \( n \).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">03</div>
+
+                <div class="content-wrapper">
+                    <h2>Key Differences</h2>
+                    
+                    <div class="content-columns">
+                        <div class="column">
+                            <h3>Outcome Space</h3>
+                            <p>
+                                The models differ in how they represent outcomes:
+                            </p>
+                            <ul>
+                                <li><b>Homework 4</b>: Binary outcomes {0, 1}, sum ranges from 0 to \( n \)</li>
+                                <li><b>Homework 7</b>: Signed outcomes {-1, +1}, sum ranges from \( -n \) to \( +n \)</li>
+                            </ul>
+                            <p>
+                                The random walk explicitly tracks <b>position</b> (cumulative score), which can be positive or negative,
+                                while the Bernoulli process counts <b>occurrences</b> (non-negative).
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h3>Interpretation</h3>
+                            <p>
+                                The contexts differ fundamentally:
+                            </p>
+                            <ul>
+                                <li><b>Homework 4</b>: Focuses on convergence of <i>frequencies</i> to probabilities</li>
+                                <li><b>Homework 7</b>: Emphasizes <i>trajectory paths</i> and cumulative position over time</li>
+                            </ul>
+                            <p>
+                                The random walk visualizes the <b>path-dependent</b> nature of the process, 
+                                showing how position evolves step-by-step, while the Bernoulli simulation focuses on 
+                                the <b>aggregate statistics</b> at the end of trials.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">04</div>
+
+                <div class="content-wrapper">
+                    <h2>Binomial Coefficients & Pascal's Triangle</h2>
+                    
+                    <p>
+                        The <b>binomial coefficient</b> \( \binom{n}{k} \) counts the number of ways to choose \( k \) 
+                        successes in \( n \) trials. It appears in both models as the combinatorial factor in the binomial 
+                        probability mass function:
+                    </p>
+
+                    <div class="math-block">\[ P(K = k) = \binom{n}{k} p^k (1-p)^{n-k} \]</div>
+
+                    <h3>Pascal's Triangle Visualization</h3>
+                    <p>
+                        Pascal's triangle displays binomial coefficients \( \binom{n}{k} \) in a triangular array. 
+                        Each entry is the sum of the two entries above it.
+                    </p>
+
+                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0; text-align: center;">
+                        <canvas id="pascalTriangle" style="max-width: 600px; height: 400px; margin: 0 auto;"></canvas>
+                    </div>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h3>Combinatorial Interpretation</h3>
+                            <p>
+                                For the Bernoulli process (Homework 4), \( \binom{n}{k} \) represents:
+                            </p>
+                            <ul>
+                                <li>The number of distinct sequences with exactly \( k \) successes in \( n \) trials</li>
+                                <li>Each path through Pascal's triangle corresponds to a sequence of trials</li>
+                                <li>Moving right = success (1), moving left = failure (0)</li>
+                            </ul>
+                            <p>
+                                For the random walk (Homework 7), if \( k \) is the number of breaches (steps down),
+                                then \( \binom{n}{k} \) counts the distinct paths reaching final position \( S_n = n - 2k \).
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h3>Properties of Binomial Coefficients</h3>
+                            <p>
+                                Key identities that connect both models:
+                            </p>
+                            <div class="math-block">\[ \binom{n}{k} = \binom{n}{n-k} \]</div>
+                            <div class="math-block">\[ \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k} \]</div>
+                            <div class="math-block">\[ \sum_{k=0}^{n} \binom{n}{k} = 2^n \]</div>
+                            <p>
+                                The last identity shows that the total number of possible outcomes in \( n \) binary trials is \( 2^n \),
+                                which applies to both random walks and Bernoulli sequences.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">05</div>
+
+                <div class="content-wrapper">
+                    <h2>Binomial Expansion</h2>
+                    
+                    <p>
+                        The <b>binomial theorem</b> provides the fundamental connection between combinatorics and algebra:
+                    </p>
+
+                    <div class="math-block">\[ (x + y)^n = \sum_{k=0}^{n} \binom{n}{k} x^{n-k} y^k \]</div>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h3>Probabilistic Interpretation</h3>
+                            <p>
+                                Setting \( x = 1-p \) and \( y = p \) in the binomial expansion:
+                            </p>
+                            <div class="math-block">\[ 1 = ((1-p) + p)^n = \sum_{k=0}^{n} \binom{n}{k} (1-p)^{n-k} p^k \]</div>
+                            <p>
+                                This proves that the binomial probabilities sum to 1, confirming that \( B(n, p) \) 
+                                is a valid probability distribution. Each term in the expansion corresponds to a specific 
+                                outcome \( k \) in our Bernoulli process.
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h3>Generating Function Connection</h3>
+                            <p>
+                                For the fair case (\( p = 0.5 \)):
+                            </p>
+                            <div class="math-block">\[ (1 + 1)^n = 2^n = \sum_{k=0}^{n} \binom{n}{k} \]</div>
+                            <p>
+                                This shows that the number of distinct paths in a random walk of length \( n \) is \( 2^n \).
+                                For Homework 4 with fair coins, each outcome sequence has probability \( (0.5)^n \),
+                                and there are \( 2^n \) total sequences.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3>Interactive Binomial Expansion</h3>
+                    <p>Select a value of \( n \) to see the binomial expansion of \( (x+y)^n \):</p>
+                    
+                    <div style="margin: 2rem 0;">
+                        <label for="binomialN" style="font-weight: 500;">Value of n:</label>
+                        <input type="number" id="binomialN" value="5" min="0" max="12" step="1" 
+                            style="width: 80px; margin-left: 1rem; margin-right: 1rem;">
+                        <button class="btn" onclick="displayBinomialExpansion()">Show Expansion</button>
+                    </div>
+
+                    <div id="binomialExpansion" style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0; min-height: 80px; display: flex; align-items: center; justify-content: center; font-family: 'Times New Roman', serif; font-size: 1.1rem; color: #e8e8e8;">
+                        <div style="text-align: center;">
+                            <div style="margin-bottom: 1rem; color: #b8b8b8;">Click "Show Expansion" to display the binomial expansion</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">06</div>
+
+                <div class="content-wrapper">
+                    <h2>Fibonacci Sequence & Random Walks</h2>
+                    
+                    <p>
+                        The <b>Fibonacci sequence</b> \( F_n \) has a surprising connection to random walks through 
+                        combinatorial identities and generating functions. The Fibonacci numbers appear when counting 
+                        certain restricted walks.
+                    </p>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h3>Fibonacci Definition</h3>
+                            <p>
+                                The Fibonacci sequence is defined recursively:
+                            </p>
+                            <div class="math-block">\[ F_0 = 0, \quad F_1 = 1 \]</div>
+                            <div class="math-block">\[ F_n = F_{n-1} + F_{n-2} \text{ for } n \geq 2 \]</div>
+                            <p>
+                                Sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, ...
+                            </p>
+                            <p>
+                                This recurrence relation mirrors the Pascal triangle identity, suggesting deep combinatorial connections.
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h3>Connection to Binomial Coefficients</h3>
+                            <p>
+                                Fibonacci numbers can be expressed using binomial coefficients through the identity:
+                            </p>
+                            <div class="math-block">\[ F_n = \sum_{k=0}^{\lfloor (n-1)/2 \rfloor} \binom{n-k-1}{k} \]</div>
+                            <p>
+                                This sums diagonal entries in Pascal's triangle, revealing how Fibonacci numbers 
+                                arise from combinatorial counting, much like our Bernoulli and random walk processes.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3>Fibonacci & Random Walk Paths</h3>
+                    <p>
+                        Consider a modified random walk where we take steps of size 1 or 2. The number of ways to 
+                        reach position \( n \) is exactly \( F_{n+1} \). This connects:
+                    </p>
+                    <ul>
+                        <li>Fibonacci: counting sequences of 1's and 2's that sum to \( n \)</li>
+                        <li>Random walks: counting paths with variable step sizes</li>
+                        <li>Binomial coefficients: the combinatorial structure underlying both</li>
+                    </ul>
+
+                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0;">Fibonacci Sequence Visualization</h4>
+                        <canvas id="fibonacciChart" style="max-width: 700px; height: 300px; margin: 1rem auto; display: block;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">07</div>
+
+                <div class="content-wrapper">
+                    <h2>Unified Mathematical Framework</h2>
+                    
+                    <p>
+                        Both Homework 4 and Homework 7 are manifestations of the same underlying mathematical structure:
+                        <b>sequences of independent binary choices</b> governed by the binomial distribution.
+                    </p>
+
+                    <table class="data-table" style="margin: 2rem 0;">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Homework 4 (Bernoulli)</th>
+                                <th>Homework 7 (Random Walk)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Elementary Event</b></td>
+                                <td>Coin flip: {0, 1}</td>
+                                <td>Server status: {-1, +1}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Cumulative Sum</b></td>
+                                <td>\( S_n = \sum X_i \), range [0, n]</td>
+                                <td>\( S_n = \sum Y_i \), range [-n, n]</td>
+                            </tr>
+                            <tr>
+                                <td><b>Distribution</b></td>
+                                <td>\( S_n \sim B(n, p) \) directly</td>
+                                <td>\( S_n = n - 2K \), where \( K \sim B(n, p) \)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Expected Value</b></td>
+                                <td>\( E[S_n] = np \)</td>
+                                <td>\( E[S_n] = n(1-p) - np = n(1-2p) \)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Variance</b></td>
+                                <td>\( \text{Var}(S_n) = np(1-p) \)</td>
+                                <td>\( \text{Var}(S_n) = 4np(1-p) \)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Combinatorial Count</b></td>
+                                <td>\( \binom{n}{k} \) paths to \( k \) successes</td>
+                                <td>\( \binom{n}{k} \) paths to position \( n-2k \)</td>
+                            </tr>
+                            <tr>
+                                <td><b>Convergence</b></td>
+                                <td>LLN: frequency → \( p \)</td>
+                                <td>LLN: mean position → \( n(1-2p) \)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Key Insight: Linear Transformation</h3>
+                    <p>
+                        The random walk \( S_n \) is a <b>linear transformation</b> of the Bernoulli sum:
+                    </p>
+                    <div class="math-block">\[ S_n^{\text{walk}} = n - 2 \cdot S_n^{\text{Bernoulli}} \]</div>
+                    <p>
+                        This transformation:
+                    </p>
+                    <ul>
+                        <li>Shifts the range from [0, n] to [-n, n]</li>
+                        <li>Centers the distribution around 0 when \( p = 0.5 \)</li>
+                        <li>Preserves the binomial structure through the relationship \( S_n = n - 2K \)</li>
+                        <li>Scales the variance by a factor of 4</li>
+                    </ul>
+
+                    <h3>Conclusion</h3>
+                    <p>
+                        Through this analysis, we see that the Bernoulli process and random walks are deeply connected 
+                        through:
+                    </p>
+                    <ul>
+                        <li><b>Binomial distribution</b>: the probability model underlying both processes</li>
+                        <li><b>Binomial coefficients</b>: counting paths and outcomes in both models</li>
+                        <li><b>Pascal's triangle</b>: visualizing the combinatorial structure</li>
+                        <li><b>Binomial expansion</b>: generating function connecting algebra and probability</li>
+                        <li><b>Fibonacci sequence</b>: another manifestation of related combinatorial counting</li>
+                    </ul>
+                    <p>
+                        These connections reveal the elegant mathematical unity underlying seemingly different stochastic processes,
+                        demonstrating how combinatorial structures, algebraic identities, and probabilistic models intertwine
+                        in the study of discrete random processes.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p class="footer-name">Andrea Altomare</p>
+                    <p class="footer-detail">2199451</p>
+                    <p class="footer-detail">altomare.2199451@studenti.uniroma1.it</p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Andrea Altomare</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Binomial coefficient calculation
+        function binomialCoeff(n, k) {
+            if (k < 0 || k > n) return 0;
+            if (k === 0 || k === n) return 1;
+            
+            k = Math.min(k, n - k);
+            let result = 1;
+            for (let i = 1; i <= k; i++) {
+                result *= (n - i + 1) / i;
+            }
+            return result;
+        }
+
+        // Display Pascal's Triangle
+        function drawPascalTriangle() {
+            const rows = 10;
+            const canvas = document.getElementById('pascalTriangle');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            const width = canvas.width = 600;
+            const height = canvas.height = 400;
+            
+            // Clear canvas
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+            ctx.fillRect(0, 0, width, height);
+            
+            // Calculate positions
+            const rowHeight = height / (rows + 1);
+            const maxWidth = width * 0.9;
+            
+            ctx.font = '14px DM Sans';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            for (let n = 0; n < rows; n++) {
+                const y = rowHeight * (n + 1);
+                const numElements = n + 1;
+                const spacing = maxWidth / (numElements + 1);
+                const startX = (width - spacing * numElements) / 2 + spacing;
+                
+                for (let k = 0; k <= n; k++) {
+                    const x = startX + k * spacing;
+                    const value = binomialCoeff(n, k);
+                    
+                    // Draw circle background
+                    const radius = 20;
+                    const alpha = Math.min(value / 100, 1) * 0.6 + 0.2;
+                    ctx.fillStyle = `rgba(36, 163, 225, ${alpha})`;
+                    ctx.beginPath();
+                    ctx.arc(x, y, radius, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Draw number
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillText(value.toString(), x, y);
+                }
+            }
+        }
+
+        // Display binomial expansion
+        function displayBinomialExpansion() {
+            const n = parseInt(document.getElementById('binomialN').value);
+            const container = document.getElementById('binomialExpansion');
+            
+            if (n < 0 || n > 12) {
+                container.innerHTML = '<div style="color: #ef4444;">Please enter a value between 0 and 12</div>';
+                return;
+            }
+            
+            let expansion = `(x + y)<sup>${n}</sup> = `;
+            const terms = [];
+            
+            for (let k = 0; k <= n; k++) {
+                const coeff = binomialCoeff(n, k);
+                let term = '';
+                
+                if (k > 0 && coeff > 0) {
+                    term += ' + ';
+                }
+                
+                if (coeff !== 1 || (n - k === 0 && k === 0)) {
+                    term += coeff;
+                }
+                
+                if (n - k > 0) {
+                    term += 'x';
+                    if (n - k > 1) {
+                        term += `<sup>${n - k}</sup>`;
+                    }
+                }
+                
+                if (k > 0) {
+                    term += 'y';
+                    if (k > 1) {
+                        term += `<sup>${k}</sup>`;
+                    }
+                }
+                
+                terms.push(term);
+            }
+            
+            expansion += terms.join('');
+            container.innerHTML = `<div style="line-height: 2;">${expansion}</div>`;
+        }
+
+        // Draw Fibonacci chart
+        function drawFibonacciChart() {
+            const n = 15;
+            const fib = [0, 1];
+            for (let i = 2; i <= n; i++) {
+                fib.push(fib[i-1] + fib[i-2]);
+            }
+            
+            const ctx = document.getElementById('fibonacciChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Array.from({length: n + 1}, (_, i) => `F${i}`),
+                    datasets: [{
+                        label: 'Fibonacci Numbers',
+                        data: fib,
+                        backgroundColor: 'rgba(36, 163, 225, 0.64)',
+                        borderColor: 'rgba(36, 163, 225, 1)',
+                        borderWidth: 1.5,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Fibonacci Sequence (First 16 terms)',
+                            color: '#e8e8e8',
+                            font: { size: 16, weight: 'bold' }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Term', color: '#b8b8b8', font: { size: 14 } },
+                            ticks: { color: '#b8b8b8', font: { size: 11 } },
+                            grid: { color: 'rgba(255, 255, 255, 0.10)' }
+                        },
+                        y: {
+                            title: { display: true, text: 'Value', color: '#b8b8b8', font: { size: 14 } },
+                            beginAtZero: true,
+                            ticks: { color: '#b8b8b8', font: { size: 11 } },
+                            grid: { color: 'rgba(255, 255, 255, 0.12)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize visualizations on page load
+        window.addEventListener('load', function() {
+            drawPascalTriangle();
+            drawFibonacciChart();
+        });
+    </script>
+</body>
+</html>
+
