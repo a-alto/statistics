@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 7 | Statistics - Sapienza University of Rome</title>
+    <link rel="stylesheet" href="/statistics/styles.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(','\\)'], ['$', '$']],
+                displayMath: [['\\[','\\]'], ['$$','$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/statistics/index.html" class="logo">STATISTICS</a>
+            <ul class="nav-menu">
+                <li><a href="/statistics/index.html#home">Home</a></li>
+                <li><a href="/statistics/hmwk2.html">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html">HMWK 4</a></li>
+                <li><a href="/statistics/hmwk5.html">HMWK 5</a></li>
+                <li><a href="/statistics/hmwk6.html">HMWK 6</a></li>
+                <li><a href="/statistics/hmwk7.html">HMWK 7</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="/statistics/index.html#home" onclick="toggleMenu()">Home</a></li>
+                <li><a href="/statistics/hmwk2.html" onclick="toggleMenu()">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html" onclick="toggleMenu()">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html" onclick="toggleMenu()">HMWK 4</a></li>
+                <li><a href="/statistics/hmwk5.html" onclick="toggleMenu()">HMWK 5</a></li>
+                <li><a href="/statistics/hmwk6.html" onclick="toggleMenu()">HMWK 6</a></li>
+                <li><a href="/statistics/hmwk7.html" onclick="toggleMenu()">HMWK 7</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <div class="section-number">01</div>
+                <div class="section-label">HOMEWORK 7</div>
+                <div class="hero-content">
+                    <h1>Server Security & Random Walks</h1>
+                    <div class="hero-underline"></div>
+                    <p class="hero-description">
+                        A <b>random walk</b> is a mathematical model describing a path that consists of a succession of random steps.
+                        In cybersecurity, we can model a server's security status over time as a random walk: at each time step
+                        (week), the server either remains secure (+1) or is breached (-1).
+
+                        <div class="math-block">\[ S_n = \sum_{i=1}^{n} X_i \quad \text{where} \quad X_i = \begin{cases} +1 & \text{with probability } 1-p \\ -1 & \text{with probability } p \end{cases} \]</div>
+
+                        The <b>binomial distribution</b> \( B(n, p) \) describes the number of successes in \( n \) independent
+                        Bernoulli trials, each with success probability \( p \). As we simulate many trajectories of the server's
+                        security status, the distribution of final scores converges to a shifted and scaled binomial distribution.
+
+                        <div class="math-block">\[ \text{Number of breaches} \sim B(n, p) \]</div>
+
+                        The cumulative score \( S_n \) relates to the binomial through: if \( K \) is the number of breaches,
+                        then \( S_n = (n - K) - K = n - 2K \), linking the random walk to the binomial distribution.
+                    </p>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">02</div>
+
+                <div class="content-wrapper">
+                    <h2>Interactive Simulation</h2>
+                    <p>
+                        Configure the simulation parameters below to observe how server security trajectories behave as random walks
+                        and how their distribution converges to the theoretical binomial distribution.
+                    </p>
+
+                    <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0;">Simulation Parameters</h4>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div>
+                                <label for="numWeeks" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">
+                                    Number of weeks (n):
+                                </label>
+                                <input type="number" id="numWeeks" value="20" min="5" max="100" 
+                                    style="width: 100%;">
+                                <div style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.25rem;">
+                                    Time horizon for the simulation (5-100)
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="numTrajectories" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">
+                                    Number of trajectories (m):
+                                </label>
+                                <input type="number" id="numTrajectories" value="1000" min="100" max="10000" step="100"
+                                    style="width: 100%;">
+                                <div style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.25rem;">
+                                    Number of simulations to run (100-10000)
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="breachProb" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">
+                                    Breach probability (p):
+                                </label>
+                                <input type="number" id="breachProb" value="0.3" min="0.01" max="0.99" step="0.01"
+                                    style="width: 100%;">
+                                <div style="font-size: 0.85rem; color: #9ca3af; margin-top: 0.25rem;">
+                                    Probability of breach per week (0.01-0.99)
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn" onclick="runSimulation()" style="margin-top: 0.5rem;">
+                            Run Simulation
+                        </button>
+                    </div>
+
+                    <div id="resultsContainer" style="display: none; margin-top: 3rem;">
+                        <h3>Simulation Results</h3>
+                        
+                        <div id="statsDisplay" style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0;">
+                        </div>
+
+                        <h4 style="margin-top: 2rem;">Sample Random Walk Trajectories</h4>
+                        <p style="color: #b8b8b8; margin-bottom: 1rem;">
+                            Showing a subset of individual server trajectories over time. Each line represents one server's cumulative security score.
+                        </p>
+                        <div id="trajectoriesPlot" style="width: 100%; height: 500px; margin: 2rem 0;"></div>
+
+                        <h4 style="margin-top: 3rem;">Distribution of Final Scores</h4>
+                        <p style="color: #b8b8b8; margin-bottom: 1rem;">
+                            The histogram shows the empirical distribution of final scores from all trajectories, 
+                            compared to the theoretical binomial distribution (red line).
+                        </p>
+                        <div id="distributionPlot" style="width: 100%; height: 500px; margin: 2rem 0;"></div>
+
+                        <h4 style="margin-top: 3rem;">Convergence Analysis</h4>
+                        <div id="convergenceText" style="background: rgba(255, 255, 255, 0.03); border-left: 3px solid #24a3e1; padding: 1.5rem; margin: 1rem 0; border-radius: 4px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">03</div>
+
+                <div class="content-wrapper">
+                    <h2>Mathematical Background</h2>
+                    
+                    <div class="content-columns">
+                        <div class="column">
+                            <h3>Random Walk Model</h3>
+                            <p>
+                                In our model, each week the server's status changes by \( X_i \in \{-1, +1\} \).
+                                The cumulative score after \( n \) weeks is:
+                            </p>
+                            <div class="math-block">\[ S_n = \sum_{i=1}^{n} X_i \]</div>
+                            <p>
+                                If \( K \) denotes the number of breaches in \( n \) weeks, then:
+                            </p>
+                            <div class="math-block">\[ S_n = n - 2K \]</div>
+                            <p>
+                                Since \( K \sim B(n, p) \), the final score distribution is directly related to the binomial.
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h3>Binomial Distribution</h3>
+                            <p>
+                                The binomial distribution \( B(n, p) \) has probability mass function:
+                            </p>
+                            <div class="math-block">\[ P(K = k) = \binom{n}{k} p^k (1-p)^{n-k} \]</div>
+                            <p>
+                                With expected value and variance:
+                            </p>
+                            <div class="math-block">\[ E[K] = np, \quad \text{Var}(K) = np(1-p) \]</div>
+                            <p>
+                                For large \( n \), by the Central Limit Theorem, the binomial converges to a normal distribution.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p class="footer-name">Andrea Altomare</p>
+                    <p class="footer-detail">2199451</p>
+                    <p class="footer-detail">altomare.2199451@studenti.uniroma1.it</p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Andrea Altomare</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Binomial coefficient calculation
+        function binomialCoeff(n, k) {
+            if (k < 0 || k > n) return 0;
+            if (k === 0 || k === n) return 1;
+            
+            k = Math.min(k, n - k);
+            let result = 1;
+            for (let i = 1; i <= k; i++) {
+                result *= (n - i + 1) / i;
+            }
+            return result;
+        }
+
+        // Binomial probability mass function
+        function binomialPMF(n, p, k) {
+            return binomialCoeff(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);
+        }
+
+        // Generate a single random walk trajectory
+        function generateTrajectory(numWeeks, breachProb) {
+            const trajectory = [0];
+            let cumSum = 0;
+            
+            for (let week = 0; week < numWeeks; week++) {
+                // Random step: -1 (breach) with probability p, +1 (secure) with probability 1-p
+                const step = Math.random() < breachProb ? -1 : 1;
+                cumSum += step;
+                trajectory.push(cumSum);
+            }
+            
+            return trajectory;
+        }
+
+        // Main simulation function
+        function runSimulation() {
+            const numWeeks = parseInt(document.getElementById('numWeeks').value);
+            const numTrajectories = parseInt(document.getElementById('numTrajectories').value);
+            const breachProb = parseFloat(document.getElementById('breachProb').value);
+
+            // Validate inputs
+            if (isNaN(numWeeks) || numWeeks < 5 || numWeeks > 100) {
+                alert('Number of weeks must be between 5 and 100');
+                return;
+            }
+            if (isNaN(numTrajectories) || numTrajectories < 100 || numTrajectories > 10000) {
+                alert('Number of trajectories must be between 100 and 10000');
+                return;
+            }
+            if (isNaN(breachProb) || breachProb < 0.01 || breachProb > 0.99) {
+                alert('Breach probability must be between 0.01 and 0.99');
+                return;
+            }
+
+            // Generate all trajectories
+            const allTrajectories = [];
+            const finalScores = [];
+            
+            for (let i = 0; i < numTrajectories; i++) {
+                const trajectory = generateTrajectory(numWeeks, breachProb);
+                allTrajectories.push(trajectory);
+                finalScores.push(trajectory[trajectory.length - 1]);
+            }
+
+            // Calculate statistics
+            const meanScore = finalScores.reduce((a, b) => a + b, 0) / finalScores.length;
+            const variance = finalScores.reduce((sum, score) => sum + Math.pow(score - meanScore, 2), 0) / finalScores.length;
+            const stdDev = Math.sqrt(variance);
+
+            // Theoretical values: S_n = n - 2K where K ~ B(n, p)
+            const theoreticalMeanK = numWeeks * breachProb;
+            const theoreticalMeanScore = numWeeks - 2 * theoreticalMeanK;
+            const theoreticalVarK = numWeeks * breachProb * (1 - breachProb);
+            const theoreticalStdScore = 2 * Math.sqrt(theoreticalVarK);
+
+            // Display statistics
+            const statsHTML = `
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div>
+                        <div style="font-size: 0.9rem; color: #9ca3af; margin-bottom: 0.25rem;">Simulated Mean Score</div>
+                        <div style="font-size: 1.5rem; font-weight: 600; color: #24a3e1;">${meanScore.toFixed(2)}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; color: #9ca3af; margin-bottom: 0.25rem;">Theoretical Mean Score</div>
+                        <div style="font-size: 1.5rem; font-weight: 600; color: #34d399;">${theoreticalMeanScore.toFixed(2)}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; color: #9ca3af; margin-bottom: 0.25rem;">Simulated Std Dev</div>
+                        <div style="font-size: 1.5rem; font-weight: 600; color: #24a3e1;">${stdDev.toFixed(2)}</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.9rem; color: #9ca3af; margin-bottom: 0.25rem;">Theoretical Std Dev</div>
+                        <div style="font-size: 1.5rem; font-weight: 600; color: #34d399;">${theoreticalStdScore.toFixed(2)}</div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('statsDisplay').innerHTML = statsHTML;
+
+            // Plot sample trajectories (show at most 50)
+            plotTrajectories(allTrajectories.slice(0, Math.min(50, numTrajectories)), numWeeks);
+
+            // Plot distribution
+            plotDistribution(finalScores, numWeeks, breachProb);
+
+            // Show convergence analysis
+            showConvergenceAnalysis(meanScore, theoreticalMeanScore, stdDev, theoreticalStdScore, numTrajectories);
+
+            // Show results container
+            document.getElementById('resultsContainer').style.display = 'block';
+        }
+
+        function plotTrajectories(trajectories, numWeeks) {
+            const traces = trajectories.map((traj, idx) => ({
+                x: Array.from({ length: traj.length }, (_, i) => i),
+                y: traj,
+                type: 'scatter',
+                mode: 'lines',
+                line: { width: 1, color: `rgba(36, 163, 225, ${0.3 + 0.7 * (idx / trajectories.length)})` },
+                showlegend: false,
+                hovertemplate: 'Week %{x}<br>Score: %{y}<extra></extra>'
+            }));
+
+            const layout = {
+                title: {
+                    text: `Sample Random Walk Trajectories (showing ${trajectories.length} of total)`,
+                    font: { size: 16, color: '#e8e8e8' }
+                },
+                xaxis: {
+                    title: { text: 'Week', font: { color: '#b8b8b8' } },
+                    gridcolor: 'rgba(255, 255, 255, 0.1)',
+                    color: '#b8b8b8'
+                },
+                yaxis: {
+                    title: { text: 'Cumulative Score', font: { color: '#b8b8b8' } },
+                    gridcolor: 'rgba(255, 255, 255, 0.1)',
+                    color: '#b8b8b8',
+                    zeroline: true,
+                    zerolinecolor: 'rgba(255, 255, 255, 0.3)',
+                    zerolinewidth: 2
+                },
+                paper_bgcolor: 'rgba(0, 0, 0, 0)',
+                plot_bgcolor: 'rgba(0, 0, 0, 0.2)',
+                margin: { t: 50, r: 30, b: 60, l: 60 }
+            };
+
+            Plotly.newPlot('trajectoriesPlot', traces, layout, { responsive: true });
+        }
+
+        function plotDistribution(finalScores, numWeeks, breachProb) {
+            // Create histogram data
+            const scoreCounts = {};
+            finalScores.forEach(score => {
+                scoreCounts[score] = (scoreCounts[score] || 0) + 1;
+            });
+
+            const scores = Object.keys(scoreCounts).map(Number).sort((a, b) => a - b);
+            const counts = scores.map(score => scoreCounts[score]);
+            const frequencies = counts.map(count => count / finalScores.length);
+
+            // Calculate theoretical distribution
+            // Score S = n - 2K where K ~ B(n, p)
+            const theoreticalScores = [];
+            const theoreticalFreqs = [];
+            
+            for (let k = 0; k <= numWeeks; k++) {
+                const score = numWeeks - 2 * k;
+                const prob = binomialPMF(numWeeks, breachProb, k);
+                theoreticalScores.push(score);
+                theoreticalFreqs.push(prob);
+            }
+
+            // Sort by score
+            const sortedPairs = theoreticalScores.map((score, i) => ({ score, freq: theoreticalFreqs[i] }))
+                .sort((a, b) => a.score - b.score);
+            const sortedScores = sortedPairs.map(p => p.score);
+            const sortedFreqs = sortedPairs.map(p => p.freq);
+
+            const trace1 = {
+                x: scores,
+                y: frequencies,
+                type: 'bar',
+                name: 'Simulated',
+                marker: { color: 'rgba(36, 163, 225, 0.7)' },
+                hovertemplate: 'Score: %{x}<br>Frequency: %{y:.4f}<extra></extra>'
+            };
+
+            const trace2 = {
+                x: sortedScores,
+                y: sortedFreqs,
+                type: 'scatter',
+                mode: 'lines+markers',
+                name: 'Theoretical (Binomial)',
+                line: { color: 'rgba(239, 68, 68, 0.9)', width: 3 },
+                marker: { size: 6, color: 'rgba(239, 68, 68, 0.9)' },
+                hovertemplate: 'Score: %{x}<br>Probability: %{y:.4f}<extra></extra>'
+            };
+
+            const layout = {
+                title: {
+                    text: 'Distribution of Final Scores: Simulated vs Theoretical',
+                    font: { size: 16, color: '#e8e8e8' }
+                },
+                xaxis: {
+                    title: { text: 'Final Score', font: { color: '#b8b8b8' } },
+                    gridcolor: 'rgba(255, 255, 255, 0.1)',
+                    color: '#b8b8b8'
+                },
+                yaxis: {
+                    title: { text: 'Frequency / Probability', font: { color: '#b8b8b8' } },
+                    gridcolor: 'rgba(255, 255, 255, 0.1)',
+                    color: '#b8b8b8'
+                },
+                paper_bgcolor: 'rgba(0, 0, 0, 0)',
+                plot_bgcolor: 'rgba(0, 0, 0, 0.2)',
+                legend: {
+                    font: { color: '#e8e8e8' },
+                    bgcolor: 'rgba(0, 0, 0, 0.3)'
+                },
+                margin: { t: 50, r: 30, b: 60, l: 60 }
+            };
+
+            Plotly.newPlot('distributionPlot', [trace1, trace2], layout, { responsive: true });
+        }
+
+        function showConvergenceAnalysis(simMean, theoMean, simStd, theoStd, numTrajectories) {
+            const meanError = Math.abs(simMean - theoMean);
+            const stdError = Math.abs(simStd - theoStd);
+            const meanRelError = (meanError / Math.abs(theoMean) * 100).toFixed(2);
+            const stdRelError = (stdError / theoStd * 100).toFixed(2);
+
+            const convergenceHTML = `
+                <div style="color: #e8e8e8;">
+                    <p style="margin-bottom: 1rem;">
+                        <b>Convergence to Theoretical Distribution</b>
+                    </p>
+                    <p style="color: #b8b8b8; line-height: 1.8;">
+                        With <b>${numTrajectories}</b> simulated trajectories, the empirical distribution closely approximates 
+                        the theoretical binomial distribution:
+                    </p>
+                    <ul style="color: #b8b8b8; margin: 1rem 0; line-height: 1.8;">
+                        <li>Mean absolute error: <b style="color: #24a3e1;">${meanError.toFixed(3)}</b> (${meanRelError}% relative error)</li>
+                        <li>Std dev absolute error: <b style="color: #24a3e1;">${stdError.toFixed(3)}</b> (${stdRelError}% relative error)</li>
+                    </ul>
+                    <p style="color: #b8b8b8; line-height: 1.8;">
+                        By the <b>Law of Large Numbers</b>, as the number of trajectories \( m \to \infty \), 
+                        the sample statistics converge to their theoretical values. 
+                        Similarly, by the <b>Central Limit Theorem</b>, as \( n \to \infty \), 
+                        the binomial distribution itself converges to a normal distribution.
+                    </p>
+                </div>
+            `;
+            document.getElementById('convergenceText').innerHTML = convergenceHTML;
+        }
+    </script>
+</body>
+</html>
+
