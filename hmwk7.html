@@ -155,7 +155,9 @@
                             The histogram shows the empirical distribution of final scores from all trajectories, 
                             compared to the theoretical binomial distribution (red line).
                         </p>
-                        <div id="distributionPlot" style="width: 100%; height: 500px; margin: 2rem 0;"></div>
+                        <div style="max-width: 900px; margin: 2rem auto;">
+                            <canvas id="distributionChart" style="width: 100% !important; height: 400px !important;"></canvas>
+                        </div>
 
                         <h4 style="margin-top: 3rem;">Convergence Analysis</h4>
                         <div id="convergenceText" style="background: rgba(255, 255, 255, 0.03); border-left: 3px solid #24a3e1; padding: 1.5rem; margin: 1rem 0; border-radius: 4px;">
@@ -379,6 +381,8 @@
             Plotly.newPlot('trajectoriesPlot', traces, layout, { responsive: true });
         }
 
+        let distributionChart = null;
+
         function plotDistribution(finalScores, numWeeks, breachProb) {
             // Create histogram data
             const scoreCounts = {};
@@ -402,57 +406,120 @@
                 theoreticalFreqs.push(prob);
             }
 
-            // Sort by score
+            // Sort by score and align with simulated data
             const sortedPairs = theoreticalScores.map((score, i) => ({ score, freq: theoreticalFreqs[i] }))
                 .sort((a, b) => a.score - b.score);
-            const sortedScores = sortedPairs.map(p => p.score);
-            const sortedFreqs = sortedPairs.map(p => p.freq);
+            
+            // Create a complete range of scores for theoretical data
+            const minScore = Math.min(...scores);
+            const maxScore = Math.max(...scores);
+            const allScores = [];
+            for (let s = minScore; s <= maxScore; s += 2) {
+                allScores.push(s);
+            }
+            
+            // Map theoretical frequencies to all scores
+            const theoreticalData = allScores.map(score => {
+                const pair = sortedPairs.find(p => p.score === score);
+                return pair ? pair.freq : 0;
+            });
 
-            const trace1 = {
-                x: scores,
-                y: frequencies,
+            // Destroy previous chart if exists
+            if (distributionChart) {
+                distributionChart.destroy();
+            }
+
+            const ctx = document.getElementById('distributionChart').getContext('2d');
+            distributionChart = new Chart(ctx, {
                 type: 'bar',
-                name: 'Simulated',
-                marker: { color: 'rgba(36, 163, 225, 0.7)' },
-                hovertemplate: 'Score: %{x}<br>Frequency: %{y:.4f}<extra></extra>'
-            };
-
-            const trace2 = {
-                x: sortedScores,
-                y: sortedFreqs,
-                type: 'scatter',
-                mode: 'lines+markers',
-                name: 'Theoretical (Binomial)',
-                line: { color: 'rgba(239, 68, 68, 0.9)', width: 3 },
-                marker: { size: 6, color: 'rgba(239, 68, 68, 0.9)' },
-                hovertemplate: 'Score: %{x}<br>Probability: %{y:.4f}<extra></extra>'
-            };
-
-            const layout = {
-                title: {
-                    text: 'Distribution of Final Scores: Simulated vs Theoretical',
-                    font: { size: 16, color: '#e8e8e8' }
+                data: {
+                    labels: allScores,
+                    datasets: [
+                        {
+                            label: 'Simulated Frequency',
+                            data: allScores.map(score => {
+                                const idx = scores.indexOf(score);
+                                return idx !== -1 ? frequencies[idx] : 0;
+                            }),
+                            backgroundColor: 'rgba(36, 163, 225, 0.64)',
+                            borderColor: 'rgba(36, 163, 225, 1)',
+                            borderWidth: 1.5,
+                            borderRadius: 4,
+                            order: 2
+                        },
+                        {
+                            label: 'Theoretical (Binomial)',
+                            data: theoreticalData,
+                            type: 'line',
+                            borderColor: 'rgba(239, 68, 68, 0.9)',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            borderWidth: 3,
+                            pointRadius: 4,
+                            pointBackgroundColor: 'rgba(239, 68, 68, 0.9)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 1,
+                            tension: 0.1,
+                            order: 1
+                        }
+                    ]
                 },
-                xaxis: {
-                    title: { text: 'Final Score', font: { color: '#b8b8b8' } },
-                    gridcolor: 'rgba(255, 255, 255, 0.1)',
-                    color: '#b8b8b8'
-                },
-                yaxis: {
-                    title: { text: 'Frequency / Probability', font: { color: '#b8b8b8' } },
-                    gridcolor: 'rgba(255, 255, 255, 0.1)',
-                    color: '#b8b8b8'
-                },
-                paper_bgcolor: 'rgba(0, 0, 0, 0)',
-                plot_bgcolor: 'rgba(0, 0, 0, 0.2)',
-                legend: {
-                    font: { color: '#e8e8e8' },
-                    bgcolor: 'rgba(0, 0, 0, 0.3)'
-                },
-                margin: { t: 50, r: 30, b: 60, l: 60 }
-            };
-
-            Plotly.newPlot('distributionPlot', [trace1, trace2], layout, { responsive: true });
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: '#e8e8e8',
+                                font: { size: 13 },
+                                padding: 15
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Distribution of Final Scores: Simulated vs Theoretical',
+                            color: '#e8e8e8',
+                            font: { size: 17, weight: 'bold' },
+                            padding: { top: 10, bottom: 20 }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += context.parsed.y.toFixed(4);
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { 
+                                display: true, 
+                                text: 'Final Score', 
+                                color: '#b8b8b8', 
+                                font: { size: 15 } 
+                            },
+                            ticks: { color: '#b8b8b8', font: { size: 12 } },
+                            grid: { color: 'rgba(255, 255, 255, 0.10)' }
+                        },
+                        y: {
+                            title: { 
+                                display: true, 
+                                text: 'Frequency / Probability', 
+                                color: '#b8b8b8', 
+                                font: { size: 15 } 
+                            },
+                            beginAtZero: true,
+                            ticks: { color: '#b8b8b8', font: { size: 12 } },
+                            grid: { color: 'rgba(255, 255, 255, 0.12)' }
+                        }
+                    }
+                }
+            });
         }
 
         function showConvergenceAnalysis(simMean, theoMean, simStd, theoStd, numTrajectories) {
