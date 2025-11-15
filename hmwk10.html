@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 10 | Statistics - Sapienza University of Rome</title>
+    <link rel="stylesheet" href="/statistics/styles.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(','\\)'], ['$', '$']],
+                displayMath: [['\\[','\\]'], ['$$','$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/statistics/index.html" class="logo">STATISTICS</a>
+            <ul class="nav-menu">
+                <li><a href="/statistics/index.html#home">Home</a></li>
+                <li><a href="/statistics/hmwk2.html">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html">HMWK 4</a></li>
+                <li><a href="/statistics/hmwk5.html">HMWK 5</a></li>
+                <li><a href="/statistics/hmwk6.html">HMWK 6</a></li>
+                <li><a href="/statistics/hmwk7.html">HMWK 7</a></li>
+                <li><a href="/statistics/hmwk8.html">HMWK 8</a></li>
+                <li><a href="/statistics/hmwk9.html">HMWK 9</a></li>
+                <li><a href="/statistics/hmwk10.html">HMWK 10</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="/statistics/index.html#home" onclick="toggleMenu()">Home</a></li>
+                <li><a href="/statistics/hmwk2.html" onclick="toggleMenu()">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html" onclick="toggleMenu()">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html" onclick="toggleMenu()">HMWK 4</a></li>
+                <li><a href="/statistics/hmwk5.html" onclick="toggleMenu()">HMWK 5</a></li>
+                <li><a href="/statistics/hmwk6.html" onclick="toggleMenu()">HMWK 6</a></li>
+                <li><a href="/statistics/hmwk7.html" onclick="toggleMenu()">HMWK 7</a></li>
+                <li><a href="/statistics/hmwk8.html" onclick="toggleMenu()">HMWK 8</a></li>
+                <li><a href="/statistics/hmwk9.html" onclick="toggleMenu()">HMWK 9</a></li>
+                <li><a href="/statistics/hmwk10.html" onclick="toggleMenu()">HMWK 10</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <div class="section-number">01</div>
+                <div class="section-label">HOMEWORK 10</div>
+                <div class="hero-content">
+                    <h1>Simulating the Poisson Process</h1>
+                    <div class="hero-underline"></div>
+                    <p class="hero-description">
+                        This assignment explores one of the most important <b>stochastic processes</b> in probability 
+                        theory: the <b>Poisson process</b>. We simulate a counting process where events occur 
+                        independently and uniformly over time at a constant average rate \( \lambda \). By dividing 
+                        a time interval into many small subintervals and generating events with probability 
+                        \( \lambda/n \), we construct a discrete approximation that converges to the continuous 
+                        Poisson process.
+
+                        <div class="math-block">\[ N(t) \sim \text{Poisson}(\lambda t), \quad P(N(t) = k) = \frac{(\lambda t)^k e^{-\lambda t}}{k!} \]</div>
+
+                        Through simulation and theoretical analysis, we reveal the fundamental properties of this 
+                        process: <b>independent increments</b>, <b>stationary increments</b>, and <b>memorylessness</b>, 
+                        making it the canonical model for random events occurring over time.
+                    </p>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">02</div>
+
+                <div class="content-wrapper">
+                    <h2>What is a Counting Process?</h2>
+                    
+                    <p>
+                        A <b>counting process</b> \( \{N(t), t \geq 0\} \) is a stochastic process that counts the 
+                        number of events that have occurred up to time \( t \). It satisfies:
+                    </p>
+
+                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0; color: #24a3e1;">Properties of Counting Processes</h4>
+                        <ol>
+                            <li>\( N(0) = 0 \) (no events at time zero)</li>
+                            <li>\( N(t) \in \{0, 1, 2, 3, \ldots\} \) (non-negative integers)</li>
+                            <li>\( N(t) \) is non-decreasing: if \( s < t \), then \( N(s) \leq N(t) \)</li>
+                            <li>For \( s < t \), the increment \( N(t) - N(s) \) represents the number of events in the interval \( (s, t] \)</li>
+                        </ol>
+                    </div>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h3>Real-World Examples</h3>
+                            <p>
+                                Counting processes model many phenomena:
+                            </p>
+                            <ul>
+                                <li><b>Network traffic:</b> Number of packets arriving at a router</li>
+                                <li><b>Queueing systems:</b> Customers arriving at a service counter</li>
+                                <li><b>Radioactive decay:</b> Number of particles emitted</li>
+                                <li><b>Cybersecurity:</b> Login attempts or security events</li>
+                                <li><b>Insurance claims:</b> Number of claims filed</li>
+                                <li><b>Earthquake occurrences:</b> Number of seismic events</li>
+                            </ul>
+                        </div>
+
+                        <div class="column">
+                            <h3>The Poisson Process</h3>
+                            <p>
+                                The <b>Poisson process</b> is the most fundamental counting process. It is characterized 
+                                by events occurring:
+                            </p>
+                            <ul>
+                                <li><b>Independently:</b> Events in disjoint time intervals are independent</li>
+                                <li><b>Uniformly:</b> Events are equally likely at any point in time</li>
+                                <li><b>At constant rate:</b> Average rate \( \lambda \) per unit time</li>
+                            </ul>
+                            <p>
+                                The Poisson process is named after Siméon Denis Poisson (1781-1840), who derived 
+                                the Poisson distribution as a limiting case of the binomial distribution.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">03</div>
+
+                <div class="content-wrapper">
+                    <h2>Simulation Methodology</h2>
+                    
+                    <p>
+                        We simulate a Poisson process by approximating continuous time with discrete subintervals. 
+                        This approach builds on the fundamental connection between the binomial and Poisson distributions.
+                    </p>
+
+                    <h3>Discretization Approach</h3>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h4>Step 1: Divide the Time Interval</h4>
+                            <p>
+                                Consider a time interval \([0, T]\). Divide it into \( n \) equal subintervals, 
+                                each of length:
+                            </p>
+                            <div class="math-block">\[ \Delta t = \frac{T}{n} \]</div>
+                            <p>
+                                For example, if \( T = 1 \) and \( n = 5000 \), then \( \Delta t = 0.0002 \).
+                            </p>
+                            <p>
+                                The subintervals are:
+                            </p>
+                            <div class="math-block">\[ [0, \Delta t], (\Delta t, 2\Delta t], (2\Delta t, 3\Delta t], \ldots, ((n-1)\Delta t, n\Delta t] \]</div>
+                        </div>
+
+                        <div class="column">
+                            <h4>Step 2: Generate Events</h4>
+                            <p>
+                                In each subinterval, we generate an event (success) with probability:
+                            </p>
+                            <div class="math-block">\[ p = \frac{\lambda}{n} = \lambda \Delta t \]</div>
+                            <p>
+                                where \( \lambda \) is the desired average rate of events per unit time.
+                            </p>
+                            <p>
+                                <b>Implementation:</b> For each of the \( n \) subintervals:
+                            </p>
+                            <ul>
+                                <li>Generate a random number \( U \sim \text{Uniform}(0,1) \)</li>
+                                <li>If \( U < p \), record an event at that subinterval</li>
+                                <li>Otherwise, no event occurs</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>Why This Works: From Binomial to Poisson</h3>
+
+                    <p>
+                        The total number of events \( N(T) \) in the interval \([0, T]\) follows a 
+                        <b>binomial distribution</b>:
+                    </p>
+                    <div class="math-block">\[ N(T) \sim \text{Binomial}\left(n, \frac{\lambda T}{n}\right) \]</div>
+
+                    <p>
+                        As \( n \to \infty \) (equivalently, \( \Delta t \to 0 \)), this binomial distribution 
+                        converges to a <b>Poisson distribution</b>:
+                    </p>
+                    <div class="math-block">\[ N(T) \xrightarrow{d} \text{Poisson}(\lambda T) \]</div>
+
+                    <div style="background: rgba(36, 163, 225, 0.1); border-left: 4px solid #24a3e1; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0; color: #24a3e1;">Poisson Limit Theorem</h4>
+                        <p>
+                            If \( X_n \sim \text{Binomial}(n, p_n) \) where \( np_n \to \lambda \) as \( n \to \infty \), then:
+                        </p>
+                        <div class="math-block">\[ P(X_n = k) \to \frac{\lambda^k e^{-\lambda}}{k!} \quad \text{as } n \to \infty \]</div>
+                        <p>
+                            In our case, \( p_n = \lambda T / n \), so \( np_n = \lambda T \), which remains constant 
+                            as \( n \to \infty \). This ensures convergence to \( \text{Poisson}(\lambda T) \).
+                        </p>
+                    </div>
+
+                    <h3>Algorithm Summary</h3>
+
+                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0; font-family: 'Monaco', 'Menlo', 'Consolas', monospace; font-size: 0.9rem; line-height: 1.8;">
+                        <div style="color: #24a3e1; margin-bottom: 1rem;"><b>Algorithm: Simulate Poisson Process</b></div>
+                        <div><b>Input:</b> Time interval T, rate λ, number of subintervals n</div>
+                        <div><b>Output:</b> Event times and counts N(t)</div>
+                        <div style="margin-top: 1rem;"><b>Procedure:</b></div>
+                        <div style="margin-left: 2rem;">
+                            1. Set Δt = T / n<br>
+                            2. Set p = λ · Δt<br>
+                            3. Initialize event_times = []<br>
+                            4. Initialize N = 0<br>
+                            5. For i = 1 to n:<br>
+                            <div style="margin-left: 2rem;">
+                                a. Generate U ~ Uniform(0, 1)<br>
+                                b. If U < p:<br>
+                                <div style="margin-left: 2rem;">
+                                    - t = i · Δt<br>
+                                    - Append t to event_times<br>
+                                    - N = N + 1<br>
+                                </div>
+                            </div>
+                            6. Return event_times and N
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">04</div>
+
+                <div class="content-wrapper">
+                    <h2>Interactive Simulation</h2>
+                    
+                    <p>
+                        Use the controls below to simulate a Poisson process. Adjust the rate parameter \( \lambda \) 
+                        and observe how it affects the frequency and distribution of events.
+                    </p>
+
+                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                        <h3 style="margin-top: 0;">Simulation Parameters</h3>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                            <div>
+                                <label for="rateParam" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">
+                                    Rate λ: <span id="rateValue" style="color: #24a3e1;">5.0</span> events per unit time
+                                </label>
+                                <input type="range" id="rateParam" min="1" max="20" value="5" step="0.5" 
+                                    style="width: 100%;" oninput="updateRateValue(this.value)">
+                            </div>
+                            
+                            <div>
+                                <label for="timeInterval" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">
+                                    Time Interval T: <span id="timeValue" style="color: #24a3e1;">1.0</span>
+                                </label>
+                                <input type="range" id="timeInterval" min="0.5" max="3" value="1" step="0.1" 
+                                    style="width: 100%;" oninput="updateTimeValue(this.value)">
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                            <div>
+                                <label for="numSubintervals" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">
+                                    Subintervals n: <span id="subintervalsValue" style="color: #24a3e1;">5000</span>
+                                </label>
+                                <input type="range" id="numSubintervals" min="100" max="10000" value="5000" step="100" 
+                                    style="width: 100%;" oninput="updateSubintervalsValue(this.value)">
+                            </div>
+                            
+                            <div>
+                                <label for="numSimulations" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">
+                                    Number of Simulations: <span id="numSimsValue" style="color: #24a3e1;">1000</span>
+                                </label>
+                                <input type="range" id="numSimulations" min="100" max="5000" value="1000" step="100" 
+                                    style="width: 100%;" oninput="updateNumSimsValue(this.value)">
+                            </div>
+                        </div>
+
+                        <button class="btn" onclick="runSimulation()" style="width: 100%; margin-top: 1rem;">
+                            Run Simulation
+                        </button>
+                    </div>
+
+                    <div id="simulationResults" style="display: none; margin-top: 2rem;">
+                        <h3>Simulation Results</h3>
+                        
+                        <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                            <h4 style="margin-top: 0;">Sample Path Visualization</h4>
+                            <p style="margin-bottom: 1rem;">
+                                This shows a single realization of the Poisson process. The step function \( N(t) \) 
+                                represents the cumulative count of events over time.
+                            </p>
+                            <canvas id="samplePathChart"></canvas>
+                        </div>
+
+                        <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                            <h4 style="margin-top: 0;">Distribution of Event Counts</h4>
+                            <p style="margin-bottom: 1rem;">
+                                Histogram of \( N(T) \) from multiple simulations compared with the theoretical 
+                                Poisson distribution \( \text{Poisson}(\lambda T) \).
+                            </p>
+                            <canvas id="distributionChart"></canvas>
+                        </div>
+
+                        <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                            <h4 style="margin-top: 0;">Statistical Summary</h4>
+                            <div id="statisticsSummary" style="font-family: 'Monaco', 'Menlo', 'Consolas', monospace; font-size: 0.95rem; line-height: 1.8;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">05</div>
+
+                <div class="content-wrapper">
+                    <h2>Theoretical Properties of the Poisson Process</h2>
+                    
+                    <p>
+                        The Poisson process \( \{N(t), t \geq 0\} \) with rate \( \lambda \) can be rigorously 
+                        defined through three equivalent characterizations. We explore the axiomatic definition 
+                        and derive key properties.
+                    </p>
+
+                    <h3>Axiomatic Definition</h3>
+
+                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0; color: #24a3e1;">Definition: Poisson Process</h4>
+                        <p>
+                            A counting process \( \{N(t), t \geq 0\} \) is a <b>Poisson process</b> with rate 
+                            \( \lambda > 0 \) if:
+                        </p>
+                        <ol>
+                            <li>\( N(0) = 0 \)</li>
+                            <li><b>Independent increments:</b> For any \( 0 \leq t_1 < t_2 < \cdots < t_n \), 
+                                the increments \( N(t_2) - N(t_1), N(t_3) - N(t_2), \ldots, N(t_n) - N(t_{n-1}) \) 
+                                are independent</li>
+                            <li><b>Stationary increments:</b> For any \( s < t \), the distribution of 
+                                \( N(t) - N(s) \) depends only on \( t - s \)</li>
+                            <li>For small \( h > 0 \):
+                                <div class="math-block">\[ P(N(h) = 1) = \lambda h + o(h) \]</div>
+                                <div class="math-block">\[ P(N(h) \geq 2) = o(h) \]</div>
+                                where \( o(h) \) denotes a term such that \( \lim_{h \to 0} o(h)/h = 0 \)
+                            </li>
+                        </ol>
+                    </div>
+
+                    <h3>Key Properties</h3>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h4>1. Distribution of \( N(t) \)</h4>
+                            <p>
+                                For any \( t \geq 0 \), the number of events by time \( t \) follows a Poisson distribution:
+                            </p>
+                            <div class="math-block">\[ N(t) \sim \text{Poisson}(\lambda t) \]</div>
+                            <div class="math-block">\[ P(N(t) = k) = \frac{(\lambda t)^k e^{-\lambda t}}{k!}, \quad k = 0, 1, 2, \ldots \]</div>
+                            <p>
+                                <b>Expected value:</b> \( E[N(t)] = \lambda t \)
+                            </p>
+                            <p>
+                                <b>Variance:</b> \( \text{Var}(N(t)) = \lambda t \)
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h4>2. Independent Increments</h4>
+                            <p>
+                                If \( 0 \leq s < t < u < v \), then:
+                            </p>
+                            <div class="math-block">\[ N(t) - N(s) \perp N(v) - N(u) \]</div>
+                            <p>
+                                The number of events in non-overlapping intervals are independent random variables. 
+                                This property is crucial for modeling applications where past events don't influence 
+                                future occurrences.
+                            </p>
+                            <p>
+                                <b>Implication:</b> Knowing that 10 events occurred in \([0, 1]\) provides no 
+                                information about the number of events in \([2, 3]\).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="content-columns" style="margin-top: 2rem;">
+                        <div class="column">
+                            <h4>3. Stationary Increments</h4>
+                            <p>
+                                The distribution of events in an interval depends only on the <b>length</b> of the 
+                                interval, not its position:
+                            </p>
+                            <div class="math-block">\[ N(t) - N(s) \sim \text{Poisson}(\lambda(t-s)) \]</div>
+                            <p>
+                                For example, \( N(1) - N(0) \) and \( N(101) - N(100) \) have the same distribution.
+                            </p>
+                            <p>
+                                <b>Interpretation:</b> The process is <b>homogeneous in time</b>: events are equally 
+                                likely at any time point.
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h4>4. Interarrival Times</h4>
+                            <p>
+                                Let \( T_1, T_2, T_3, \ldots \) denote the times between successive events. These 
+                                <b>interarrival times</b> are:
+                            </p>
+                            <ul>
+                                <li>Independent and identically distributed (i.i.d.)</li>
+                                <li>Follow an <b>exponential distribution</b> with rate \( \lambda \):</li>
+                            </ul>
+                            <div class="math-block">\[ T_i \sim \text{Exp}(\lambda), \quad f(t) = \lambda e^{-\lambda t}, \quad t \geq 0 \]</div>
+                            <p>
+                                <b>Expected interarrival time:</b> \( E[T_i] = 1/\lambda \)
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3>Memoryless Property</h3>
+
+                    <p>
+                        One of the most remarkable properties of the Poisson process is <b>memorylessness</b>, 
+                        inherited from the exponential distribution.
+                    </p>
+
+                    <div style="background: rgba(36, 163, 225, 0.1); border-left: 4px solid #24a3e1; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0; color: #24a3e1;">Memoryless Property</h4>
+                        <p>
+                            For any \( s, t \geq 0 \):
+                        </p>
+                        <div class="math-block">\[ P(T > s + t \mid T > s) = P(T > t) \]</div>
+                        <p>
+                            <b>Interpretation:</b> If no event has occurred by time \( s \), the remaining waiting 
+                            time until the next event has the same distribution as the original waiting time. 
+                            The process "forgets" how long we've been waiting.
+                        </p>
+                        <p>
+                            <b>Example:</b> If network packets arrive as a Poisson process, and no packet has arrived 
+                            in the last 10 seconds, the probability distribution for the next packet arrival is the 
+                            same as if we had just started observing.
+                        </p>
+                    </div>
+
+                    <h3>Superposition and Decomposition</h3>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h4>Superposition (Merging)</h4>
+                            <p>
+                                If \( N_1(t) \) and \( N_2(t) \) are independent Poisson processes with rates 
+                                \( \lambda_1 \) and \( \lambda_2 \), then their sum:
+                            </p>
+                            <div class="math-block">\[ N(t) = N_1(t) + N_2(t) \]</div>
+                            <p>is also a Poisson process with rate:</p>
+                            <div class="math-block">\[ \lambda = \lambda_1 + \lambda_2 \]</div>
+                            <p>
+                                <b>Application:</b> If HTTP requests and SSH connections each follow Poisson processes, 
+                                their combined arrival is also Poisson.
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h4>Decomposition (Thinning)</h4>
+                            <p>
+                                Given a Poisson process \( N(t) \) with rate \( \lambda \), if each event is 
+                                independently classified as Type 1 with probability \( p \) or Type 2 with 
+                                probability \( 1-p \), then:
+                            </p>
+                            <ul>
+                                <li>\( N_1(t) \sim \text{Poisson}(p\lambda) \)</li>
+                                <li>\( N_2(t) \sim \text{Poisson}((1-p)\lambda) \)</li>
+                                <li>\( N_1(t) \) and \( N_2(t) \) are independent</li>
+                            </ul>
+                            <p>
+                                <b>Application:</b> Network traffic can be decomposed into successful transmissions 
+                                and packet drops.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">06</div>
+
+                <div class="content-wrapper">
+                    <h2>Interpretation of the Rate Parameter λ</h2>
+                    
+                    <p>
+                        The rate parameter \( \lambda \) is the most important characteristic of a Poisson process. 
+                        It has multiple interpretations that provide intuition about the process.
+                    </p>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h3>1. Average Event Rate</h3>
+                            <p>
+                                \( \lambda \) represents the <b>average number of events per unit time</b>.
+                            </p>
+                            <div class="math-block">\[ \lambda = \lim_{t \to \infty} \frac{E[N(t)]}{t} \]</div>
+                            <p>
+                                Since \( E[N(t)] = \lambda t \), we have:
+                            </p>
+                            <div class="math-block">\[ \lambda = \frac{E[N(t)]}{t} \]</div>
+                            <p>
+                                <b>Example:</b> If \( \lambda = 5 \) events per second, we expect on average 
+                                5 events every second, 300 events per minute, etc.
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h3>2. Instantaneous Event Rate</h3>
+                            <p>
+                                For small time intervals \( h \), the probability of exactly one event is approximately:
+                            </p>
+                            <div class="math-block">\[ P(N(h) = 1) \approx \lambda h \]</div>
+                            <p>
+                                This gives \( \lambda \) as the <b>instantaneous rate</b> at which events occur:
+                            </p>
+                            <div class="math-block">\[ \lambda = \lim_{h \to 0} \frac{P(\text{event in } [t, t+h])}{h} \]</div>
+                            <p>
+                                <b>Intuition:</b> \( \lambda \) measures the "intensity" of events at each instant.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="content-columns" style="margin-top: 2rem;">
+                        <div class="column">
+                            <h3>3. Reciprocal of Mean Interarrival Time</h3>
+                            <p>
+                                The expected time between successive events is:
+                            </p>
+                            <div class="math-block">\[ E[T_i] = \frac{1}{\lambda} \]</div>
+                            <p>
+                                Therefore:
+                            </p>
+                            <div class="math-block">\[ \lambda = \frac{1}{E[\text{interarrival time}]} \]</div>
+                            <p>
+                                <b>Example:</b> If events occur on average every 0.2 seconds, then 
+                                \( \lambda = 1/0.2 = 5 \) events per second.
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h3>4. Scale Parameter</h3>
+                            <p>
+                                The parameter \( \lambda \) scales the process in time. If \( N(t) \) is Poisson 
+                                with rate \( \lambda \), then:
+                            </p>
+                            <div class="math-block">\[ N(ct) \sim \text{Poisson}(c\lambda t) \]</div>
+                            <p>
+                                <b>Time scaling:</b> Doubling \( \lambda \) has the same effect as doubling the 
+                                observation time \( t \).
+                            </p>
+                            <p>
+                                <b>Comparing processes:</b> A process with \( \lambda = 10 \) is twice as "fast" 
+                                as one with \( \lambda = 5 \).
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3>Estimating λ from Data</h3>
+
+                    <p>
+                        In practice, we often need to estimate \( \lambda \) from observed data. The <b>maximum 
+                        likelihood estimator</b> (MLE) for \( \lambda \) is:
+                    </p>
+
+                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0; color: #24a3e1;">Estimating the Rate Parameter</h4>
+                        
+                        <p><b>Method 1: Count-based estimator</b></p>
+                        <p>
+                            If we observe \( N(T) = n \) events in time interval \([0, T]\):
+                        </p>
+                        <div class="math-block">\[ \hat{\lambda} = \frac{n}{T} = \frac{N(T)}{T} \]</div>
+
+                        <p><b>Method 2: Interarrival time estimator</b></p>
+                        <p>
+                            If we observe interarrival times \( T_1, T_2, \ldots, T_n \):
+                        </p>
+                        <div class="math-block">\[ \hat{\lambda} = \frac{1}{\bar{T}} = \frac{n}{\sum_{i=1}^{n} T_i} \]</div>
+                        
+                        <p>
+                            Both estimators are <b>unbiased</b> and <b>consistent</b>, meaning they converge to 
+                            the true value of \( \lambda \) as we collect more data.
+                        </p>
+                    </div>
+
+                    <h3>Impact of λ on Process Behavior</h3>
+
+                    <table class="data-table" style="margin: 2rem 0;">
+                        <thead>
+                            <tr>
+                                <th>Characteristic</th>
+                                <th>Small λ (e.g., λ = 1)</th>
+                                <th>Large λ (e.g., λ = 20)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Event Frequency</b></td>
+                                <td>Rare events, long gaps</td>
+                                <td>Frequent events, short gaps</td>
+                            </tr>
+                            <tr>
+                                <td><b>Mean Interarrival Time</b></td>
+                                <td>1/λ = 1 time unit</td>
+                                <td>1/λ = 0.05 time units</td>
+                            </tr>
+                            <tr>
+                                <td><b>Expected Count in [0,1]</b></td>
+                                <td>E[N(1)] = 1</td>
+                                <td>E[N(1)] = 20</td>
+                            </tr>
+                            <tr>
+                                <td><b>Variance in [0,1]</b></td>
+                                <td>Var(N(1)) = 1</td>
+                                <td>Var(N(1)) = 20</td>
+                            </tr>
+                            <tr>
+                                <td><b>P(N(1) = 0)</b></td>
+                                <td>e<sup>-1</sup> ≈ 0.368</td>
+                                <td>e<sup>-20</sup> ≈ 2×10<sup>-9</sup></td>
+                            </tr>
+                            <tr>
+                                <td><b>Sample Path Appearance</b></td>
+                                <td>Few jumps, mostly flat</td>
+                                <td>Many jumps, steep growth</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">07</div>
+
+                <div class="content-wrapper">
+                    <h2>Applications in Cybersecurity</h2>
+                    
+                    <p>
+                        Poisson processes are fundamental models in cybersecurity for analyzing random events over time.
+                    </p>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h3>1. Intrusion Detection</h3>
+                            <p>
+                                <b>Scenario:</b> Failed login attempts on a server typically follow a Poisson process 
+                                under normal conditions.
+                            </p>
+                            <ul>
+                                <li>Baseline rate \( \lambda_0 \) represents normal failed logins</li>
+                                <li>Brute-force attack causes rate increase to \( \lambda_1 > \lambda_0 \)</li>
+                                <li>Detection: flag if observed rate exceeds threshold</li>
+                            </ul>
+                            <p>
+                                <b>Statistical test:</b> If \( N(T) > k^* \) where \( k^* \) is chosen such that 
+                                \( P(N(T) > k^* \mid \lambda_0) < \alpha \) (false alarm rate), trigger alert.
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h3>2. Denial of Service (DoS) Detection</h3>
+                            <p>
+                                <b>Scenario:</b> Network packet arrivals modeled as Poisson.
+                            </p>
+                            <ul>
+                                <li>Normal traffic: \( \lambda = 100 \) packets/sec</li>
+                                <li>DoS attack: \( \lambda = 10,000 \) packets/sec</li>
+                                <li>Monitor for sudden rate changes using sequential detection</li>
+                            </ul>
+                            <p>
+                                <b>CUSUM algorithm:</b> Cumulative sum control chart detects deviations from 
+                                expected Poisson rate \( \lambda_0 \).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="content-columns" style="margin-top: 2rem;">
+                        <div class="column">
+                            <h3>3. Vulnerability Scanning</h3>
+                            <p>
+                                <b>Scenario:</b> Port scans generate connection attempts.
+                            </p>
+                            <ul>
+                                <li>Legitimate traffic: low rate, random ports</li>
+                                <li>Port scanner: high rate, sequential ports</li>
+                                <li>Use Poisson model + pattern analysis</li>
+                            </ul>
+                            <p>
+                                <b>Detection criterion:</b> If connections to \( k \) different ports in time \( T \) 
+                                exceeds threshold based on Poisson(\(\lambda T\)), flag as scan.
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h3>4. Incident Rate Modeling</h3>
+                            <p>
+                                <b>Scenario:</b> Security incidents (malware detections, data breaches) over time.
+                            </p>
+                            <ul>
+                                <li>Estimate historical rate \( \hat{\lambda} = n/T \)</li>
+                                <li>Forecast future incidents using Poisson model</li>
+                                <li>Calculate confidence intervals for risk assessment</li>
+                            </ul>
+                            <p>
+                                <b>Risk metric:</b> Probability of at least one incident in next month: 
+                                \( 1 - e^{-\lambda t} \), where \( t = 1 \) month.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3>Limitations and Extensions</h3>
+
+                    <p>
+                        While powerful, the Poisson process has limitations. Real-world data often violates its assumptions:
+                    </p>
+
+                    <ul>
+                        <li>
+                            <b>Non-constant rate:</b> Cyber attacks may have time-varying rates (higher during business hours) 
+                            → use <b>non-homogeneous Poisson process</b> with \( \lambda(t) \)
+                        </li>
+                        <li>
+                            <b>Bursty arrivals:</b> Events occur in clusters (e.g., coordinated attacks) 
+                            → use <b>compound Poisson process</b> or <b>renewal processes</b>
+                        </li>
+                        <li>
+                            <b>Dependent events:</b> One intrusion may trigger others (cascade effects) 
+                            → use <b>Hawkes processes</b> (self-exciting point processes)
+                        </li>
+                        <li>
+                            <b>Heavy-tailed interarrivals:</b> Some cyber events have memory/long-range dependence 
+                            → use <b>Weibull</b> or <b>Pareto</b> interarrival distributions
+                        </li>
+                    </ul>
+
+                    <p>
+                        Despite these limitations, the Poisson process remains the <b>baseline model</b> for understanding 
+                        random event occurrences, and deviations from it often signal interesting phenomena worth investigating.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">08</div>
+
+                <div class="content-wrapper">
+                    <h2>Conclusion</h2>
+                    
+                    <p>
+                        Through this assignment, we have explored the <b>Poisson process</b>, one of the most 
+                        fundamental stochastic processes in probability theory and applications.
+                    </p>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h3>Key Takeaways</h3>
+                            <ul>
+                                <li>
+                                    The Poisson process models events occurring <b>independently</b>, <b>uniformly</b>, 
+                                    and at a <b>constant average rate</b> \( \lambda \) over time
+                                </li>
+                                <li>
+                                    Simulation via <b>discretization</b>: dividing time into small intervals and 
+                                    generating events with probability \( \lambda/n \) approximates the continuous process
+                                </li>
+                                <li>
+                                    The discretization works because \( \text{Binomial}(n, \lambda T/n) \to \text{Poisson}(\lambda T) \) 
+                                    as \( n \to \infty \)
+                                </li>
+                                <li>
+                                    Key properties: <b>independent increments</b>, <b>stationary increments</b>, 
+                                    <b>memorylessness</b>, and Poisson-distributed counts
+                                </li>
+                                <li>
+                                    The rate parameter \( \lambda \) has multiple interpretations: average events per unit time, 
+                                    reciprocal of mean interarrival time, and instantaneous event intensity
+                                </li>
+                                <li>
+                                    Poisson processes are widely used in cybersecurity for modeling intrusion attempts, 
+                                    network traffic, and security incidents
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="column">
+                            <h3>Mathematical Elegance</h3>
+                            <p>
+                                The Poisson process exemplifies the beauty of probability theory:
+                            </p>
+                            <ul>
+                                <li>
+                                    <b>Simplicity:</b> Defined by just a few axioms, yet models countless real phenomena
+                                </li>
+                                <li>
+                                    <b>Multiple characterizations:</b> Can be defined through increments, interarrivals, 
+                                    or infinitesimal properties
+                                </li>
+                                <li>
+                                    <b>Connections:</b> Links discrete (binomial) and continuous (exponential) distributions
+                                </li>
+                                <li>
+                                    <b>Closure properties:</b> Superposition and decomposition preserve the Poisson structure
+                                </li>
+                                <li>
+                                    <b>Memorylessness:</b> The only continuous distribution with this property, making 
+                                    the Poisson process unique among counting processes
+                                </li>
+                            </ul>
+                            <p>
+                                The Poisson process is to stochastic processes what the normal distribution is to 
+                                random variables: a canonical, tractable model that appears throughout science, engineering, 
+                                and applied mathematics.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(36, 163, 225, 0.1); border-left: 4px solid #24a3e1; padding: 2rem; margin: 2rem 0;">
+                        <h3 style="margin-top: 0;">Final Reflection</h3>
+                        <p>
+                            From our simulation, we observe empirically what theory predicts: as the number of 
+                            subintervals \( n \) increases, the discrete approximation converges to the continuous 
+                            Poisson process. The distribution of event counts matches the Poisson formula, interarrival 
+                            times follow an exponential distribution, and the process exhibits the characteristic 
+                            memoryless property.
+                        </p>
+                        <p>
+                            This convergence from discrete to continuous, from binomial to Poisson, illustrates a 
+                            profound principle in probability: <b>complex continuous phenomena can emerge from 
+                            simple discrete mechanisms</b>. This insight has deep implications not just in mathematics, 
+                            but in our understanding of randomness in nature and technology.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p class="footer-name">Andrea Altomare</p>
+                    <p class="footer-detail">2199451</p>
+                    <p class="footer-detail">altomare.2199451@studenti.uniroma1.it</p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Andrea Altomare</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Update parameter display values
+        function updateRateValue(val) {
+            document.getElementById('rateValue').textContent = parseFloat(val).toFixed(1);
+        }
+
+        function updateTimeValue(val) {
+            document.getElementById('timeValue').textContent = parseFloat(val).toFixed(1);
+        }
+
+        function updateSubintervalsValue(val) {
+            document.getElementById('subintervalsValue').textContent = val;
+        }
+
+        function updateNumSimsValue(val) {
+            document.getElementById('numSimsValue').textContent = val;
+        }
+
+        // Poisson PMF
+        function poissonPMF(k, lambda) {
+            if (lambda <= 0) return 0;
+            if (k < 0) return 0;
+            
+            // Use log to avoid overflow
+            let logProb = k * Math.log(lambda) - lambda - logFactorial(k);
+            return Math.exp(logProb);
+        }
+
+        function logFactorial(n) {
+            if (n <= 1) return 0;
+            let result = 0;
+            for (let i = 2; i <= n; i++) {
+                result += Math.log(i);
+            }
+            return result;
+        }
+
+        // Simulate a single Poisson process
+        function simulatePoissonProcess(T, lambda, n) {
+            const dt = T / n;
+            const p = lambda * dt;
+            const eventTimes = [];
+            
+            for (let i = 0; i < n; i++) {
+                if (Math.random() < p) {
+                    eventTimes.push((i + 1) * dt);
+                }
+            }
+            
+            return {
+                eventTimes: eventTimes,
+                count: eventTimes.length
+            };
+        }
+
+        // Global chart objects
+        let samplePathChart = null;
+        let distributionChart = null;
+
+        // Run simulation
+        function runSimulation() {
+            const lambda = parseFloat(document.getElementById('rateParam').value);
+            const T = parseFloat(document.getElementById('timeInterval').value);
+            const n = parseInt(document.getElementById('numSubintervals').value);
+            const numSims = parseInt(document.getElementById('numSimulations').value);
+
+            // Show results section
+            document.getElementById('simulationResults').style.display = 'block';
+
+            // Simulate once for sample path
+            const sampleRun = simulatePoissonProcess(T, lambda, n);
+            
+            // Simulate many times for distribution
+            const counts = [];
+            for (let i = 0; i < numSims; i++) {
+                const result = simulatePoissonProcess(T, lambda, n);
+                counts.push(result.count);
+            }
+
+            // Calculate statistics
+            const meanCount = counts.reduce((a, b) => a + b, 0) / counts.length;
+            const variance = counts.reduce((sum, x) => sum + Math.pow(x - meanCount, 2), 0) / counts.length;
+            const theoreticalMean = lambda * T;
+            const theoreticalVariance = lambda * T;
+
+            // Display statistics
+            const statsHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div><b>Empirical Mean:</b></div><div>${meanCount.toFixed(3)}</div>
+                    <div><b>Theoretical Mean (λT):</b></div><div>${theoreticalMean.toFixed(3)}</div>
+                    <div><b>Empirical Variance:</b></div><div>${variance.toFixed(3)}</div>
+                    <div><b>Theoretical Variance (λT):</b></div><div>${theoreticalVariance.toFixed(3)}</div>
+                    <div><b>Number of Events (sample):</b></div><div>${sampleRun.count}</div>
+                    <div><b>Estimated λ̂:</b></div><div>${(meanCount / T).toFixed(3)}</div>
+                    <div><b>True λ:</b></div><div>${lambda.toFixed(3)}</div>
+                </div>
+            `;
+            document.getElementById('statisticsSummary').innerHTML = statsHTML;
+
+            // Plot sample path
+            plotSamplePath(sampleRun.eventTimes, T);
+
+            // Plot distribution
+            plotDistribution(counts, lambda * T);
+
+            // Scroll to results
+            document.getElementById('simulationResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function plotSamplePath(eventTimes, T) {
+            const canvas = document.getElementById('samplePathChart');
+            const ctx = canvas.getContext('2d');
+
+            // Build step function data
+            const times = [0];
+            const counts = [0];
+            
+            for (let i = 0; i < eventTimes.length; i++) {
+                times.push(eventTimes[i]);
+                counts.push(i + 1);
+            }
+            times.push(T);
+            counts.push(eventTimes.length);
+
+            // Create step function points
+            const data = [];
+            for (let i = 0; i < times.length - 1; i++) {
+                data.push({ x: times[i], y: counts[i] });
+                data.push({ x: times[i + 1], y: counts[i] });
+            }
+            data.push({ x: times[times.length - 1], y: counts[counts.length - 1] });
+
+            if (samplePathChart) {
+                samplePathChart.destroy();
+            }
+
+            samplePathChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'N(t) - Event Count',
+                        data: data,
+                        borderColor: '#24a3e1',
+                        backgroundColor: 'rgba(36, 163, 225, 0.1)',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        stepped: false,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    aspectRatio: 2.5,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            title: {
+                                display: true,
+                                text: 'Time t',
+                                color: '#e8e8e8'
+                            },
+                            ticks: { color: '#e8e8e8' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Events N(t)',
+                                color: '#e8e8e8'
+                            },
+                            ticks: { 
+                                color: '#e8e8e8',
+                                stepSize: 1
+                            },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: '#e8e8e8' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function plotDistribution(counts, lambdaT) {
+            const canvas = document.getElementById('distributionChart');
+            const ctx = canvas.getContext('2d');
+
+            // Create histogram
+            const maxCount = Math.max(...counts);
+            const minCount = Math.min(...counts);
+            const bins = {};
+            
+            for (let count of counts) {
+                bins[count] = (bins[count] || 0) + 1;
+            }
+
+            // Normalize to get empirical probabilities
+            const numSims = counts.length;
+            const empiricalProbs = {};
+            for (let k in bins) {
+                empiricalProbs[k] = bins[k] / numSims;
+            }
+
+            // Calculate theoretical Poisson probabilities
+            const theoreticalProbs = {};
+            const range = Math.max(maxCount - minCount, 20);
+            const start = Math.max(0, Math.floor(lambdaT - 3 * Math.sqrt(lambdaT)));
+            const end = Math.ceil(lambdaT + 3 * Math.sqrt(lambdaT));
+            
+            for (let k = start; k <= end; k++) {
+                theoreticalProbs[k] = poissonPMF(k, lambdaT);
+            }
+
+            // Prepare data for chart
+            const labels = [];
+            const empiricalData = [];
+            const theoreticalData = [];
+
+            for (let k = start; k <= end; k++) {
+                labels.push(k.toString());
+                empiricalData.push(empiricalProbs[k] || 0);
+                theoreticalData.push(theoreticalProbs[k]);
+            }
+
+            if (distributionChart) {
+                distributionChart.destroy();
+            }
+
+            distributionChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Empirical (Simulated)',
+                            data: empiricalData,
+                            backgroundColor: 'rgba(36, 163, 225, 0.6)',
+                            borderColor: '#24a3e1',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Theoretical Poisson(λT)',
+                            data: theoreticalData,
+                            type: 'line',
+                            borderColor: '#ef4444',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            borderWidth: 2,
+                            pointRadius: 3,
+                            pointBackgroundColor: '#ef4444',
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    aspectRatio: 2.5,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Number of Events k',
+                                color: '#e8e8e8'
+                            },
+                            ticks: { color: '#e8e8e8' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Probability P(N(T) = k)',
+                                color: '#e8e8e8'
+                            },
+                            ticks: { color: '#e8e8e8' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: '#e8e8e8' }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
