@@ -61,7 +61,7 @@
                 <div class="section-number">01</div>
                 <div class="section-label">HOMEWORK 10</div>
                 <div class="hero-content">
-                    <h1>Simulating the Poisson Process</h1>
+                    <h1>Simulation o a counting process (Poisson process)</h1>
                     <div class="hero-underline"></div>
                     <p class="hero-description">
                         This assignment explores one of the most important <b>stochastic processes</b> in probability 
@@ -92,54 +92,40 @@
                 <div class="section-number">02</div>
 
                 <div class="content-wrapper">
-                    <h2>What is a Counting Process?</h2>
+                    <h2>The Poisson Process</h2>
                     
                     <p>
-                        A <b>counting process</b> \( \{N(t), t \geq 0\} \) is a stochastic process that counts the 
-                        number of events that have occurred up to time \( t \). It satisfies:
+                        A <b>counting process</b> \( \{N(t), t \geq 0\} \) counts events occurring over time, 
+                        where \( N(t) \) represents the total number of events by time \( t \). The <b>Poisson process</b> 
+                        is characterized by events occurring:
                     </p>
-
-                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
-                        <h4 style="margin-top: 0; color: #24a3e1;">Properties of Counting Processes</h4>
-                        <ol>
-                            <li>\( N(0) = 0 \) (no events at time zero)</li>
-                            <li>\( N(t) \in \{0, 1, 2, 3, \ldots\} \) (non-negative integers)</li>
-                            <li>\( N(t) \) is non-decreasing: if \( s < t \), then \( N(s) \leq N(t) \)</li>
-                            <li>For \( s < t \), the increment \( N(t) - N(s) \) represents the number of events in the interval \( (s, t] \)</li>
-                        </ol>
-                    </div>
 
                     <div class="content-columns">
                         <div class="column">
-                            <h3>Real-World Examples</h3>
-                            <p>
-                                Counting processes model many phenomena:
-                            </p>
-                            <ul>
-                                <li><b>Network traffic:</b> Number of packets arriving at a router</li>
-                                <li><b>Queueing systems:</b> Customers arriving at a service counter</li>
-                                <li><b>Radioactive decay:</b> Number of particles emitted</li>
-                                <li><b>Cybersecurity:</b> Login attempts or security events</li>
-                                <li><b>Insurance claims:</b> Number of claims filed</li>
-                                <li><b>Earthquake occurrences:</b> Number of seismic events</li>
-                            </ul>
-                        </div>
-
-                        <div class="column">
-                            <h3>The Poisson Process</h3>
-                            <p>
-                                The <b>Poisson process</b> is the most fundamental counting process. It is characterized 
-                                by events occurring:
-                            </p>
+                            <h3>Key Characteristics</h3>
                             <ul>
                                 <li><b>Independently:</b> Events in disjoint time intervals are independent</li>
                                 <li><b>Uniformly:</b> Events are equally likely at any point in time</li>
                                 <li><b>At constant rate:</b> Average rate \( \lambda \) per unit time</li>
                             </ul>
                             <p>
-                                The Poisson process is named after Siméon Denis Poisson (1781-1840), who derived 
-                                the Poisson distribution as a limiting case of the binomial distribution.
+                                For the Poisson process, the number of events in any interval follows a Poisson distribution:
                             </p>
+                            <div class="math-block">\[ N(t) \sim \text{Poisson}(\lambda t) \]</div>
+                        </div>
+
+                        <div class="column">
+                            <h3>Applications</h3>
+                            <p>
+                                Counting processes model many real-world phenomena:
+                            </p>
+                            <ul>
+                                <li>Network packet arrivals</li>
+                                <li>Customer arrivals in queues</li>
+                                <li>Radioactive decay events</li>
+                                <li>Security incidents and login attempts</li>
+                                <li>Insurance claims</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -378,130 +364,50 @@
 
                     <div class="content-columns">
                         <div class="column">
-                            <h4>1. Distribution of \( N(t) \)</h4>
+                            <h4>1. Poisson Distribution</h4>
                             <p>
-                                For any \( t \geq 0 \), the number of events by time \( t \) follows a Poisson distribution:
+                                For any \( t \geq 0 \):
                             </p>
                             <div class="math-block">\[ N(t) \sim \text{Poisson}(\lambda t) \]</div>
-                            <div class="math-block">\[ P(N(t) = k) = \frac{(\lambda t)^k e^{-\lambda t}}{k!}, \quad k = 0, 1, 2, \ldots \]</div>
+                            <div class="math-block">\[ P(N(t) = k) = \frac{(\lambda t)^k e^{-\lambda t}}{k!} \]</div>
                             <p>
-                                <b>Expected value:</b> \( E[N(t)] = \lambda t \)
-                            </p>
-                            <p>
+                                <b>Expected value:</b> \( E[N(t)] = \lambda t \)<br>
                                 <b>Variance:</b> \( \text{Var}(N(t)) = \lambda t \)
                             </p>
                         </div>
 
                         <div class="column">
-                            <h4>2. Independent Increments</h4>
+                            <h4>2. Independent & Stationary Increments</h4>
                             <p>
-                                If \( 0 \leq s < t < u < v \), then:
+                                Events in non-overlapping intervals are independent, and the distribution of 
+                                \( N(t) - N(s) \) depends only on \( t - s \):
                             </p>
-                            <div class="math-block">\[ N(t) - N(s) \perp N(v) - N(u) \]</div>
+                            <div class="math-block">\[ N(t) - N(s) \sim \text{Poisson}(\lambda(t-s)) \]</div>
                             <p>
-                                The number of events in non-overlapping intervals are independent random variables. 
-                                This property is crucial for modeling applications where past events don't influence 
-                                future occurrences.
-                            </p>
-                            <p>
-                                <b>Implication:</b> Knowing that 10 events occurred in \([0, 1]\) provides no 
-                                information about the number of events in \([2, 3]\).
+                                This means past events don't influence future ones, and the process is 
+                                homogeneous in time.
                             </p>
                         </div>
                     </div>
 
                     <div class="content-columns" style="margin-top: 2rem;">
                         <div class="column">
-                            <h4>3. Stationary Increments</h4>
+                            <h4>3. Exponential Interarrival Times</h4>
                             <p>
-                                The distribution of events in an interval depends only on the <b>length</b> of the 
-                                interval, not its position:
+                                The times between successive events are independent and exponentially distributed:
                             </p>
-                            <div class="math-block">\[ N(t) - N(s) \sim \text{Poisson}(\lambda(t-s)) \]</div>
-                            <p>
-                                For example, \( N(1) - N(0) \) and \( N(101) - N(100) \) have the same distribution.
-                            </p>
-                            <p>
-                                <b>Interpretation:</b> The process is <b>homogeneous in time</b>: events are equally 
-                                likely at any time point.
-                            </p>
+                            <div class="math-block">\[ T_i \sim \text{Exp}(\lambda), \quad E[T_i] = \frac{1}{\lambda} \]</div>
                         </div>
 
                         <div class="column">
-                            <h4>4. Interarrival Times</h4>
+                            <h4>4. Memoryless Property</h4>
                             <p>
-                                Let \( T_1, T_2, T_3, \ldots \) denote the times between successive events. These 
-                                <b>interarrival times</b> are:
+                                For any \( s, t \geq 0 \):
                             </p>
-                            <ul>
-                                <li>Independent and identically distributed (i.i.d.)</li>
-                                <li>Follow an <b>exponential distribution</b> with rate \( \lambda \):</li>
-                            </ul>
-                            <div class="math-block">\[ T_i \sim \text{Exp}(\lambda), \quad f(t) = \lambda e^{-\lambda t}, \quad t \geq 0 \]</div>
+                            <div class="math-block">\[ P(T > s + t \mid T > s) = P(T > t) \]</div>
                             <p>
-                                <b>Expected interarrival time:</b> \( E[T_i] = 1/\lambda \)
-                            </p>
-                        </div>
-                    </div>
-
-                    <h3>Memoryless Property</h3>
-
-                    <p>
-                        One of the most remarkable properties of the Poisson process is <b>memorylessness</b>, 
-                        inherited from the exponential distribution.
-                    </p>
-
-                    <div style="background: rgba(36, 163, 225, 0.1); border-left: 4px solid #24a3e1; padding: 2rem; margin: 2rem 0;">
-                        <h4 style="margin-top: 0; color: #24a3e1;">Memoryless Property</h4>
-                        <p>
-                            For any \( s, t \geq 0 \):
-                        </p>
-                        <div class="math-block">\[ P(T > s + t \mid T > s) = P(T > t) \]</div>
-                        <p>
-                            <b>Interpretation:</b> If no event has occurred by time \( s \), the remaining waiting 
-                            time until the next event has the same distribution as the original waiting time. 
-                            The process "forgets" how long we've been waiting.
-                        </p>
-                        <p>
-                            <b>Example:</b> If network packets arrive as a Poisson process, and no packet has arrived 
-                            in the last 10 seconds, the probability distribution for the next packet arrival is the 
-                            same as if we had just started observing.
-                        </p>
-                    </div>
-
-                    <h3>Superposition and Decomposition</h3>
-
-                    <div class="content-columns">
-                        <div class="column">
-                            <h4>Superposition (Merging)</h4>
-                            <p>
-                                If \( N_1(t) \) and \( N_2(t) \) are independent Poisson processes with rates 
-                                \( \lambda_1 \) and \( \lambda_2 \), then their sum:
-                            </p>
-                            <div class="math-block">\[ N(t) = N_1(t) + N_2(t) \]</div>
-                            <p>is also a Poisson process with rate:</p>
-                            <div class="math-block">\[ \lambda = \lambda_1 + \lambda_2 \]</div>
-                            <p>
-                                <b>Application:</b> If HTTP requests and SSH connections each follow Poisson processes, 
-                                their combined arrival is also Poisson.
-                            </p>
-                        </div>
-
-                        <div class="column">
-                            <h4>Decomposition (Thinning)</h4>
-                            <p>
-                                Given a Poisson process \( N(t) \) with rate \( \lambda \), if each event is 
-                                independently classified as Type 1 with probability \( p \) or Type 2 with 
-                                probability \( 1-p \), then:
-                            </p>
-                            <ul>
-                                <li>\( N_1(t) \sim \text{Poisson}(p\lambda) \)</li>
-                                <li>\( N_2(t) \sim \text{Poisson}((1-p)\lambda) \)</li>
-                                <li>\( N_1(t) \) and \( N_2(t) \) are independent</li>
-                            </ul>
-                            <p>
-                                <b>Application:</b> Network traffic can be decomposed into successful transmissions 
-                                and packet drops.
+                                The process "forgets" how long we've been waiting: the remaining waiting time 
+                                has the same distribution as the original waiting time.
                             </p>
                         </div>
                     </div>
@@ -521,145 +427,45 @@
                         It has multiple interpretations that provide intuition about the process.
                     </p>
 
+                    <h3>Multiple Interpretations of λ</h3>
+
                     <div class="content-columns">
                         <div class="column">
-                            <h3>1. Average Event Rate</h3>
+                            <h4>1. Average Event Rate</h4>
                             <p>
-                                \( \lambda \) represents the <b>average number of events per unit time</b>.
-                            </p>
-                            <div class="math-block">\[ \lambda = \lim_{t \to \infty} \frac{E[N(t)]}{t} \]</div>
-                            <p>
-                                Since \( E[N(t)] = \lambda t \), we have:
+                                \( \lambda \) represents the <b>average number of events per unit time</b>:
                             </p>
                             <div class="math-block">\[ \lambda = \frac{E[N(t)]}{t} \]</div>
                             <p>
-                                <b>Example:</b> If \( \lambda = 5 \) events per second, we expect on average 
-                                5 events every second, 300 events per minute, etc.
+                                <b>Example:</b> If \( \lambda = 5 \), we expect 5 events per second on average.
                             </p>
                         </div>
 
                         <div class="column">
-                            <h3>2. Instantaneous Event Rate</h3>
-                            <p>
-                                For small time intervals \( h \), the probability of exactly one event is approximately:
-                            </p>
-                            <div class="math-block">\[ P(N(h) = 1) \approx \lambda h \]</div>
-                            <p>
-                                This gives \( \lambda \) as the <b>instantaneous rate</b> at which events occur:
-                            </p>
-                            <div class="math-block">\[ \lambda = \lim_{h \to 0} \frac{P(\text{event in } [t, t+h])}{h} \]</div>
-                            <p>
-                                <b>Intuition:</b> \( \lambda \) measures the "intensity" of events at each instant.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="content-columns" style="margin-top: 2rem;">
-                        <div class="column">
-                            <h3>3. Reciprocal of Mean Interarrival Time</h3>
+                            <h4>2. Reciprocal of Mean Waiting Time</h4>
                             <p>
                                 The expected time between successive events is:
                             </p>
-                            <div class="math-block">\[ E[T_i] = \frac{1}{\lambda} \]</div>
+                            <div class="math-block">\[ E[T_i] = \frac{1}{\lambda} \quad \Rightarrow \quad \lambda = \frac{1}{E[\text{interarrival time}]} \]</div>
                             <p>
-                                Therefore:
-                            </p>
-                            <div class="math-block">\[ \lambda = \frac{1}{E[\text{interarrival time}]} \]</div>
-                            <p>
-                                <b>Example:</b> If events occur on average every 0.2 seconds, then 
-                                \( \lambda = 1/0.2 = 5 \) events per second.
-                            </p>
-                        </div>
-
-                        <div class="column">
-                            <h3>4. Scale Parameter</h3>
-                            <p>
-                                The parameter \( \lambda \) scales the process in time. If \( N(t) \) is Poisson 
-                                with rate \( \lambda \), then:
-                            </p>
-                            <div class="math-block">\[ N(ct) \sim \text{Poisson}(c\lambda t) \]</div>
-                            <p>
-                                <b>Time scaling:</b> Doubling \( \lambda \) has the same effect as doubling the 
-                                observation time \( t \).
-                            </p>
-                            <p>
-                                <b>Comparing processes:</b> A process with \( \lambda = 10 \) is twice as "fast" 
-                                as one with \( \lambda = 5 \).
+                                <b>Example:</b> If events occur every 0.2 seconds on average, then \( \lambda = 5 \).
                             </p>
                         </div>
                     </div>
 
-                    <h3>Estimating λ from Data</h3>
+                    <h3>Estimating λ and Its Impact</h3>
 
                     <p>
-                        In practice, we often need to estimate \( \lambda \) from observed data. The <b>maximum 
-                        likelihood estimator</b> (MLE) for \( \lambda \) is:
+                        From observed data, we can estimate \( \lambda \) using: 
+                        \( \hat{\lambda} = N(T) / T \) (total events divided by observation time).
                     </p>
 
-                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
-                        <h4 style="margin-top: 0; color: #24a3e1;">Estimating the Rate Parameter</h4>
-                        
-                        <p><b>Method 1: Count-based estimator</b></p>
-                        <p>
-                            If we observe \( N(T) = n \) events in time interval \([0, T]\):
-                        </p>
-                        <div class="math-block">\[ \hat{\lambda} = \frac{n}{T} = \frac{N(T)}{T} \]</div>
-
-                        <p><b>Method 2: Interarrival time estimator</b></p>
-                        <p>
-                            If we observe interarrival times \( T_1, T_2, \ldots, T_n \):
-                        </p>
-                        <div class="math-block">\[ \hat{\lambda} = \frac{1}{\bar{T}} = \frac{n}{\sum_{i=1}^{n} T_i} \]</div>
-                        
-                        <p>
-                            Both estimators are <b>unbiased</b> and <b>consistent</b>, meaning they converge to 
-                            the true value of \( \lambda \) as we collect more data.
-                        </p>
-                    </div>
-
-                    <h3>Impact of λ on Process Behavior</h3>
-
-                    <table class="data-table" style="margin: 2rem 0;">
-                        <thead>
-                            <tr>
-                                <th>Characteristic</th>
-                                <th>Small λ (e.g., λ = 1)</th>
-                                <th>Large λ (e.g., λ = 20)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><b>Event Frequency</b></td>
-                                <td>Rare events, long gaps</td>
-                                <td>Frequent events, short gaps</td>
-                            </tr>
-                            <tr>
-                                <td><b>Mean Interarrival Time</b></td>
-                                <td>1/λ = 1 time unit</td>
-                                <td>1/λ = 0.05 time units</td>
-                            </tr>
-                            <tr>
-                                <td><b>Expected Count in [0,1]</b></td>
-                                <td>E[N(1)] = 1</td>
-                                <td>E[N(1)] = 20</td>
-                            </tr>
-                            <tr>
-                                <td><b>Variance in [0,1]</b></td>
-                                <td>Var(N(1)) = 1</td>
-                                <td>Var(N(1)) = 20</td>
-                            </tr>
-                            <tr>
-                                <td><b>P(N(1) = 0)</b></td>
-                                <td>e<sup>-1</sup> ≈ 0.368</td>
-                                <td>e<sup>-20</sup> ≈ 2×10<sup>-9</sup></td>
-                            </tr>
-                            <tr>
-                                <td><b>Sample Path Appearance</b></td>
-                                <td>Few jumps, mostly flat</td>
-                                <td>Many jumps, steep growth</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <p>
+                        The value of \( \lambda \) determines the process behavior: small \( \lambda \) yields 
+                        rare events with long gaps, while large \( \lambda \) produces frequent events with short 
+                        interarrival times. The variance equals the mean (\( \lambda t \)), which is a distinctive 
+                        property of the Poisson distribution.
+                    </p>
                 </div>
             </div>
         </section>
@@ -669,109 +475,22 @@
                 <div class="section-number">07</div>
 
                 <div class="content-wrapper">
-                    <h2>Applications in Cybersecurity</h2>
+                    <h2>Practical Applications</h2>
                     
                     <p>
-                        Poisson processes are fundamental models in cybersecurity for analyzing random events over time.
-                    </p>
-
-                    <div class="content-columns">
-                        <div class="column">
-                            <h3>1. Intrusion Detection</h3>
-                            <p>
-                                <b>Scenario:</b> Failed login attempts on a server typically follow a Poisson process 
-                                under normal conditions.
-                            </p>
-                            <ul>
-                                <li>Baseline rate \( \lambda_0 \) represents normal failed logins</li>
-                                <li>Brute-force attack causes rate increase to \( \lambda_1 > \lambda_0 \)</li>
-                                <li>Detection: flag if observed rate exceeds threshold</li>
-                            </ul>
-                            <p>
-                                <b>Statistical test:</b> If \( N(T) > k^* \) where \( k^* \) is chosen such that 
-                                \( P(N(T) > k^* \mid \lambda_0) < \alpha \) (false alarm rate), trigger alert.
-                            </p>
-                        </div>
-
-                        <div class="column">
-                            <h3>2. Denial of Service (DoS) Detection</h3>
-                            <p>
-                                <b>Scenario:</b> Network packet arrivals modeled as Poisson.
-                            </p>
-                            <ul>
-                                <li>Normal traffic: \( \lambda = 100 \) packets/sec</li>
-                                <li>DoS attack: \( \lambda = 10,000 \) packets/sec</li>
-                                <li>Monitor for sudden rate changes using sequential detection</li>
-                            </ul>
-                            <p>
-                                <b>CUSUM algorithm:</b> Cumulative sum control chart detects deviations from 
-                                expected Poisson rate \( \lambda_0 \).
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="content-columns" style="margin-top: 2rem;">
-                        <div class="column">
-                            <h3>3. Vulnerability Scanning</h3>
-                            <p>
-                                <b>Scenario:</b> Port scans generate connection attempts.
-                            </p>
-                            <ul>
-                                <li>Legitimate traffic: low rate, random ports</li>
-                                <li>Port scanner: high rate, sequential ports</li>
-                                <li>Use Poisson model + pattern analysis</li>
-                            </ul>
-                            <p>
-                                <b>Detection criterion:</b> If connections to \( k \) different ports in time \( T \) 
-                                exceeds threshold based on Poisson(\(\lambda T\)), flag as scan.
-                            </p>
-                        </div>
-
-                        <div class="column">
-                            <h3>4. Incident Rate Modeling</h3>
-                            <p>
-                                <b>Scenario:</b> Security incidents (malware detections, data breaches) over time.
-                            </p>
-                            <ul>
-                                <li>Estimate historical rate \( \hat{\lambda} = n/T \)</li>
-                                <li>Forecast future incidents using Poisson model</li>
-                                <li>Calculate confidence intervals for risk assessment</li>
-                            </ul>
-                            <p>
-                                <b>Risk metric:</b> Probability of at least one incident in next month: 
-                                \( 1 - e^{-\lambda t} \), where \( t = 1 \) month.
-                            </p>
-                        </div>
-                    </div>
-
-                    <h3>Limitations and Extensions</h3>
-
-                    <p>
-                        While powerful, the Poisson process has limitations. Real-world data often violates its assumptions:
+                        Poisson processes model various real-world phenomena:
                     </p>
 
                     <ul>
-                        <li>
-                            <b>Non-constant rate:</b> Cyber attacks may have time-varying rates (higher during business hours) 
-                            → use <b>non-homogeneous Poisson process</b> with \( \lambda(t) \)
-                        </li>
-                        <li>
-                            <b>Bursty arrivals:</b> Events occur in clusters (e.g., coordinated attacks) 
-                            → use <b>compound Poisson process</b> or <b>renewal processes</b>
-                        </li>
-                        <li>
-                            <b>Dependent events:</b> One intrusion may trigger others (cascade effects) 
-                            → use <b>Hawkes processes</b> (self-exciting point processes)
-                        </li>
-                        <li>
-                            <b>Heavy-tailed interarrivals:</b> Some cyber events have memory/long-range dependence 
-                            → use <b>Weibull</b> or <b>Pareto</b> interarrival distributions
-                        </li>
+                        <li><b>Network security:</b> Failed login attempts, intrusion detection (baseline rate \( \lambda_0 \) vs. attack rate \( \lambda_1 \))</li>
+                        <li><b>Traffic analysis:</b> Packet arrivals, DoS detection through rate monitoring</li>
+                        <li><b>Risk assessment:</b> Security incidents, calculating probability of future events</li>
+                        <li><b>Queue management:</b> Customer arrivals, service system design</li>
                     </ul>
 
                     <p>
-                        Despite these limitations, the Poisson process remains the <b>baseline model</b> for understanding 
-                        random event occurrences, and deviations from it often signal interesting phenomena worth investigating.
+                        <b>Note:</b> Real-world data may violate Poisson assumptions (e.g., non-constant rates, 
+                        bursty arrivals). Extensions like non-homogeneous Poisson processes can handle time-varying rates.
                     </p>
                 </div>
             </div>
@@ -785,87 +504,36 @@
                     <h2>Conclusion</h2>
                     
                     <p>
-                        Through this assignment, we have explored the <b>Poisson process</b>, one of the most 
-                        fundamental stochastic processes in probability theory and applications.
+                        Through this assignment, we have explored the <b>Poisson process</b> through simulation and theory:
                     </p>
 
-                    <div class="content-columns">
-                        <div class="column">
-                            <h3>Key Takeaways</h3>
-                            <ul>
-                                <li>
-                                    The Poisson process models events occurring <b>independently</b>, <b>uniformly</b>, 
-                                    and at a <b>constant average rate</b> \( \lambda \) over time
-                                </li>
-                                <li>
-                                    Simulation via <b>discretization</b>: dividing time into small intervals and 
-                                    generating events with probability \( \lambda/n \) approximates the continuous process
-                                </li>
-                                <li>
-                                    The discretization works because \( \text{Binomial}(n, \lambda T/n) \to \text{Poisson}(\lambda T) \) 
-                                    as \( n \to \infty \)
-                                </li>
-                                <li>
-                                    Key properties: <b>independent increments</b>, <b>stationary increments</b>, 
-                                    <b>memorylessness</b>, and Poisson-distributed counts
-                                </li>
-                                <li>
-                                    The rate parameter \( \lambda \) has multiple interpretations: average events per unit time, 
-                                    reciprocal of mean interarrival time, and instantaneous event intensity
-                                </li>
-                                <li>
-                                    Poisson processes are widely used in cybersecurity for modeling intrusion attempts, 
-                                    network traffic, and security incidents
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="column">
-                            <h3>Mathematical Elegance</h3>
-                            <p>
-                                The Poisson process exemplifies the beauty of probability theory:
-                            </p>
-                            <ul>
-                                <li>
-                                    <b>Simplicity:</b> Defined by just a few axioms, yet models countless real phenomena
-                                </li>
-                                <li>
-                                    <b>Multiple characterizations:</b> Can be defined through increments, interarrivals, 
-                                    or infinitesimal properties
-                                </li>
-                                <li>
-                                    <b>Connections:</b> Links discrete (binomial) and continuous (exponential) distributions
-                                </li>
-                                <li>
-                                    <b>Closure properties:</b> Superposition and decomposition preserve the Poisson structure
-                                </li>
-                                <li>
-                                    <b>Memorylessness:</b> The only continuous distribution with this property, making 
-                                    the Poisson process unique among counting processes
-                                </li>
-                            </ul>
-                            <p>
-                                The Poisson process is to stochastic processes what the normal distribution is to 
-                                random variables: a canonical, tractable model that appears throughout science, engineering, 
-                                and applied mathematics.
-                            </p>
-                        </div>
-                    </div>
+                    <ul>
+                        <li>
+                            <b>Simulation method:</b> Dividing time into \( n \) subintervals and generating events 
+                            with probability \( \lambda/n \) approximates the continuous Poisson process
+                        </li>
+                        <li>
+                            <b>Convergence:</b> As \( n \to \infty \), \( \text{Binomial}(n, \lambda T/n) \to \text{Poisson}(\lambda T) \)
+                        </li>
+                        <li>
+                            <b>Key properties:</b> Independent increments, stationary increments, memorylessness, 
+                            and Poisson-distributed counts
+                        </li>
+                        <li>
+                            <b>Rate parameter \( \lambda \):</b> Represents average events per unit time and 
+                            reciprocal of mean interarrival time
+                        </li>
+                        <li>
+                            <b>Applications:</b> Network traffic, security monitoring, queueing systems, and risk assessment
+                        </li>
+                    </ul>
 
                     <div style="background: rgba(36, 163, 225, 0.1); border-left: 4px solid #24a3e1; padding: 2rem; margin: 2rem 0;">
-                        <h3 style="margin-top: 0;">Final Reflection</h3>
-                        <p>
-                            From our simulation, we observe empirically what theory predicts: as the number of 
-                            subintervals \( n \) increases, the discrete approximation converges to the continuous 
-                            Poisson process. The distribution of event counts matches the Poisson formula, interarrival 
-                            times follow an exponential distribution, and the process exhibits the characteristic 
-                            memoryless property.
-                        </p>
-                        <p>
-                            This convergence from discrete to continuous, from binomial to Poisson, illustrates a 
-                            profound principle in probability: <b>complex continuous phenomena can emerge from 
-                            simple discrete mechanisms</b>. This insight has deep implications not just in mathematics, 
-                            but in our understanding of randomness in nature and technology.
+                        <p style="margin: 0;">
+                            The Poisson process exemplifies how <b>simple discrete mechanisms converge to complex 
+                            continuous phenomena</b>. Our simulation demonstrates this principle: the discrete 
+                            approximation converges to the continuous Poisson process, with event counts matching 
+                            theoretical predictions and exhibiting the characteristic memoryless property.
                         </p>
                     </div>
                 </div>
