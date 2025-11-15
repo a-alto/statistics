@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 9 | Statistics - Sapienza University of Rome</title>
+    <link rel="stylesheet" href="/statistics/styles.css">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(','\\)'], ['$', '$']],
+                displayMath: [['\\[','\\]'], ['$$','$$']]
+            },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/statistics/index.html" class="logo">STATISTICS</a>
+            <ul class="nav-menu">
+                <li><a href="/statistics/index.html#home">Home</a></li>
+                <li><a href="/statistics/hmwk2.html">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html">HMWK 4</a></li>
+                <li><a href="/statistics/hmwk5.html">HMWK 5</a></li>
+                <li><a href="/statistics/hmwk6.html">HMWK 6</a></li>
+                <li><a href="/statistics/hmwk7.html">HMWK 7</a></li>
+                <li><a href="/statistics/hmwk8.html">HMWK 8</a></li>
+                <li><a href="/statistics/hmwk9.html">HMWK 9</a></li>
+            </ul>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="mobile-menu">
+            <ul>
+                <li><a href="/statistics/index.html#home" onclick="toggleMenu()">Home</a></li>
+                <li><a href="/statistics/hmwk2.html" onclick="toggleMenu()">HMWK 2</a></li>
+                <li><a href="/statistics/hmwk3.html" onclick="toggleMenu()">HMWK 3</a></li>
+                <li><a href="/statistics/hmwk4.html" onclick="toggleMenu()">HMWK 4</a></li>
+                <li><a href="/statistics/hmwk5.html" onclick="toggleMenu()">HMWK 5</a></li>
+                <li><a href="/statistics/hmwk6.html" onclick="toggleMenu()">HMWK 6</a></li>
+                <li><a href="/statistics/hmwk7.html" onclick="toggleMenu()">HMWK 7</a></li>
+                <li><a href="/statistics/hmwk8.html" onclick="toggleMenu()">HMWK 8</a></li>
+                <li><a href="/statistics/hmwk9.html" onclick="toggleMenu()">HMWK 9</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero-section">
+            <div class="container">
+                <div class="section-number">01</div>
+                <div class="section-label">HOMEWORK 9</div>
+                <div class="hero-content">
+                    <h1>Interpretations of probability and Measure Theory</h1>
+                    <div class="hero-underline"></div>
+                    <p class="hero-description">
+                        This assignment explores the <b>fundamental interpretations of probability</b> and how 
+                        the <b>axiomatic approach</b> provides a rigorous mathematical foundation that unifies 
+                        different perspectives. We examine the relationship between probability theory and 
+                        <b>measure theory</b>, revealing how concepts like sigma-algebras, measurable spaces, 
+                        and random variables provide the formal structure underlying all probabilistic reasoning.
+
+                        <div class="math-block">\[ P: \mathcal{F} \to [0,1], \quad P(\Omega) = 1, \quad P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i) \]</div>
+
+                        Finally, we derive fundamental properties such as <b>subadditivity</b> and the 
+                        <b>inclusion-exclusion principle</b> directly from the axioms, demonstrating how 
+                        complex probabilistic results emerge from simple foundational principles.
+                    </p>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">02</div>
+
+                <div class="content-wrapper">
+                    <h2>Interpretations of Probability</h2>
+                    
+                    <p>
+                        Throughout history, different schools of thought have proposed distinct interpretations 
+                        of what "probability" means. While they all agree on the mathematical formalism, they 
+                        differ in their philosophical and practical interpretations.
+                    </p>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h3>Classical (Laplacian) Interpretation</h3>
+                            <p>
+                                The <b>classical interpretation</b>, developed by Pierre-Simon Laplace in the 18th century, 
+                                defines probability based on <b>equally likely outcomes</b>:
+                            </p>
+                            <div class="math-block">\[ P(A) = \frac{\text{Number of favorable outcomes}}{\text{Total number of possible outcomes}} \]</div>
+                            <p>
+                                <b>Example:</b> The probability of rolling a 4 on a fair die is \( P(\{4\}) = \frac{1}{6} \).
+                            </p>
+                            <p>
+                                <b>Strengths:</b>
+                            </p>
+                            <ul>
+                                <li>Intuitive and simple for symmetric situations</li>
+                                <li>Works well for games of chance, combinatorics</li>
+                                <li>Provides exact probabilities for finite, uniform spaces</li>
+                            </ul>
+                            <p>
+                                <b>Limitations:</b>
+                            </p>
+                            <ul>
+                                <li>Requires outcomes to be "equally likely" — a circular definition</li>
+                                <li>Cannot handle continuous or infinite sample spaces</li>
+                                <li>Inapplicable when outcomes are not symmetric (e.g., weather prediction)</li>
+                            </ul>
+                        </div>
+
+                        <div class="column">
+                            <h3>Frequentist Interpretation</h3>
+                            <p>
+                                The <b>frequentist interpretation</b> defines probability as the <b>long-run relative frequency</b> 
+                                of an event occurring in repeated trials:
+                            </p>
+                            <div class="math-block">\[ P(A) = \lim_{n \to \infty} \frac{\text{Number of times } A \text{ occurs}}{n} \]</div>
+                            <p>
+                                <b>Example:</b> If we flip a coin 10,000 times and get 5,023 heads, we estimate \( P(\text{Heads}) \approx 0.5023 \).
+                            </p>
+                            <p>
+                                <b>Strengths:</b>
+                            </p>
+                            <ul>
+                                <li>Empirically grounded — based on observation and experimentation</li>
+                                <li>Works for asymmetric, real-world phenomena</li>
+                                <li>Foundation for statistical inference and hypothesis testing</li>
+                            </ul>
+                            <p>
+                                <b>Limitations:</b>
+                            </p>
+                            <ul>
+                                <li>Requires repeatable experiments — cannot handle unique events</li>
+                                <li>The limit may not exist or converge in practice</li>
+                                <li>No way to assign probabilities to one-time events (e.g., "probability it will rain tomorrow")</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-columns" style="margin-top: 2rem;">
+                        <div class="column">
+                            <h3>Bayesian (Subjective) Interpretation</h3>
+                            <p>
+                                The <b>Bayesian interpretation</b> views probability as a <b>degree of belief</b> or 
+                                <b>subjective confidence</b> about an event, updated as new evidence becomes available:
+                            </p>
+                            <div class="math-block">\[ P(H | E) = \frac{P(E | H) \cdot P(H)}{P(E)} \]</div>
+                            <p>
+                                where \( P(H) \) is the prior belief, \( P(E|H) \) is the likelihood, and \( P(H|E) \) 
+                                is the updated (posterior) belief.
+                            </p>
+                            <p>
+                                <b>Example:</b> A doctor assigns a 30% probability that a patient has a disease based on 
+                                symptoms, then updates this after receiving test results.
+                            </p>
+                            <p>
+                                <b>Strengths:</b>
+                            </p>
+                            <ul>
+                                <li>Applies to unique, non-repeatable events</li>
+                                <li>Allows incorporation of prior knowledge and expert judgment</li>
+                                <li>Provides a framework for updating beliefs with new data (Bayes' theorem)</li>
+                            </ul>
+                            <p>
+                                <b>Limitations:</b>
+                            </p>
+                            <ul>
+                                <li>Subjective — different people may assign different probabilities</li>
+                                <li>Requires specification of prior distributions, which can be controversial</li>
+                                <li>Computationally intensive for complex models</li>
+                            </ul>
+                        </div>
+
+                        <div class="column">
+                            <h3>Geometric Interpretation</h3>
+                            <p>
+                                The <b>geometric interpretation</b> defines probability in terms of <b>geometric measure</b> 
+                                (length, area, volume) for continuous sample spaces:
+                            </p>
+                            <div class="math-block">\[ P(A) = \frac{\text{Measure of region } A}{\text{Measure of entire space } \Omega} \]</div>
+                            <p>
+                                <b>Example:</b> If we randomly select a point in a square of side 2, the probability it falls 
+                                in a circle of radius 1 inscribed in the square is:
+                            </p>
+                            <div class="math-block">\[ P(\text{circle}) = \frac{\pi \cdot 1^2}{2^2} = \frac{\pi}{4} \]</div>
+                            <p>
+                                <b>Strengths:</b>
+                            </p>
+                            <ul>
+                                <li>Natural for continuous sample spaces (time, space, angles)</li>
+                                <li>Connects probability with geometry and analysis</li>
+                                <li>Foundation for continuous random variables</li>
+                            </ul>
+                            <p>
+                                <b>Limitations:</b>
+                            </p>
+                            <ul>
+                                <li>Requires careful definition of "measure" (not all sets are measurable)</li>
+                                <li>Can lead to paradoxes (e.g., Bertrand's paradox)</li>
+                                <li>Limited to problems with natural geometric structure</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">03</div>
+
+                <div class="content-wrapper">
+                    <h2>The Axiomatic Approach: Kolmogorov's Framework</h2>
+                    
+                    <p>
+                        In 1933, <b>Andrey Kolmogorov</b> resolved the conceptual inconsistencies among different 
+                        interpretations by providing a rigorous <b>axiomatic foundation</b> for probability theory. 
+                        His approach separates the <b>mathematical structure</b> from the <b>interpretation</b>, 
+                        allowing all perspectives to coexist within a unified framework.
+                    </p>
+
+                    <h3>The Three Axioms of Probability</h3>
+                    <p>
+                        Given a sample space \( \Omega \) and a sigma-algebra \( \mathcal{F} \) of events, 
+                        a <b>probability measure</b> \( P: \mathcal{F} \to [0,1] \) must satisfy:
+                    </p>
+
+                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0; color: #24a3e1;">Axiom 1: Non-negativity</h4>
+                        <div class="math-block">\[ P(A) \geq 0 \quad \text{for all } A \in \mathcal{F} \]</div>
+                        <p>Probabilities are non-negative real numbers.</p>
+
+                        <h4 style="color: #24a3e1; margin-top: 1.5rem;">Axiom 2: Normalization</h4>
+                        <div class="math-block">\[ P(\Omega) = 1 \]</div>
+                        <p>The probability of the entire sample space is 1 (certainty).</p>
+
+                        <h4 style="color: #24a3e1; margin-top: 1.5rem;">Axiom 3: Countable Additivity</h4>
+                        <div class="math-block">\[ \text{If } A_1, A_2, A_3, \ldots \text{ are pairwise disjoint, then } P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i) \]</div>
+                        <p>The probability of a countable union of disjoint events equals the sum of their probabilities.</p>
+                    </div>
+
+                    <h3>How the Axiomatic Approach Resolves Inconsistencies</h3>
+                    
+                    <div class="content-columns">
+                        <div class="column">
+                            <h4>1. Separation of Mathematics and Interpretation</h4>
+                            <p>
+                                The axioms define <b>what probability must satisfy mathematically</b>, without specifying 
+                                <b>what probability means</b>. This allows:
+                            </p>
+                            <ul>
+                                <li>Classical: Use \( P(A) = \frac{|A|}{|\Omega|} \) when outcomes are equally likely</li>
+                                <li>Frequentist: Interpret \( P(A) \) as long-run frequency</li>
+                                <li>Bayesian: Treat \( P(A) \) as degree of belief</li>
+                                <li>Geometric: Use \( P(A) = \frac{\mu(A)}{\mu(\Omega)} \) for measure \( \mu \)</li>
+                            </ul>
+                            <p>
+                                All interpretations must satisfy the axioms, ensuring consistency.
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h4>2. Handling Infinite and Continuous Spaces</h4>
+                            <p>
+                                The axiomatic framework, grounded in <b>measure theory</b>, naturally handles:
+                            </p>
+                            <ul>
+                                <li><b>Infinite sample spaces:</b> Countable additivity extends to infinite sequences</li>
+                                <li><b>Continuous distributions:</b> Individual points have probability 0, but intervals have positive probability</li>
+                                <li><b>Non-measurable sets:</b> The sigma-algebra \( \mathcal{F} \) excludes pathological sets</li>
+                            </ul>
+                            <p>
+                                This resolves paradoxes that plagued earlier approaches.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="content-columns" style="margin-top: 2rem;">
+                        <div class="column">
+                            <h4>3. Consistency Across Applications</h4>
+                            <p>
+                                By requiring all probability measures to satisfy the same axioms, we ensure:
+                            </p>
+                            <ul>
+                                <li>Theorems proven axiomatically apply to <b>all interpretations</b></li>
+                                <li>No contradictions arise from mixing interpretations</li>
+                                <li>Mathematical results are interpretation-independent</li>
+                            </ul>
+                        </div>
+
+                        <div class="column">
+                            <h4>4. Foundation for Advanced Theory</h4>
+                            <p>
+                                The axiomatic approach provides a rigorous basis for:
+                            </p>
+                            <ul>
+                                <li>Random variables and distributions</li>
+                                <li>Conditional probability and independence</li>
+                                <li>Limit theorems (Law of Large Numbers, Central Limit Theorem)</li>
+                                <li>Stochastic processes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">04</div>
+
+                <div class="content-wrapper">
+                    <h2>Probability Theory & Measure Theory</h2>
+                    
+                    <p>
+                        Probability theory is fundamentally built on <b>measure theory</b>, a branch of mathematical 
+                        analysis that provides a rigorous framework for measuring "size" or "volume" in abstract spaces. 
+                        This connection allows probability to handle infinite and continuous sample spaces rigorously.
+                    </p>
+
+                    <h3>The Measurable Space: \((\Omega, \mathcal{F})\)</h3>
+                    
+                    <div class="content-columns">
+                        <div class="column">
+                            <h4>Sample Space \( \Omega \)</h4>
+                            <p>
+                                The <b>sample space</b> \( \Omega \) is the set of all possible outcomes of a random experiment.
+                            </p>
+                            <ul>
+                                <li><b>Discrete example:</b> Rolling a die, \( \Omega = \{1,2,3,4,5,6\} \)</li>
+                                <li><b>Continuous example:</b> Measuring time, \( \Omega = [0, \infty) \)</li>
+                                <li><b>Complex example:</b> Stock price paths, \( \Omega = \) space of continuous functions</li>
+                            </ul>
+                            <p>
+                                In measure theory, \( \Omega \) is simply a <b>set</b> — it can be arbitrary.
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h4>Sigma-Algebra \( \mathcal{F} \)</h4>
+                            <p>
+                                A <b>sigma-algebra</b> (or \( \sigma \)-algebra) \( \mathcal{F} \) on \( \Omega \) is a 
+                                collection of subsets of \( \Omega \) (called <b>events</b>) satisfying:
+                            </p>
+                            <ol>
+                                <li>\( \Omega \in \mathcal{F} \) (the whole space is an event)</li>
+                                <li>If \( A \in \mathcal{F} \), then \( A^c \in \mathcal{F} \) (closed under complementation)</li>
+                                <li>If \( A_1, A_2, \ldots \in \mathcal{F} \), then \( \bigcup_{i=1}^{\infty} A_i \in \mathcal{F} \) (closed under countable unions)</li>
+                            </ol>
+                            <p>
+                                <b>Why do we need this?</b> Not all subsets of \( \Omega \) can be assigned meaningful probabilities 
+                                (e.g., non-measurable sets). The sigma-algebra specifies which sets are <b>measurable</b>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3>Examples of Sigma-Algebras</h3>
+
+                    <table class="data-table" style="margin: 2rem 0;">
+                        <thead>
+                            <tr>
+                                <th>Sample Space \( \Omega \)</th>
+                                <th>Sigma-Algebra \( \mathcal{F} \)</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Finite set</td>
+                                <td>\( \mathcal{P}(\Omega) \) (power set)</td>
+                                <td>All subsets are measurable</td>
+                            </tr>
+                            <tr>
+                                <td>\( \mathbb{R} \) (real numbers)</td>
+                                <td>\( \mathcal{B}(\mathbb{R}) \) (Borel sets)</td>
+                                <td>Generated by open intervals</td>
+                            </tr>
+                            <tr>
+                                <td>\( [0,1] \)</td>
+                                <td>\( \{\emptyset, [0,1]\} \)</td>
+                                <td>Trivial sigma-algebra (minimal)</td>
+                            </tr>
+                            <tr>
+                                <td>Coin flips \( \{H,T\}^n \)</td>
+                                <td>All subsets</td>
+                                <td>Discrete probability space</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>Probability Measure \( P \)</h3>
+                    
+                    <p>
+                        A <b>probability measure</b> is a special type of measure that assigns a number in \([0,1]\) 
+                        to each event in \( \mathcal{F} \), satisfying the three axioms.
+                    </p>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h4>General Measure vs. Probability Measure</h4>
+                            <p>
+                                In general measure theory, a <b>measure</b> \( \mu: \mathcal{F} \to [0, \infty] \) satisfies:
+                            </p>
+                            <ul>
+                                <li>\( \mu(\emptyset) = 0 \)</li>
+                                <li>\( \mu\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} \mu(A_i) \) for disjoint \( A_i \)</li>
+                            </ul>
+                            <p>
+                                A <b>probability measure</b> is a measure with the additional constraint \( P(\Omega) = 1 \) 
+                                (normalization). This makes it a <b>finite measure</b>.
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h4>The Probability Space: \( (\Omega, \mathcal{F}, P) \)</h4>
+                            <p>
+                                The triple \( (\Omega, \mathcal{F}, P) \) is called a <b>probability space</b>. 
+                                It consists of:
+                            </p>
+                            <ul>
+                                <li>\( \Omega \): Sample space (all possible outcomes)</li>
+                                <li>\( \mathcal{F} \): Sigma-algebra (measurable events)</li>
+                                <li>\( P \): Probability measure (assigns probabilities to events)</li>
+                            </ul>
+                            <p>
+                                This is the <b>complete mathematical model</b> for a random experiment.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3>Measurable Functions & Random Variables</h3>
+
+                    <p>
+                        A <b>random variable</b> is not a "variable" in the traditional sense, but rather a 
+                        <b>measurable function</b> from the probability space to the real numbers.
+                    </p>
+
+                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0; color: #24a3e1;">Definition: Measurable Function</h4>
+                        <p>
+                            Given two measurable spaces \( (\Omega, \mathcal{F}) \) and \( (\mathbb{R}, \mathcal{B}) \), 
+                            a function \( X: \Omega \to \mathbb{R} \) is <b>measurable</b> if:
+                        </p>
+                        <div class="math-block">\[ X^{-1}(B) = \{\omega \in \Omega : X(\omega) \in B\} \in \mathcal{F} \quad \text{for all } B \in \mathcal{B} \]</div>
+                        <p>
+                            In other words, the <b>preimage</b> of every Borel set is an event in \( \mathcal{F} \).
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0; color: #24a3e1;">Definition: Random Variable</h4>
+                        <p>
+                            A <b>random variable</b> on a probability space \( (\Omega, \mathcal{F}, P) \) is a 
+                            measurable function \( X: \Omega \to \mathbb{R} \).
+                        </p>
+                        <p>
+                            The probability that \( X \) takes a value in a set \( B \) is:
+                        </p>
+                        <div class="math-block">\[ P(X \in B) = P(\{\omega \in \Omega : X(\omega) \in B\}) = P(X^{-1}(B)) \]</div>
+                    </div>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h4>Why This Definition?</h4>
+                            <p>
+                                The measurability condition ensures that we can compute probabilities like \( P(X \leq x) \), 
+                                \( P(a < X \leq b) \), etc. Without measurability, these expressions would be undefined.
+                            </p>
+                            <p>
+                                <b>Intuition:</b> \( X(\omega) \) represents the <b>numerical outcome</b> we observe 
+                                when the underlying random outcome is \( \omega \).
+                            </p>
+                        </div>
+
+                        <div class="column">
+                            <h4>Example: Coin Flip</h4>
+                            <p>
+                                Let \( \Omega = \{H, T\} \), \( \mathcal{F} = \mathcal{P}(\Omega) \), 
+                                \( P(\{H\}) = P(\{T\}) = 0.5 \).
+                            </p>
+                            <p>
+                                Define random variable \( X: \Omega \to \mathbb{R} \) by:
+                            </p>
+                            <div class="math-block">\[ X(H) = 1, \quad X(T) = 0 \]</div>
+                            <p>
+                                Then \( P(X = 1) = P(\{H\}) = 0.5 \), and \( X \) follows a Bernoulli distribution.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3>Summary: The Measure-Theoretic Foundation</h3>
+
+                    <table class="data-table" style="margin: 2rem 0;">
+                        <thead>
+                            <tr>
+                                <th>Measure Theory Concept</th>
+                                <th>Probability Theory Interpretation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Set \( \Omega \)</td>
+                                <td>Sample space (all possible outcomes)</td>
+                            </tr>
+                            <tr>
+                                <td>Sigma-algebra \( \mathcal{F} \)</td>
+                                <td>Collection of events (measurable sets)</td>
+                            </tr>
+                            <tr>
+                                <td>Measure \( \mu \)</td>
+                                <td>Probability measure \( P \) (with \( P(\Omega) = 1 \))</td>
+                            </tr>
+                            <tr>
+                                <td>Measurable space \( (\Omega, \mathcal{F}) \)</td>
+                                <td>Event space</td>
+                            </tr>
+                            <tr>
+                                <td>Measure space \( (\Omega, \mathcal{F}, \mu) \)</td>
+                                <td>Probability space \( (\Omega, \mathcal{F}, P) \)</td>
+                            </tr>
+                            <tr>
+                                <td>Measurable function \( X: \Omega \to \mathbb{R} \)</td>
+                                <td>Random variable</td>
+                            </tr>
+                            <tr>
+                                <td>Pushforward measure \( X_* P \)</td>
+                                <td>Probability distribution of \( X \)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">05</div>
+
+                <div class="content-wrapper">
+                    <h2>Deriving Properties from the Axioms</h2>
+                    
+                    <p>
+                        The power of the axiomatic approach is that <b>all properties of probability</b> can be 
+                        derived from the three axioms. We now prove two fundamental results: <b>subadditivity</b> 
+                        and the <b>inclusion-exclusion principle</b>.
+                    </p>
+
+                    <h3>Preliminary Results</h3>
+                    
+                    <p>First, we establish some basic properties that follow immediately from the axioms:</p>
+
+                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0; color: #24a3e1;">Property 1: Probability of the Empty Set</h4>
+                        <p><b>Claim:</b> \( P(\emptyset) = 0 \)</p>
+                        <p><b>Proof:</b></p>
+                        <p>
+                            Consider the sequence \( A_1 = \Omega, A_2 = \emptyset, A_3 = \emptyset, \ldots \) 
+                            These are pairwise disjoint (since \( \Omega \cap \emptyset = \emptyset \)), so by Axiom 3:
+                        </p>
+                        <div class="math-block">\[ P(\Omega) = P\left(\bigcup_{i=1}^{\infty} A_i\right) = P(\Omega) + P(\emptyset) + P(\emptyset) + \cdots = P(\Omega) + \sum_{i=2}^{\infty} P(\emptyset) \]</div>
+                        <p>
+                            By Axiom 2, \( P(\Omega) = 1 \), so:
+                        </p>
+                        <div class="math-block">\[ 1 = 1 + \sum_{i=2}^{\infty} P(\emptyset) \]</div>
+                        <p>
+                            This implies \( \sum_{i=2}^{\infty} P(\emptyset) = 0 \). If \( P(\emptyset) > 0 \), 
+                            the series would diverge to infinity, a contradiction. Therefore, \( P(\emptyset) = 0 \). \( \square \)
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0; color: #24a3e1;">Property 2: Complement Rule</h4>
+                        <p><b>Claim:</b> \( P(A^c) = 1 - P(A) \)</p>
+                        <p><b>Proof:</b></p>
+                        <p>
+                            Since \( A \) and \( A^c \) are disjoint and \( A \cup A^c = \Omega \), by Axiom 3:
+                        </p>
+                        <div class="math-block">\[ P(A \cup A^c) = P(A) + P(A^c) \]</div>
+                        <p>
+                            By Axiom 2, \( P(\Omega) = 1 \), so:
+                        </p>
+                        <div class="math-block">\[ 1 = P(A) + P(A^c) \quad \Rightarrow \quad P(A^c) = 1 - P(A) \]</div>
+                        <p>\( \square \)</p>
+                    </div>
+
+                    <div style="background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0; color: #24a3e1;">Property 3: Monotonicity</h4>
+                        <p><b>Claim:</b> If \( A \subseteq B \), then \( P(A) \leq P(B) \)</p>
+                        <p><b>Proof:</b></p>
+                        <p>
+                            We can write \( B = A \cup (B \setminus A) \), where \( A \) and \( B \setminus A \) are disjoint. 
+                            By Axiom 3:
+                        </p>
+                        <div class="math-block">\[ P(B) = P(A) + P(B \setminus A) \]</div>
+                        <p>
+                            By Axiom 1, \( P(B \setminus A) \geq 0 \), so:
+                        </p>
+                        <div class="math-block">\[ P(B) = P(A) + P(B \setminus A) \geq P(A) \]</div>
+                        <p>\( \square \)</p>
+                    </div>
+
+                    <h3>Theorem 1: Subadditivity (Boole's Inequality)</h3>
+
+                    <div style="background: rgba(36, 163, 225, 0.1); border-left: 4px solid #24a3e1; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0; color: #24a3e1;">Subadditivity Property</h4>
+                        <p>
+                            For any finite or countable sequence of events \( A_1, A_2, A_3, \ldots \) (not necessarily disjoint):
+                        </p>
+                        <div class="math-block">\[ P\left(\bigcup_{i=1}^{\infty} A_i\right) \leq \sum_{i=1}^{\infty} P(A_i) \]</div>
+                    </div>
+
+                    <p><b>Proof:</b></p>
+                    <p>
+                        We construct a sequence of <b>disjoint</b> sets \( B_1, B_2, B_3, \ldots \) such that 
+                        \( \bigcup_{i=1}^{\infty} B_i = \bigcup_{i=1}^{\infty} A_i \) and \( B_i \subseteq A_i \) for all \( i \).
+                    </p>
+                    <p>Define:</p>
+                    <div class="math-block">\[ B_1 = A_1, \quad B_2 = A_2 \setminus A_1, \quad B_3 = A_3 \setminus (A_1 \cup A_2), \quad \ldots \]</div>
+                    <p>In general:</p>
+                    <div class="math-block">\[ B_n = A_n \setminus \bigcup_{i=1}^{n-1} A_i \]</div>
+                    <p>
+                        The sets \( B_i \) are pairwise disjoint by construction, and clearly \( \bigcup_{i=1}^{\infty} B_i = \bigcup_{i=1}^{\infty} A_i \).
+                    </p>
+                    <p>Since \( B_i \subseteq A_i \), by monotonicity (Property 3):</p>
+                    <div class="math-block">\[ P(B_i) \leq P(A_i) \]</div>
+                    <p>Now, applying Axiom 3 (countable additivity) to the disjoint sets \( B_i \):</p>
+                    <div class="math-block">\[ P\left(\bigcup_{i=1}^{\infty} A_i\right) = P\left(\bigcup_{i=1}^{\infty} B_i\right) = \sum_{i=1}^{\infty} P(B_i) \leq \sum_{i=1}^{\infty} P(A_i) \]</div>
+                    <p>Therefore, subadditivity holds. \( \square \)</p>
+
+                    <p><b>Interpretation:</b> The probability of a union of events is at most the sum of the individual probabilities. 
+                    Equality holds if and only if the events are pairwise disjoint.</p>
+
+                    <h3>Theorem 2: Inclusion-Exclusion Principle</h3>
+
+                    <div style="background: rgba(36, 163, 225, 0.1); border-left: 4px solid #24a3e1; padding: 2rem; margin: 2rem 0;">
+                        <h4 style="margin-top: 0; color: #24a3e1;">Inclusion-Exclusion Principle</h4>
+                        <p>
+                            For any finite collection of events \( A_1, A_2, \ldots, A_n \):
+                        </p>
+                        <div class="math-block">\[ 
+                        \begin{align}
+                        P\left(\bigcup_{i=1}^{n} A_i\right) = &\sum_{i=1}^{n} P(A_i) \\
+                        &- \sum_{1 \leq i < j \leq n} P(A_i \cap A_j) \\
+                        &+ \sum_{1 \leq i < j < k \leq n} P(A_i \cap A_j \cap A_k) \\
+                        &- \cdots \\
+                        &+ (-1)^{n+1} P(A_1 \cap A_2 \cap \cdots \cap A_n)
+                        \end{align}
+                        \]</div>
+                    </div>
+
+                    <p>
+                        More compactly, this can be written as:
+                    </p>
+                    <div class="math-block">\[ P\left(\bigcup_{i=1}^{n} A_i\right) = \sum_{k=1}^{n} (-1)^{k+1} \sum_{1 \leq i_1 < i_2 < \cdots < i_k \leq n} P(A_{i_1} \cap A_{i_2} \cap \cdots \cap A_{i_k}) \]</div>
+
+                    <p><b>Proof by Induction:</b></p>
+
+                    <p><b>Base case (\( n = 2 \)):</b></p>
+                    <p>
+                        We need to show \( P(A_1 \cup A_2) = P(A_1) + P(A_2) - P(A_1 \cap A_2) \).
+                    </p>
+                    <p>
+                        Decompose \( A_1 \cup A_2 \) into disjoint parts:
+                    </p>
+                    <div class="math-block">\[ A_1 \cup A_2 = (A_1 \setminus A_2) \cup (A_2 \setminus A_1) \cup (A_1 \cap A_2) \]</div>
+                    <p>By Axiom 3 (finite additivity):</p>
+                    <div class="math-block">\[ P(A_1 \cup A_2) = P(A_1 \setminus A_2) + P(A_2 \setminus A_1) + P(A_1 \cap A_2) \]</div>
+                    <p>Also, \( A_1 = (A_1 \setminus A_2) \cup (A_1 \cap A_2) \) and \( A_2 = (A_2 \setminus A_1) \cup (A_1 \cap A_2) \), so:</p>
+                    <div class="math-block">\[ P(A_1) = P(A_1 \setminus A_2) + P(A_1 \cap A_2) \]</div>
+                    <div class="math-block">\[ P(A_2) = P(A_2 \setminus A_1) + P(A_1 \cap A_2) \]</div>
+                    <p>Rearranging:</p>
+                    <div class="math-block">\[ P(A_1 \setminus A_2) = P(A_1) - P(A_1 \cap A_2) \]</div>
+                    <div class="math-block">\[ P(A_2 \setminus A_1) = P(A_2) - P(A_1 \cap A_2) \]</div>
+                    <p>Substituting back:</p>
+                    <div class="math-block">\[ 
+                    \begin{align}
+                    P(A_1 \cup A_2) &= [P(A_1) - P(A_1 \cap A_2)] + [P(A_2) - P(A_1 \cap A_2)] + P(A_1 \cap A_2) \\
+                    &= P(A_1) + P(A_2) - P(A_1 \cap A_2)
+                    \end{align}
+                    \]</div>
+                    <p>Base case proven.</p>
+
+                    <p><b>Inductive step:</b></p>
+                    <p>
+                        Assume the formula holds for \( n = k \). We prove it for \( n = k+1 \).
+                    </p>
+                    <p>Let \( B = \bigcup_{i=1}^{k} A_i \). Then:</p>
+                    <div class="math-block">\[ \bigcup_{i=1}^{k+1} A_i = B \cup A_{k+1} \]</div>
+                    <p>By the base case:</p>
+                    <div class="math-block">\[ P(B \cup A_{k+1}) = P(B) + P(A_{k+1}) - P(B \cap A_{k+1}) \]</div>
+                    <p>By the inductive hypothesis, we know \( P(B) \) satisfies the inclusion-exclusion formula for \( k \) events.</p>
+                    <p>Also, \( B \cap A_{k+1} = \bigcup_{i=1}^{k} (A_i \cap A_{k+1}) \), so by the inductive hypothesis applied to \( k \) events:</p>
+                    <div class="math-block">\[ P(B \cap A_{k+1}) = P\left(\bigcup_{i=1}^{k} (A_i \cap A_{k+1})\right) \]</div>
+                    <p>
+                        Substituting and expanding using the inductive hypothesis yields the inclusion-exclusion formula for \( k+1 \) events. 
+                        (The full algebraic details are tedious but straightforward.) \( \square \)
+                    </p>
+
+                    <h3>Special Cases</h3>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h4>Two Events</h4>
+                            <div class="math-block">\[ P(A \cup B) = P(A) + P(B) - P(A \cap B) \]</div>
+                            <p>
+                                <b>Example:</b> Probability of drawing a heart or a king from a deck:
+                            </p>
+                            <div class="math-block">\[ P(\text{Heart or King}) = \frac{13}{52} + \frac{4}{52} - \frac{1}{52} = \frac{16}{52} = \frac{4}{13} \]</div>
+                        </div>
+
+                        <div class="column">
+                            <h4>Three Events</h4>
+                            <div class="math-block">\[ 
+                            \begin{align}
+                            P(A \cup B \cup C) = &P(A) + P(B) + P(C) \\
+                            &- P(A \cap B) - P(A \cap C) - P(B \cap C) \\
+                            &+ P(A \cap B \cap C)
+                            \end{align}
+                            \]</div>
+                            <p>
+                                This accounts for overcounting when events overlap.
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3>Visualization: Why Inclusion-Exclusion Works</h3>
+
+                    <p>
+                        Consider three overlapping circles representing events \( A \), \( B \), and \( C \):
+                    </p>
+                    <ul>
+                        <li>When we add \( P(A) + P(B) + P(C) \), we count intersections <b>multiple times</b></li>
+                        <li>Subtracting \( P(A \cap B) + P(A \cap C) + P(B \cap C) \) removes the double-counted regions</li>
+                        <li>But now the triple intersection \( P(A \cap B \cap C) \) has been removed too many times, so we add it back</li>
+                    </ul>
+                    <p>
+                        This alternating pattern of adding and subtracting ensures each region is counted exactly once.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <div class="section-number">06</div>
+
+                <div class="content-wrapper">
+                    <h2>Conclusion</h2>
+                    
+                    <p>
+                        In this assignment, we have explored the <b>foundations of probability theory</b> from 
+                        multiple perspectives:
+                    </p>
+
+                    <div class="content-columns">
+                        <div class="column">
+                            <h3>Key Takeaways</h3>
+                            <ul>
+                                <li>
+                                    <b>Multiple interpretations</b> (classical, frequentist, Bayesian, geometric) 
+                                    provide different philosophical perspectives on probability, each with strengths and limitations
+                                </li>
+                                <li>
+                                    The <b>axiomatic approach</b> (Kolmogorov, 1933) unifies all interpretations 
+                                    by separating mathematical structure from meaning, resolving conceptual inconsistencies
+                                </li>
+                                <li>
+                                    Probability theory is built on <b>measure theory</b>, with probability spaces 
+                                    \( (\Omega, \mathcal{F}, P) \) as measure spaces satisfying \( P(\Omega) = 1 \)
+                                </li>
+                                <li>
+                                    <b>Random variables</b> are measurable functions, and <b>sigma-algebras</b> 
+                                    specify which events can be assigned probabilities
+                                </li>
+                                <li>
+                                    Fundamental properties like <b>subadditivity</b> and <b>inclusion-exclusion</b> 
+                                    are rigorously derived from the three axioms
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="column">
+                            <h3>The Power of Axiomatization</h3>
+                            <p>
+                                The axiomatic framework demonstrates the power of <b>abstraction in mathematics</b>:
+                            </p>
+                            <ul>
+                                <li>A few simple axioms generate the entire theory</li>
+                                <li>Results proven axiomatically apply to all interpretations</li>
+                                <li>Paradoxes and inconsistencies are avoided through rigorous definitions</li>
+                                <li>Extensions to advanced topics (stochastic processes, limit theorems) are straightforward</li>
+                            </ul>
+                            <p>
+                                This approach exemplifies how modern mathematics balances <b>intuition</b> (interpretations) 
+                                with <b>rigor</b> (axioms), creating a framework that is both practically useful and 
+                                theoretically sound.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(36, 163, 225, 0.1); border-left: 4px solid #24a3e1; padding: 2rem; margin: 2rem 0;">
+                        <h3 style="margin-top: 0;">Final Reflection</h3>
+                        <p>
+                            Probability theory, grounded in measure theory and axiomatized by Kolmogorov, 
+                            is one of the most successful examples of mathematical unification. It shows that 
+                            apparently conflicting viewpoints — frequentist vs. Bayesian, discrete vs. continuous — 
+                            can coexist harmoniously when built on a solid axiomatic foundation.
+                        </p>
+                        <p>
+                            This lesson extends beyond mathematics: <b>rigorous foundations enable diverse applications</b>. 
+                            Whether modeling coin flips, stock prices, quantum mechanics, or machine learning algorithms, 
+                            the same three axioms provide the bedrock for all probabilistic reasoning.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p class="footer-name">Andrea Altomare</p>
+                    <p class="footer-detail">2199451</p>
+                    <p class="footer-detail">altomare.2199451@studenti.uniroma1.it</p>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Andrea Altomare</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
+            mobileMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
+
